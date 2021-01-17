@@ -1,14 +1,16 @@
 ﻿using Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.ViewModels
 {
-    public class SalesProducts
+    public class SalesDetails
     {
+        [Key]
         public int InvoiceNo { get; set; }
         public DateTime InvoiceDate { get; set; }
         public double InvoiceTotal { get; set; }
@@ -17,6 +19,9 @@ namespace Domain.ViewModels
         public int InvoiceType { get; set; }
         public double InvoicePaid { get; set; }
         public double InvoiceChange { get; set; }
+        public int ProductId { get; set; }
+        public int CustId { get; set; }
+
         public List<Product> Products { get; set; }
         public List<Customer> Customers { get; set; }
     }

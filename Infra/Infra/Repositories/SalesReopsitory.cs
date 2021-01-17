@@ -4,20 +4,23 @@ using Infra.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Infra.Repositories
 {
-    class ProductRepository : Irepository<Product>
+    class SalesReopsitory : Irepository<SalesInvoice>
     {
         private readonly ApplicationDbContext context;
-        
-        public ProductRepository(ApplicationDbContext _context)
+
+        public SalesReopsitory(ApplicationDbContext context)
         {
-            context = _context;
+            this.context = context;
         }
-        public void Add(Product entity)
+
+        public void Add(SalesInvoice entity)
         {
-            context.Products.Add(entity);
+            context.SalesInvoices.Add(entity);
             context.SaveChanges();
         }
 
@@ -26,22 +29,22 @@ namespace Infra.Repositories
             throw new NotImplementedException();
         }
 
-        public Product Find(int id)
+        public SalesInvoice Find(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IList<Product> List()
-        {
-            return context.Products.ToList();
-        }
-
-        public List<Product> Search(string term)
+        public IList<SalesInvoice> List()
         {
             throw new NotImplementedException();
         }
 
-        public void Update(int id, Product entity)
+        public List<SalesInvoice> Search(string term)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(int id, SalesInvoice entity)
         {
             throw new NotImplementedException();
         }

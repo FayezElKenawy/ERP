@@ -9,6 +9,10 @@ namespace Domain.Data
     public partial class ApplicationDbContext : IdentityDbContext
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        public ApplicationDbContext()
+        {
+
+        }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IHttpContextAccessor httpContextAccessor)
             : base(options)
         {

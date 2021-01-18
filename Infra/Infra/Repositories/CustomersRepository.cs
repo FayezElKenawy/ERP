@@ -1,6 +1,6 @@
 ﻿using Domain.Models;
-using ERP.Data;
-using Infra.Interfaces;
+using Domain.Data;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +31,7 @@ namespace Infra.Repositories
 
         public Customer Find(int id)
         {
-            return context.Customers.FirstOrDefault(c => c.CustId == id);
+            return context.Customers.FirstOrDefault(c => c.Id == id);
         }
 
         public IList<Customer> List()

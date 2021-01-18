@@ -1,4 +1,6 @@
+using Domain.Models;
 using ERP.Data;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,7 +13,11 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Infra.Repositories;
 using System.Threading.Tasks;
+using Domain.Data;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace ERP
 {
@@ -32,9 +38,15 @@ namespace ERP
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            //services.AddScoped<Irepository<Product>,ProductRepository>
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
+            services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddScoped<Irepository<Product>, ProductRepository>();
+            services.AddScoped<Irepository<Customer>, CustomersRepository>();
+            services.AddScoped<Irepository<SalesInvoice>, SalesReopsitory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

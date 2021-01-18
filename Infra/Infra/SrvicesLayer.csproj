@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Domain\Domain.csproj" />
-    <ProjectReference Include="..\..\PresentationLayer\ERP\ERP.csproj" />
   </ItemGroup>
 
 </Project>

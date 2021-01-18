@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Domain.baseData;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Domain.Models
 {
-    public class Customer
+    public class Customer :BaseDataClass
     {
-        [Key]
-        public int CustId { get; set; }
         public string CustArName { get; set; }
         public string CustEnName { get; set; }
         public string CustMobileNo { get; set; }

@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Domain.baseData;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,10 +9,8 @@ using System.Threading.Tasks;
 
 namespace Domain.ViewModels
 {
-    public class SalesDetails
+    public class SalesDetails : BaseDataClass
     {
-        [Key]
-        public int InvoiceNo { get; set; }
         public DateTime InvoiceDate { get; set; }
         public double InvoiceTotal { get; set; }
         public double InvoiceDiscount { get; set; }

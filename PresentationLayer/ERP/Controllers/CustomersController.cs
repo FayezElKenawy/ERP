@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain.Models;
-using ERP.Data;
+using Domain.Data;
 
 namespace ERP.Controllers
 {
@@ -34,7 +34,7 @@ namespace ERP.Controllers
             }
 
             var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace ERP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustId,CustArName,CustEnName,CustMobileNo,CustAdress,CustBalance,CustOpenBalance,AccountNo")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,CustArName,CustEnName,CustMobileNo,CustAdress,CustBalance,CustOpenBalance,AccountNo")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace ERP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustId,CustArName,CustEnName,CustMobileNo,CustAdress,CustBalance,CustOpenBalance,AccountNo")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CustArName,CustEnName,CustMobileNo,CustAdress,CustBalance,CustOpenBalance,AccountNo")] Customer customer)
         {
-            if (id != customer.CustId)
+            if (id != customer.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace ERP.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(customer.CustId))
+                    if (!CustomerExists(customer.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace ERP.Controllers
             }
 
             var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.CustId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace ERP.Controllers
 
         private bool CustomerExists(int id)
         {
-            return _context.Customers.Any(e => e.CustId == id);
+            return _context.Customers.Any(e => e.Id == id);
         }
     }
 }

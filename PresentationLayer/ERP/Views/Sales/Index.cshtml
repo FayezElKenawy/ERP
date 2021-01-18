@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Domain.Models.Customer>
+﻿@model IEnumerable<Domain.Models.SalesInvoice>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,25 +13,25 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CustArName)
+                @Html.DisplayNameFor(model => model.InvoiceDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CustEnName)
+                @Html.DisplayNameFor(model => model.InvoiceTotal)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CustMobileNo)
+                @Html.DisplayNameFor(model => model.InvoiceDiscount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CustAdress)
+                @Html.DisplayNameFor(model => model.InvoiceNetTotal)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CustBalance)
+                @Html.DisplayNameFor(model => model.InvoiceType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CustOpenBalance)
+                @Html.DisplayNameFor(model => model.InvoicePaid)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AccountNo)
+                @Html.DisplayNameFor(model => model.InvoiceChange)
             </th>
             <th></th>
         </tr>
@@ -40,25 +40,25 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CustArName)
+                @Html.DisplayFor(modelItem => item.InvoiceDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CustEnName)
+                @Html.DisplayFor(modelItem => item.InvoiceTotal)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CustMobileNo)
+                @Html.DisplayFor(modelItem => item.InvoiceDiscount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CustAdress)
+                @Html.DisplayFor(modelItem => item.InvoiceNetTotal)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CustBalance)
+                @Html.DisplayFor(modelItem => item.InvoiceType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CustOpenBalance)
+                @Html.DisplayFor(modelItem => item.InvoicePaid)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AccountNo)
+                @Html.DisplayFor(modelItem => item.InvoiceChange)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

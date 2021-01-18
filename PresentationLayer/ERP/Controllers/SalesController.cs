@@ -1,6 +1,6 @@
 ﻿using Domain.Models;
 using Domain.ViewModels;
-using Infra.Interfaces;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

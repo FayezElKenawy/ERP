@@ -5,15 +5,15 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainLayer", "DomainLayer", "{FBAE4152-B3D8-49CF-98F7-413C0E33F231}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InfraLAyer", "InfraLAyer", "{94209258-0086-45F1-87B0-E393107BB01E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceLayer", "ServiceLayer", "{94209258-0086-45F1-87B0-E393107BB01E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PresentationLayer", "PresentationLayer", "{AD02CCC4-41EA-41A0-8AAB-21ADA9217EF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain\Domain.csproj", "{2D0434A5-021D-4922-A846-CB023DB87FB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain\Domain.csproj", "{2D0434A5-021D-4922-A846-CB023DB87FB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra", "Infra\Infra\Infra.csproj", "{3B7262E5-E126-42E9-A2F4-DF220E33BC91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SrvicesLayer", "Infra\Infra\SrvicesLayer.csproj", "{3B7262E5-E126-42E9-A2F4-DF220E33BC91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP", "PresentationLayer\ERP\ERP.csproj", "{6B77CB70-2DD4-4794-91CC-712EB6CA059E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP", "PresentationLayer\ERP\ERP.csproj", "{6B77CB70-2DD4-4794-91CC-712EB6CA059E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 ﻿using Domain.Models;
-using ERP.Data;
-using Infra.Interfaces;
+using Domain.Data;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infra.Repositories
 {
-    class SalesReopsitory : Irepository<SalesInvoice>
+    public class SalesReopsitory : Irepository<SalesInvoice>
     {
         private readonly ApplicationDbContext context;
 

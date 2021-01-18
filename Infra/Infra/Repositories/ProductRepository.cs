@@ -1,13 +1,13 @@
 ﻿using Domain.Models;
-using ERP.Data;
-using Infra.Interfaces;
+using Domain.Data;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Infra.Repositories
 {
-    class ProductRepository : Irepository<Product>
+    public class ProductRepository : Irepository<Product>
     {
         private readonly ApplicationDbContext context;
         

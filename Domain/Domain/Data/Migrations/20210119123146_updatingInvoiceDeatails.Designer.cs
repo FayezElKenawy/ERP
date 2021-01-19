@@ -4,14 +4,16 @@ using Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ERP.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210119123146_updatingInvoiceDeatails")]
+    partial class updatingInvoiceDeatails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,9 +81,6 @@ namespace ERP.Data.Migrations
                     b.Property<string>("ArabicName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Balance")
-                        .HasColumnType("float");
-
                     b.Property<double>("Cost")
                         .HasColumnType("float");
 
@@ -98,17 +97,8 @@ namespace ERP.Data.Migrations
                     b.Property<string>("EnglishName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("ForignCost")
-                        .HasColumnType("float");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<double>("LastBalance")
-                        .HasColumnType("float");
-
-                    b.Property<double>("LastCost")
-                        .HasColumnType("float");
 
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
@@ -119,12 +109,6 @@ namespace ERP.Data.Migrations
                     b.Property<string>("ModifiedById")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<double>("OpenBalance")
-                        .HasColumnType("float");
-
-                    b.Property<double>("OpenCost")
-                        .HasColumnType("float");
 
                     b.Property<double>("SalePrice")
                         .HasColumnType("float");
@@ -204,15 +188,33 @@ namespace ERP.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
-
                     b.Property<string>("CreatedById")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
+
+                    b.Property<double>("InvoiceChange")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("InvoiceDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("InvoiceDiscount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("InvoiceNetTotal")
+                        .HasColumnType("float");
+
+                    b.Property<double>("InvoicePaid")
+                        .HasColumnType("float");
+
+                    b.Property<double>("InvoiceTotal")
+                        .HasColumnType("float");
+
+                    b.Property<int>("InvoiceType")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -226,24 +228,6 @@ namespace ERP.Data.Migrations
 
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
-
-                    b.Property<double>("Quantity")
-                        .HasColumnType("float");
-
-                    b.Property<double>("SalesPrice")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Total")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TotalWithVat")
-                        .HasColumnType("float");
-
-                    b.Property<double>("VatAmount")
-                        .HasColumnType("float");
-
-                    b.Property<double>("discount")
-                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

@@ -14,6 +14,13 @@ namespace Domain.Models
         public string Desc { get; set; }
         public double Cost { get; set; }
         public double SalePrice { get; set; }
+        public double Balance { get; set; }
+        public double OpenBalance { get; set; }
+        public double LastBalance { get; set; }
+        public double LastCost { get; set; }
+        public double OpenCost { get; set; }
+        public double ForignCost { get; set; }
+
 
     }
 }

@@ -15,7 +15,8 @@ namespace Domain.Models
         public int InvoiceType { get; set; }
         public double InvoicePaid { get; set; }
         public double InvoiceChange { get; set; }
+        public int CustId { get; set; }
         public Product Products { get; set; }
-        public Customer Customer { get; set; }
+        
     }
 }

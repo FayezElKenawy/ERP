@@ -9,7 +9,7 @@
 <h4>SalesDetails</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    @*<div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -47,24 +47,13 @@
                 <input asp-for="InvoiceChange" class="form-control" />
                 <span asp-validation-for="InvoiceChange" class="text-danger"></span>
             </div>
-            <div class="form-group">
 
-                <label asp-for="ProductId" class="control-label"></label>
-                <select asp-for="ProductId" class="form-control" 
-                        asp-items="@(new SelectList(Model.Products,"Id","ArabicName"))"></select>
-                <span asp-validation-for="ProductId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label">Customer Name</label>
-                <select asp-for="Id" class="form-control" 
-                        asp-items="@(new SelectList(Model.Customers,"Id","CustArName"))"></select>
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
-    </div>
+    </div>*@
 </div>
 
 <div>

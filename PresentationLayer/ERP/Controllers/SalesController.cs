@@ -41,11 +41,6 @@ namespace ERP.Controllers
         {
             var model = new SalesDetails
             {
-                
-                Customers = CustomerRepo.List().ToList()
-            };
-            var model1 = new SalesItems
-            {
                 Products = productRepo.List().ToList()
             };
             

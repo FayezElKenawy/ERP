@@ -14,17 +14,20 @@ namespace ERP.Controllers
     {
         private readonly Irepository<Product> productRepo;
         private readonly Irepository<Customer> CustomerRepo;
+        private readonly Irepository<SalesInvoice> salesRepo;
 
-        public SalesController(Irepository<Product> productRepo, Irepository<Customer> customerRepo)
+        public SalesController(Irepository<Product> productRepo, Irepository<Customer> customerRepo, Irepository<SalesInvoice> salesRepo)
         {
             this.productRepo = productRepo;
             CustomerRepo = customerRepo;
+            this.salesRepo = salesRepo;
         }
 
         // GET: SalesController
         public ActionResult Index()
         {
-            return View();
+            var Invoices = salesRepo.List().ToList();
+            return View(Invoices);
         }
 
         // GET: SalesController/Details/5
@@ -38,7 +41,8 @@ namespace ERP.Controllers
         {
             var model = new SalesDetails
             {
-                Products = productRepo.List().ToList()
+                Products = productRepo.List().ToList(),
+                Customers = CustomerRepo.List().ToList()
             };
             
             return View(model);

@@ -36,7 +36,7 @@ namespace Infra.Repositories
 
         public IList<SalesInvoice> List()
         {
-            throw new NotImplementedException();
+            return context.SalesInvoices.ToList();
         }
 
         public List<SalesInvoice> Search(string term)

@@ -18,10 +18,8 @@ namespace Domain.ViewModels
         public int InvoiceType { get; set; }
         public double InvoicePaid { get; set; }
         public double InvoiceChange { get; set; }
-        public int ProductId { get; set; }
         public int CustId { get; set; }
 
-        public List<Product> Products { get; set; }
         public List<Customer> Customers { get; set; }
     }
 }

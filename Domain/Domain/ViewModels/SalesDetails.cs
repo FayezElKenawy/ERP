@@ -11,7 +11,6 @@ namespace Domain.ViewModels
 {
     public class SalesDetails : BaseDataClass
     {
-
         public int ProductID { get; set; }
         public double Quantity { get; set; }
         public double SalesPrice { get; set; }
@@ -21,6 +20,7 @@ namespace Domain.ViewModels
         public double VatAmount { get; set; }
         public double TotalWithVat { get; set; }
 
-        public List<Product> Products { get; set; }
+        public Product Products { get; set; }
+        public SalesInvoice SalesInvoices { get; set; }
     }
 }

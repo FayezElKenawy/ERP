@@ -4,14 +4,16 @@ using Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ERP.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210121083458_changeSalesInvoiceDesignTable")]
+    partial class changeSalesInvoiceDesignTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,12 +66,7 @@ namespace ERP.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int?>("SalesInvoiceId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SalesInvoiceId");
 
                     b.ToTable("Customers");
                 });
@@ -214,9 +211,6 @@ namespace ERP.Data.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("InvoiceID")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -232,9 +226,6 @@ namespace ERP.Data.Migrations
 
                     b.Property<double>("Quantity")
                         .HasColumnType("float");
-
-                    b.Property<int?>("SalesInvoiceId")
-                        .HasColumnType("int");
 
                     b.Property<double>("SalesPrice")
                         .HasColumnType("float");
@@ -252,8 +243,6 @@ namespace ERP.Data.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SalesInvoiceId");
 
                     b.ToTable("SalesDetails");
                 });
@@ -458,25 +447,11 @@ namespace ERP.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Domain.Models.Customer", b =>
-                {
-                    b.HasOne("Domain.Models.SalesInvoice", null)
-                        .WithMany("Customers")
-                        .HasForeignKey("SalesInvoiceId");
-                });
-
             modelBuilder.Entity("Domain.Models.Product", b =>
                 {
                     b.HasOne("Domain.ViewModels.SalesDetails", null)
                         .WithMany("Products")
                         .HasForeignKey("SalesDetailsId");
-                });
-
-            modelBuilder.Entity("Domain.ViewModels.SalesDetails", b =>
-                {
-                    b.HasOne("Domain.Models.SalesInvoice", null)
-                        .WithMany("SalesDetails")
-                        .HasForeignKey("SalesInvoiceId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -528,13 +503,6 @@ namespace ERP.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.Models.SalesInvoice", b =>
-                {
-                    b.Navigation("Customers");
-
-                    b.Navigation("SalesDetails");
                 });
 
             modelBuilder.Entity("Domain.ViewModels.SalesDetails", b =>

@@ -1,4 +1,5 @@
 ﻿using Domain.baseData;
+using Domain.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,6 +21,7 @@ namespace Domain.Models
         public double LastCost { get; set; }
         public double OpenCost { get; set; }
         public double ForignCost { get; set; }
+        public List<SalesDetails>  SalesDetails { get; set; }
 
 
     }

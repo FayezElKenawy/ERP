@@ -1,4 +1,5 @@
 ﻿using Domain.baseData;
+using Domain.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,7 +17,8 @@ namespace Domain.Models
         public double InvoicePaid { get; set; }
         public double InvoiceChange { get; set; }
         public int CustId { get; set; }
-        public Product Products { get; set; }
-        
+        public Customer Customers { get; set; }
+        public List<SalesDetails> SalesDetails { get; set; }
+
     }
 }

@@ -41,9 +41,11 @@ namespace ERP.Controllers
         {
             var model = new SalesDetails
             {
-                Products = productRepo.List().ToList()
+                Products = productRepo.List().ToList(),
+                
             };
-            
+           
+           
             return View(model);
         }
 

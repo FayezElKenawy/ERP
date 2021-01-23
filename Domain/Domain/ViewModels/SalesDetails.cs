@@ -9,8 +9,11 @@ using System.Threading.Tasks;
 
 namespace Domain.ViewModels
 {
-    public class SalesDetails : BaseDataClass
+    public class SalesDetails 
     {
+        [Key]
+        public int InvoiceId { get; set; }
+        [Key]
         public int ProductID { get; set; }
         public double Quantity { get; set; }
         public double SalesPrice { get; set; }

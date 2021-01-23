@@ -3,36 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ERP.Data.Migrations
 {
-    public partial class DB : Migration
+    public partial class DatabaseCreation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "SalesDetails",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    InvoiceTotal = table.Column<double>(type: "float", nullable: false),
-                    InvoiceDiscount = table.Column<double>(type: "float", nullable: false),
-                    InvoiceNetTotal = table.Column<double>(type: "float", nullable: false),
-                    InvoiceType = table.Column<int>(type: "int", nullable: false),
-                    InvoicePaid = table.Column<double>(type: "float", nullable: false),
-                    InvoiceChange = table.Column<double>(type: "float", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    CustId = table.Column<int>(type: "int", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedById = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    ModifiedById = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SalesDetails", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
@@ -46,7 +20,6 @@ namespace ERP.Data.Migrations
                     CustBalance = table.Column<double>(type: "float", nullable: false),
                     CustOpenBalance = table.Column<double>(type: "float", nullable: false),
                     AccountNo = table.Column<int>(type: "int", nullable: false),
-                    SalesDetailsId = table.Column<int>(type: "int", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedById = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
@@ -56,12 +29,6 @@ namespace ERP.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Customers_SalesDetails_SalesDetailsId",
-                        column: x => x.SalesDetailsId,
-                        principalTable: "SalesDetails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,7 +43,12 @@ namespace ERP.Data.Migrations
                     Desc = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Cost = table.Column<double>(type: "float", nullable: false),
                     SalePrice = table.Column<double>(type: "float", nullable: false),
-                    SalesDetailsId = table.Column<int>(type: "int", nullable: true),
+                    Balance = table.Column<double>(type: "float", nullable: false),
+                    OpenBalance = table.Column<double>(type: "float", nullable: false),
+                    LastBalance = table.Column<double>(type: "float", nullable: false),
+                    LastCost = table.Column<double>(type: "float", nullable: false),
+                    OpenCost = table.Column<double>(type: "float", nullable: false),
+                    ForignCost = table.Column<double>(type: "float", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedById = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
@@ -86,12 +58,6 @@ namespace ERP.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Products_SalesDetails_SalesDetailsId",
-                        column: x => x.SalesDetailsId,
-                        principalTable: "SalesDetails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,8 +73,8 @@ namespace ERP.Data.Migrations
                     InvoiceType = table.Column<int>(type: "int", nullable: false),
                     InvoicePaid = table.Column<double>(type: "float", nullable: false),
                     InvoiceChange = table.Column<double>(type: "float", nullable: false),
-                    ProductsId = table.Column<int>(type: "int", nullable: true),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    CustId = table.Column<int>(type: "int", nullable: false),
+                    CustomersId = table.Column<int>(type: "int", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedById = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
@@ -119,53 +85,69 @@ namespace ERP.Data.Migrations
                 {
                     table.PrimaryKey("PK_SalesInvoices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SalesInvoices_Customers_CustomerId",
-                        column: x => x.CustomerId,
+                        name: "FK_SalesInvoices_Customers_CustomersId",
+                        column: x => x.CustomersId,
                         principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SalesDetails",
+                columns: table => new
+                {
+                    InvoiceId = table.Column<int>(type: "int", nullable: false),
+                    ProductID = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<double>(type: "float", nullable: false),
+                    SalesPrice = table.Column<double>(type: "float", nullable: false),
+                    Total = table.Column<double>(type: "float", nullable: false),
+                    Cost = table.Column<double>(type: "float", nullable: false),
+                    discount = table.Column<double>(type: "float", nullable: false),
+                    VatAmount = table.Column<double>(type: "float", nullable: false),
+                    TotalWithVat = table.Column<double>(type: "float", nullable: false),
+                    SalesInvoicesId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SalesDetails", x => new { x.ProductID, x.InvoiceId });
                     table.ForeignKey(
-                        name: "FK_SalesInvoices_Products_ProductsId",
-                        column: x => x.ProductsId,
+                        name: "FK_SalesDetails_Products_ProductID",
+                        column: x => x.ProductID,
                         principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SalesDetails_SalesInvoices_SalesInvoicesId",
+                        column: x => x.SalesInvoicesId,
+                        principalTable: "SalesInvoices",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customers_SalesDetailsId",
-                table: "Customers",
-                column: "SalesDetailsId");
+                name: "IX_SalesDetails_SalesInvoicesId",
+                table: "SalesDetails",
+                column: "SalesInvoicesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_SalesDetailsId",
-                table: "Products",
-                column: "SalesDetailsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SalesInvoices_CustomerId",
+                name: "IX_SalesInvoices_CustomersId",
                 table: "SalesInvoices",
-                column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SalesInvoices_ProductsId",
-                table: "SalesInvoices",
-                column: "ProductsId");
+                column: "CustomersId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "SalesInvoices");
-
-            migrationBuilder.DropTable(
-                name: "Customers");
+                name: "SalesDetails");
 
             migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "SalesDetails");
+                name: "SalesInvoices");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
         }
     }
 }

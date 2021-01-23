@@ -3,6 +3,7 @@ using Domain.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Domain.Models
@@ -16,6 +17,7 @@ namespace Domain.Models
         public int InvoiceType { get; set; }
         public double InvoicePaid { get; set; }
         public double InvoiceChange { get; set; }
+        [ForeignKey("CustId")]
         public int CustId { get; set; }
         public Customer Customers { get; set; }
         public List<SalesDetails> SalesDetails { get; set; }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERP.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210118155338_DB")]
-    partial class DB
+    [Migration("20210123081429_DatabaseCreation")]
+    partial class DatabaseCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,12 +66,7 @@ namespace ERP.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int?>("SalesDetailsId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SalesDetailsId");
 
                     b.ToTable("Customers");
                 });
@@ -85,6 +80,9 @@ namespace ERP.Data.Migrations
 
                     b.Property<string>("ArabicName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Balance")
+                        .HasColumnType("float");
 
                     b.Property<double>("Cost")
                         .HasColumnType("float");
@@ -102,8 +100,17 @@ namespace ERP.Data.Migrations
                     b.Property<string>("EnglishName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("ForignCost")
+                        .HasColumnType("float");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<double>("LastBalance")
+                        .HasColumnType("float");
+
+                    b.Property<double>("LastCost")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
@@ -115,15 +122,16 @@ namespace ERP.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<double>("OpenBalance")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OpenCost")
+                        .HasColumnType("float");
+
                     b.Property<double>("SalePrice")
                         .HasColumnType("float");
 
-                    b.Property<int?>("SalesDetailsId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SalesDetailsId");
 
                     b.ToTable("Products");
                 });
@@ -139,7 +147,10 @@ namespace ERP.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CustomersId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateCreated")
@@ -176,70 +187,48 @@ namespace ERP.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int?>("ProductsId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("ProductsId");
+                    b.HasIndex("CustomersId");
 
                     b.ToTable("SalesInvoices");
                 });
 
             modelBuilder.Entity("Domain.ViewModels.SalesDetails", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("CreatedById")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int>("CustId")
+                    b.Property<int>("ProductID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("InvoiceChange")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("InvoiceDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("InvoiceDiscount")
-                        .HasColumnType("float");
-
-                    b.Property<double>("InvoiceNetTotal")
-                        .HasColumnType("float");
-
-                    b.Property<double>("InvoicePaid")
-                        .HasColumnType("float");
-
-                    b.Property<double>("InvoiceTotal")
-                        .HasColumnType("float");
-
-                    b.Property<int>("InvoiceType")
+                    b.Property<int>("InvoiceId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                    b.Property<double>("Cost")
+                        .HasColumnType("float");
 
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
+                    b.Property<double>("Quantity")
+                        .HasColumnType("float");
 
-                    b.Property<string>("ModifiedById")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("SalesInvoicesId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<double>("SalesPrice")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Total")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalWithVat")
+                        .HasColumnType("float");
+
+                    b.Property<double>("VatAmount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("discount")
+                        .HasColumnType("float");
+
+                    b.HasKey("ProductID", "InvoiceId");
+
+                    b.HasIndex("SalesInvoicesId");
 
                     b.ToTable("SalesDetails");
                 });
@@ -444,33 +433,30 @@ namespace ERP.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Domain.Models.Customer", b =>
-                {
-                    b.HasOne("Domain.ViewModels.SalesDetails", null)
-                        .WithMany("Customers")
-                        .HasForeignKey("SalesDetailsId");
-                });
-
-            modelBuilder.Entity("Domain.Models.Product", b =>
-                {
-                    b.HasOne("Domain.ViewModels.SalesDetails", null)
-                        .WithMany("Products")
-                        .HasForeignKey("SalesDetailsId");
-                });
-
             modelBuilder.Entity("Domain.Models.SalesInvoice", b =>
                 {
-                    b.HasOne("Domain.Models.Customer", "Customer")
+                    b.HasOne("Domain.Models.Customer", "Customers")
                         .WithMany()
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomersId");
 
+                    b.Navigation("Customers");
+                });
+
+            modelBuilder.Entity("Domain.ViewModels.SalesDetails", b =>
+                {
                     b.HasOne("Domain.Models.Product", "Products")
                         .WithMany()
-                        .HasForeignKey("ProductsId");
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.HasOne("Domain.Models.SalesInvoice", "SalesInvoices")
+                        .WithMany("SalesDetails")
+                        .HasForeignKey("SalesInvoicesId");
 
                     b.Navigation("Products");
+
+                    b.Navigation("SalesInvoices");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -524,11 +510,9 @@ namespace ERP.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.ViewModels.SalesDetails", b =>
+            modelBuilder.Entity("Domain.Models.SalesInvoice", b =>
                 {
-                    b.Navigation("Customers");
-
-                    b.Navigation("Products");
+                    b.Navigation("SalesDetails");
                 });
 #pragma warning restore 612, 618
         }

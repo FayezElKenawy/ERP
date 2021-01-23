@@ -12,6 +12,7 @@ using System.IO;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Domain.ViewModels;
 
 namespace Domain.Data
 {
@@ -125,6 +126,8 @@ namespace Domain.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<SalesDetails>()
+               .HasKey(cs => new { cs.ProductID, cs.InvoiceId });
             foreach (var type in GetEntityTypes())
             {
                 var method = SetGlobalQueryMethod.MakeGenericMethod(type);

@@ -21,7 +21,6 @@ namespace Domain.Models
         public double LastCost { get; set; }
         public double OpenCost { get; set; }
         public double ForignCost { get; set; }
-        public List<SalesDetails>  SalesDetails { get; set; }
 
 
     }

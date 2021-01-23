@@ -41,21 +41,29 @@ namespace ERP.Controllers
         {
             var model = new SalesDetails
             {
-                Products = productRepo.List().ToList(),
-                
+                //    Products = productRepo.List().ToList(),
+
             };
-           
-           
+
+
             return View(model);
         }
 
         // POST: SalesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(SalesInvoice collection,SalesDetails details)
         {
             try
             {
+                salesRepo.Add(collection);
+                var model = new SalesDetails
+                {
+                    ProductID=details.ProductID,
+                    Quantity=details.Quantity,
+                    SalesPrice=details.SalesPrice
+                };
+                
                 return RedirectToAction(nameof(Index));
             }
             catch

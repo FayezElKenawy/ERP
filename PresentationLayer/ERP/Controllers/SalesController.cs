@@ -15,6 +15,7 @@ namespace ERP.Controllers
         private readonly Irepository<Product> productRepo;
         private readonly Irepository<Customer> CustomerRepo;
         private readonly Irepository<SalesInvoice> salesRepo;
+      
 
         public SalesController(Irepository<Product> productRepo, Irepository<Customer> customerRepo, Irepository<SalesInvoice> salesRepo)
         {
@@ -39,16 +40,14 @@ namespace ERP.Controllers
         // GET: SalesController/Create
         public ActionResult Create()
         {
-            var model = new SalesDetails
+
+            var model = new InvoiceCustomerViewModel
             {
-                //    Products = productRepo.List().ToList(),
-
+                Customers = CustomerRepo.List().ToList(),
+                Products = productRepo.List().ToList()
             };
-
-
             return View(model);
         }
-
         // POST: SalesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -12,7 +12,7 @@ using System.IO;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
-using Domain.ViewModels;
+using Domain.Models;
 
 namespace Domain.Data
 {

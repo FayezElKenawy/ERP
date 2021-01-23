@@ -19,7 +19,7 @@ namespace ERP.Controllers
             _context = context;
         }
 
-        // GET: Products
+        // GET: Products 
         public async Task<IActionResult> Index()
         {
             return View(await _context.Products.ToListAsync());

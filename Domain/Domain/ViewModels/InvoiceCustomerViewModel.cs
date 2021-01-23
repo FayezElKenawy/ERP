@@ -1,15 +1,15 @@
-﻿using Domain.baseData;
-using Domain.ViewModels;
+﻿using Domain.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Domain.ViewModels
 {
-    public class SalesInvoice : BaseDataClass
+   public class InvoiceCustomerViewModel
     {
+        public int InvoiceId { get; set; }
         public DateTime InvoiceDate { get; set; }
         public double InvoiceTotal { get; set; }
         public double InvoiceDiscount { get; set; }
@@ -17,7 +17,9 @@ namespace Domain.Models
         public int InvoiceType { get; set; }
         public double InvoicePaid { get; set; }
         public double InvoiceChange { get; set; }
-        public Customer Customers { get; set; }
-
+        public int CustId { get; set; }
+        public int ProductId { get; set; }
+        public List<Product> Products { get; set; }
+        public List<Customer> Customers { get; set; }
     }
 }

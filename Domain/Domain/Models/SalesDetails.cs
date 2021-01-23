@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.ViewModels
+namespace Domain.Models
 {
     public class SalesDetails 
     {
@@ -23,7 +23,7 @@ namespace Domain.ViewModels
         public double VatAmount { get; set; }
         public double TotalWithVat { get; set; }
 
-        public Product Products { get; set; }
-        public SalesInvoice SalesInvoices { get; set; }
+        public List<Product> Products { get; set; }
+        public List<SalesInvoice> SalesInvoices { get; set; }
     }
 }

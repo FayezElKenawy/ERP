@@ -1,238 +1,262 @@
 ﻿/* Shivving (IE8 is not supported, but at least it won't look as awful)
 /* ========================================================================== */
+$(document).ready(function () {
+	let endpoint = 'https://localhost:5001/products/productslist'
+	let apiKey = '5b578yg9yvi8sogirbvegoiufg9v9g579gviuiub8'
 
-(function (document) {
-	var
-		head = document.head = document.getElementsByTagName('head')[0] || document.documentElement,
-		elements = 'article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output picture progress section summary time video x'.split(' '),
-		elementsLength = elements.length,
-		elementsIndex = 0,
-		element;
-
-	while (elementsIndex < elementsLength) {
-		element = document.createElement(elements[++elementsIndex]);
-	}
-
-	element.innerHTML = 'x<style>' +
-		'article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}' +
-		'audio[controls],canvas,video{display:inline-block}' +
-		'[hidden],audio{display:none}' +
-		'mark{background:#FF0;color:#000}' +
-		'</style>';
-
-	return head.insertBefore(element.lastChild, head.firstChild);
-})(document);
-
-/* Prototyping
-/* ========================================================================== */
-
-(function (window, ElementPrototype, ArrayPrototype, polyfill) {
-	function NodeList() { [polyfill] }
-	NodeList.prototype.length = ArrayPrototype.length;
-
-	ElementPrototype.matchesSelector = ElementPrototype.matchesSelector ||
-		ElementPrototype.mozMatchesSelector ||
-		ElementPrototype.msMatchesSelector ||
-		ElementPrototype.oMatchesSelector ||
-		ElementPrototype.webkitMatchesSelector ||
-		function matchesSelector(selector) {
-			return ArrayPrototype.indexOf.call(this.parentNode.querySelectorAll(selector), this) > -1;
-		};
-
-	ElementPrototype.ancestorQuerySelectorAll = ElementPrototype.ancestorQuerySelectorAll ||
-		ElementPrototype.mozAncestorQuerySelectorAll ||
-		ElementPrototype.msAncestorQuerySelectorAll ||
-		ElementPrototype.oAncestorQuerySelectorAll ||
-		ElementPrototype.webkitAncestorQuerySelectorAll ||
-		function ancestorQuerySelectorAll(selector) {
-			for (var cite = this, newNodeList = new NodeList; cite = cite.parentElement;) {
-				if (cite.matchesSelector(selector)) ArrayPrototype.push.call(newNodeList, cite);
+	$(".content a").each(function (index, element) {
+		$.ajax({
+			url: endpoint + "?key=" + apiKey + " &q=" + $(this).text(),
+			contentType: "application/json",
+			dataType: 'json',
+			success: function (result) {
+				$(element).after(
+					'<a href="' + result.url + '"> \n ' +
+					'<div class="link-preview"> \n ' +
+					'<div class="preview-image" style="background-image:url(' + result.image + ');"></div> \n ' +
+					'<div style="width:70%;" class="link-info"> \n ' +
+					'<h4>' + result.title + '</h4> \n ' +
+					'<p>' + result.description + '</p> \n ' +
+					'</div><br> \n ' +
+					'<a href="' + result.url + '" class="url-info"><i class="far fa-link"></i>' + result.url + '</a> \n ' +
+					'</div></a>');
+				$(element).remove();
 			}
+		})
+	});
+});
+/*(function (document) {
+//	var
+//		head = document.head = document.getElementsByTagName('head')[0] || document.documentElement,
+//		elements = 'article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output picture progress section summary time video x'.split(' '),
+//		elementsLength = elements.length,
+//		elementsIndex = 0,
+//		element;
 
-			return newNodeList;
-		};
+//	while (elementsIndex < elementsLength) {
+//		element = document.createElement(elements[++elementsIndex]);
+//	}
 
-	ElementPrototype.ancestorQuerySelector = ElementPrototype.ancestorQuerySelector ||
-		ElementPrototype.mozAncestorQuerySelector ||
-		ElementPrototype.msAncestorQuerySelector ||
-		ElementPrototype.oAncestorQuerySelector ||
-		ElementPrototype.webkitAncestorQuerySelector ||
-		function ancestorQuerySelector(selector) {
-			return this.ancestorQuerySelectorAll(selector)[0] || null;
-		};
-})(this, Element.prototype, Array.prototype);
+//	element.innerHTML = 'x<style>' +
+//		'article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}' +
+//		'audio[controls],canvas,video{display:inline-block}' +
+//		'[hidden],audio{display:none}' +
+//		'mark{background:#FF0;color:#000}' +
+//		'</style>';
 
-/* Helper Functions
-/* ========================================================================== */
+//	return head.insertBefore(element.lastChild, head.firstChild);
+//})(document);
 
-function generateTableRow() {
-	var emptyColumn = document.createElement('tr');
+///* Prototyping
+///* ========================================================================== */
 
-	emptyColumn.innerHTML = '<td><a class="cut">-</a><span contenteditable></span></td>' +
-		'<td><span contenteditable></span></td>' +
-		'<td><span data-prefix>$</span><span contenteditable>0.00</span></td>' +
-		'<td><span contenteditable>0</span></td>' +
-		'<td><span data-prefix>$</span><span>0.00</span></td>';
+//(function (window, ElementPrototype, ArrayPrototype, polyfill) {
+//	function NodeList() { [polyfill] }
+//	NodeList.prototype.length = ArrayPrototype.length;
 
-	return emptyColumn;
-}
+//	ElementPrototype.matchesSelector = ElementPrototype.matchesSelector ||
+//		ElementPrototype.mozMatchesSelector ||
+//		ElementPrototype.msMatchesSelector ||
+//		ElementPrototype.oMatchesSelector ||
+//		ElementPrototype.webkitMatchesSelector ||
+//		function matchesSelector(selector) {
+//			return ArrayPrototype.indexOf.call(this.parentNode.querySelectorAll(selector), this) > -1;
+//		};
 
-function parseFloatHTML(element) {
-	return parseFloat(element.innerHTML.replace(/[^\d\.\-]+/g, '')) || 0;
-}
+//	ElementPrototype.ancestorQuerySelectorAll = ElementPrototype.ancestorQuerySelectorAll ||
+//		ElementPrototype.mozAncestorQuerySelectorAll ||
+//		ElementPrototype.msAncestorQuerySelectorAll ||
+//		ElementPrototype.oAncestorQuerySelectorAll ||
+//		ElementPrototype.webkitAncestorQuerySelectorAll ||
+//		function ancestorQuerySelectorAll(selector) {
+//			for (var cite = this, newNodeList = new NodeList; cite = cite.parentElement;) {
+//				if (cite.matchesSelector(selector)) ArrayPrototype.push.call(newNodeList, cite);
+//			}
 
-function parsePrice(number) {
-	return number.toFixed(2).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1,');
-}
+//			return newNodeList;
+//		};
 
-/* Update Number
-/* ========================================================================== */
+//	ElementPrototype.ancestorQuerySelector = ElementPrototype.ancestorQuerySelector ||
+//		ElementPrototype.mozAncestorQuerySelector ||
+//		ElementPrototype.msAncestorQuerySelector ||
+//		ElementPrototype.oAncestorQuerySelector ||
+//		ElementPrototype.webkitAncestorQuerySelector ||
+//		function ancestorQuerySelector(selector) {
+//			return this.ancestorQuerySelectorAll(selector)[0] || null;
+//		};
+//})(this, Element.prototype, Array.prototype);
 
-function updateNumber(e) {
-	var
-		activeElement = document.activeElement,
-		value = parseFloat(activeElement.innerHTML),
-		wasPrice = activeElement.innerHTML == parsePrice(parseFloatHTML(activeElement));
+///* Helper Functions
+///* ========================================================================== */
 
-	if (!isNaN(value) && (e.keyCode == 38 || e.keyCode == 40 || e.wheelDeltaY)) {
-		e.preventDefault();
+/*function generateTableRow() {
+//	var emptyColumn = document.createElement('tr');
 
-		value += e.keyCode == 38 ? 1 : e.keyCode == 40 ? -1 : Math.round(e.wheelDelta * 0.005);
-		value = Math.max(value, 0);
+//	emptyColumn.innerHTML = '<td><a class="cut">-</a><span contenteditable></span></td>' +
+//		'<td><span contenteditable></span></td>' +
+//		'<td><span data-prefix>$</span><span contenteditable>0.00</span></td>' +
+//		'<td><span contenteditable>0</span></td>' +
+//		'<td><span data-prefix>$</span><span>0.00</span></td>';
 
-		activeElement.innerHTML = wasPrice ? parsePrice(value) : value;
-	}
+//	return emptyColumn;
+//}
 
-	updateInvoice();
-}
+//function parseFloatHTML(element) {
+//	return parseFloat(element.innerHTML.replace(/[^\d\.\-]+/g, '')) || 0;
+//}
 
-/* Update Invoice
-/* ========================================================================== */
+//function parsePrice(number) {
+//	return number.toFixed(2).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1,');
+//}
 
-function updateInvoice() {
-	var total = 0;
-	var cells, price, total, a, i;
+///* Update Number
+///* ========================================================================== */
 
-	// update inventory cells
-	// ======================
+//function updateNumber(e) {
+//	var
+//		activeElement = document.activeElement,
+//		value = parseFloat(activeElement.innerHTML),
+//		wasPrice = activeElement.innerHTML == parsePrice(parseFloatHTML(activeElement));
 
-	for (var a = document.querySelectorAll('table.inventory tbody tr'), i = 0; a[i]; ++i) {
-		// get inventory row cells
-		cells = a[i].querySelectorAll('span:last-child');
+//	if (!isNaN(value) && (e.keyCode == 38 || e.keyCode == 40 || e.wheelDeltaY)) {
+//		e.preventDefault();
 
-		// set price as cell[2] * cell[3]
-		price = parseFloatHTML(cells[2]) * parseFloatHTML(cells[3]);
+//		value += e.keyCode == 38 ? 1 : e.keyCode == 40 ? -1 : Math.round(e.wheelDelta * 0.005);
+//		value = Math.max(value, 0);
 
-		// add price to total
-		total += price;
+//		activeElement.innerHTML = wasPrice ? parsePrice(value) : value;
+//	}
 
-		// set row total
-		cells[4].innerHTML = price;
-	}
+//	updateInvoice();
+//}
 
-	// update balance cells
-	// ====================
+///* Update Invoice
+///* ========================================================================== */
 
-	// get balance cells
-	cells = document.querySelectorAll('table.balance td:last-child span:last-child');
+//function updateInvoice() {
+//	var total = 0;
+//	var cells, price, total, a, i;
 
-	// set total
-	cells[0].innerHTML = total;
+//	// update inventory cells
+//	// ======================
 
-	// set balance and meta balance
-	cells[2].innerHTML = document.querySelector('table.meta tr:last-child td:last-child span:last-child').innerHTML = parsePrice(total - parseFloatHTML(cells[1]));
+//	for (var a = document.querySelectorAll('table.inventory tbody tr'), i = 0; a[i]; ++i) {
+//		// get inventory row cells
+//		cells = a[i].querySelectorAll('span:last-child');
 
-	// update prefix formatting
-	// ========================
+//		// set price as cell[2] * cell[3]
+//		price = parseFloatHTML(cells[2]) * parseFloatHTML(cells[3]);
 
-	var prefix = document.querySelector('#prefix').innerHTML;
-	for (a = document.querySelectorAll('[data-prefix]'), i = 0; a[i]; ++i) a[i].innerHTML = prefix;
+//		// add price to total
+//		total += price;
 
-	// update price formatting
-	// =======================
+//		// set row total
+//		cells[4].innerHTML = price;
+//	}
 
-	for (a = document.querySelectorAll('span[data-prefix] + span'), i = 0; a[i]; ++i) if (document.activeElement != a[i]) a[i].innerHTML = parsePrice(parseFloatHTML(a[i]));
-}
+//	// update balance cells
+//	// ====================
 
-/* On Content Load
-/* ========================================================================== */
+//	// get balance cells
+//	cells = document.querySelectorAll('table.balance td:last-child span:last-child');
 
-function onContentLoad() {
-	updateInvoice();
+//	// set total
+//	cells[0].innerHTML = total;
 
-	var
-		input = document.querySelector('input'),
-		image = document.querySelector('img');
+//	// set balance and meta balance
+//	cells[2].innerHTML = document.querySelector('table.meta tr:last-child td:last-child span:last-child').innerHTML = parsePrice(total - parseFloatHTML(cells[1]));
 
-	function onClick(e) {
-		var element = e.target.querySelector('[contenteditable]'), row;
+//	// update prefix formatting
+//	// ========================
 
-		element && e.target != document.documentElement && e.target != document.body && element.focus();
+//	var prefix = document.querySelector('#prefix').innerHTML;
+//	for (a = document.querySelectorAll('[data-prefix]'), i = 0; a[i]; ++i) a[i].innerHTML = prefix;
 
-		if (e.target.matchesSelector('.add')) {
-			document.querySelector('table.inventory tbody').appendChild(generateTableRow());
-		}
-		else if (e.target.className == 'cut') {
-			row = e.target.ancestorQuerySelector('tr');
+//	// update price formatting
+//	// =======================
 
-			row.parentNode.removeChild(row);
-		}
+//	for (a = document.querySelectorAll('span[data-prefix] + span'), i = 0; a[i]; ++i) if (document.activeElement != a[i]) a[i].innerHTML = parsePrice(parseFloatHTML(a[i]));
+//}
 
-		updateInvoice();
-	}
+///* On Content Load
+///* ========================================================================== */
 
-	function onEnterCancel(e) {
-		e.preventDefault();
+//function onContentLoad() {
+//	updateInvoice();
 
-		image.classList.add('hover');
-	}
+//	var
+//		input = document.querySelector('input'),
+//		image = document.querySelector('img');
 
-	function onLeaveCancel(e) {
-		e.preventDefault();
+//	function onClick(e) {
+//		var element = e.target.querySelector('[contenteditable]'), row;
 
-		image.classList.remove('hover');
-	}
+//		element && e.target != document.documentElement && e.target != document.body && element.focus();
 
-	function onFileInput(e) {
-		image.classList.remove('hover');
+//		if (e.target.matchesSelector('.add')) {
+//			document.querySelector('table.inventory tbody').appendChild(generateTableRow());
+//		}
+//		else if (e.target.className == 'cut') {
+//			row = e.target.ancestorQuerySelector('tr');
 
-		var
-			reader = new FileReader(),
-			files = e.dataTransfer ? e.dataTransfer.files : e.target.files,
-			i = 0;
+//			row.parentNode.removeChild(row);
+//		}
 
-		reader.onload = onFileLoad;
+//		updateInvoice();
+//	}
 
-		while (files[i]) reader.readAsDataURL(files[i++]);
-	}
+//	function onEnterCancel(e) {
+//		e.preventDefault();
 
-	function onFileLoad(e) {
-		var data = e.target.result;
+//		image.classList.add('hover');
+//	}
 
-		image.src = data;
-	}
+//	function onLeaveCancel(e) {
+//		e.preventDefault();
 
-	if (window.addEventListener) {
-		document.addEventListener('click', onClick);
+//		image.classList.remove('hover');
+//	}
 
-		document.addEventListener('mousewheel', updateNumber);
-		document.addEventListener('keydown', updateNumber);
+//	function onFileInput(e) {
+//		image.classList.remove('hover');
 
-		document.addEventListener('keydown', updateInvoice);
-		document.addEventListener('keyup', updateInvoice);
+//		var
+//			reader = new FileReader(),
+//			files = e.dataTransfer ? e.dataTransfer.files : e.target.files,
+//			i = 0;
 
-		input.addEventListener('focus', onEnterCancel);
-		input.addEventListener('mouseover', onEnterCancel);
-		input.addEventListener('dragover', onEnterCancel);
-		input.addEventListener('dragenter', onEnterCancel);
+//		reader.onload = onFileLoad;
 
-		input.addEventListener('blur', onLeaveCancel);
-		input.addEventListener('dragleave', onLeaveCancel);
-		input.addEventListener('mouseout', onLeaveCancel);
+//		while (files[i]) reader.readAsDataURL(files[i++]);
+//	}
 
-		input.addEventListener('drop', onFileInput);
-		input.addEventListener('change', onFileInput);
-	}
-}
+//	function onFileLoad(e) {
+//		var data = e.target.result;
 
-window.addEventListener && document.addEventListener('DOMContentLoaded', onContentLoad);
+//		image.src = data;
+//	}
+
+//	if (window.addEventListener) {
+//		document.addEventListener('click', onClick);
+
+//		document.addEventListener('mousewheel', updateNumber);
+//		document.addEventListener('keydown', updateNumber);
+
+//		document.addEventListener('keydown', updateInvoice);
+//		document.addEventListener('keyup', updateInvoice);
+
+//		input.addEventListener('focus', onEnterCancel);
+//		input.addEventListener('mouseover', onEnterCancel);
+//		input.addEventListener('dragover', onEnterCancel);
+//		input.addEventListener('dragenter', onEnterCancel);
+
+//		input.addEventListener('blur', onLeaveCancel);
+//		input.addEventListener('dragleave', onLeaveCancel);
+//		input.addEventListener('mouseout', onLeaveCancel);
+
+//		input.addEventListener('drop', onFileInput);
+//		input.addEventListener('change', onFileInput);
+//	}
+//}
+
+//window.addEventListener && document.addEventListener('DOMContentLoaded', onContentLoad);

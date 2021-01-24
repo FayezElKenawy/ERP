@@ -25,6 +25,7 @@ namespace ERP.Controllers
             return View(await _context.Products.ToListAsync());
         }
         //Return json products
+        /*https://stackoverflow.com/questions/60604161/how-open-popup-dialog-windows-and-save-data-net-core-mvc-via-ajax */
         public ActionResult ProductsList()
         {
             return Json(new { Lists = _context.Products.ToList().Select(p=>new { p.ArabicName, p.Balance, p.EnglishName, p.SalePrice })});

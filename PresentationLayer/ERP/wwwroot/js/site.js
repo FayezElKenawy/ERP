@@ -1,5 +1,7 @@
-﻿/* Shivving (IE8 is not supported, but at least it won't look as awful)
-/* ========================================================================== */
+﻿
+/*section a
+/* Shivving (IE8 is not supported, but at least it won't look as awful)
+/* ========================================================================== 
 $(document).ready(function () {
 	let endpoint = 'https://localhost:5001/products/productslist'
 	let apiKey = '5b578yg9yvi8sogirbvegoiufg9v9g579gviuiub8'

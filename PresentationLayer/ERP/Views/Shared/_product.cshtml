@@ -3,8 +3,10 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-bordered">
-    <thead class="thead-light">
+
+<table class="table table-bordered table-responsive">
+
+    <thead class="thead-light" id="TableProducts">
         <tr>
             <th>
                 Code
@@ -31,35 +33,60 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArabicName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnglishName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Desc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SalePrice)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        <tr id="productrow"></tr>
+        @*@foreach (var item in Model) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ArabicName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EnglishName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Model)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cost)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SalePrice)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+            }*@
     </tbody>
 </table>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(function () {
+        console.log("first");
+        var productrow = $('#productrow');
+        $.ajax({
+            type: "GET",
+            url: '/Products/ProductsList', 
+            contentType: "application/json; charset=utf-8",
+
+            dataType: "json",
+            success: function (reuslut) {
+                reusluts = JSON.parse(reuslut);
+                $.each(reusluts, function (i, re) {
+                    productrow.append('<td>' + re.id + '</td>');
+                    console.log(re.Id);
+                });
+                console.log(reuslut);
+            }
+
+        });
+    });
+
+</script>

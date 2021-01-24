@@ -47,6 +47,7 @@ namespace ERP
             services.AddScoped<Irepository<Product>, ProductRepository>();
             services.AddScoped<Irepository<Customer>, CustomersRepository>();
             services.AddScoped<Irepository<SalesInvoice>, SalesReopsitory>();
+            services.AddAntiforgery(o => o.HeaderName = "Fayez-Token");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

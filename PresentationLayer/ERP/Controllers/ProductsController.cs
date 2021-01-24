@@ -24,7 +24,11 @@ namespace ERP.Controllers
         {
             return View(await _context.Products.ToListAsync());
         }
-
+        //Return json products
+        public ActionResult ProductsList()
+        {
+            return Json(new { Lists = _context.Products.ToList().Select(p=>new { p.ArabicName, p.Balance, p.EnglishName, p.SalePrice })});
+        }
         // GET: Products/Details/
         public async Task<IActionResult> Details(int? id)
         {

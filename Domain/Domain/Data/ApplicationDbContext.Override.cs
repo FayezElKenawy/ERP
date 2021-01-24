@@ -128,6 +128,39 @@ namespace Domain.Data
         {
             modelBuilder.Entity<SalesDetails>()
                .HasKey(cs => new { cs.ProductID, cs.InvoiceId });
+            modelBuilder.Entity<Product>()
+            .Property(b => b.Cost)
+            .HasDefaultValue(0);
+            modelBuilder.Entity<Product>()
+.Property(b => b.SalePrice)
+.HasDefaultValue(0);
+            modelBuilder.Entity<Product>()
+.Property(b => b.Balance)
+.HasDefaultValue(0);
+            modelBuilder.Entity<Product>()
+.Property(b => b.OpenBalance)
+.HasDefaultValue(0);
+            modelBuilder.Entity<Product>()
+.Property(b => b.OpenCost)
+.HasDefaultValue(0);
+            modelBuilder.Entity<Product>()
+.Property(b => b.LastBalance)
+.HasDefaultValue(0);
+            modelBuilder.Entity<Product>()
+.Property(b => b.LastCost)
+.HasDefaultValue(0);
+            modelBuilder.Entity<Product>()
+.Property(b => b.ForignCost)
+.HasDefaultValue(0);
+            modelBuilder.Entity<Product>()
+.Property(b => b.DateCreated)
+.HasDefaultValue(DateTime.Now);
+            modelBuilder.Entity<Product>()
+.Property(b => b.LastModified)
+.HasDefaultValue(DateTime.Now);
+            modelBuilder.Entity<Product>()
+.Property(b => b.IsDeleted)
+.HasDefaultValue(0);
             foreach (var type in GetEntityTypes())
             {
                 var method = SetGlobalQueryMethod.MakeGenericMethod(type);

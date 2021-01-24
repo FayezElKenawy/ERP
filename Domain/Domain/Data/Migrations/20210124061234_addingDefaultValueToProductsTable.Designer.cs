@@ -4,14 +4,16 @@ using Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ERP.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210124061234_addingDefaultValueToProductsTable")]
+    partial class addingDefaultValueToProductsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,9 +96,7 @@ namespace ERP.Data.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("DateCreated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 1, 24, 9, 22, 24, 112, DateTimeKind.Local).AddTicks(6439));
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Desc")
                         .HasColumnType("nvarchar(max)");
@@ -105,14 +105,10 @@ namespace ERP.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("ForignCost")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("float")
-                        .HasDefaultValue(0.0);
+                        .HasColumnType("float");
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<double>("LastBalance")
                         .ValueGeneratedOnAdd()
@@ -125,9 +121,7 @@ namespace ERP.Data.Migrations
                         .HasDefaultValue(0.0);
 
                     b.Property<DateTime>("LastModified")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 1, 24, 9, 22, 24, 115, DateTimeKind.Local).AddTicks(7742));
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Model")
                         .HasColumnType("nvarchar(max)");

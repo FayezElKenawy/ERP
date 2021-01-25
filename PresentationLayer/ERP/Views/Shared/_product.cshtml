@@ -4,18 +4,15 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<table class="table table-bordered table-responsive">
+<table class="table table-bordered">
 
-    <thead class="thead-light" id="TableProducts">
+    <thead class="thead-light">
         <tr>
             <th>
                 Code
             </th>
             <th>
                 Name Arabic
-            </th>
-            <th>
-                Name English
             </th>
             <th>
                 Model
@@ -29,11 +26,9 @@
             <th>
                 Sale Price
             </th>
-            <th></th>
         </tr>
     </thead>
-    <tbody>
-        <tr id="productrow"></tr>
+    <tbody  id="TableProducts">
         @*@foreach (var item in Model) {
                     <tr>
                         <td>
@@ -73,15 +68,24 @@
         var productrow = $('#TableProducts');
         $.ajax({
             type: "GET",
-            url: '/Products/ProductsList', 
+            url: '/Products/ProductsList',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function (reusluts) {
-                $.each(reusluts, function (i, re) {
-                    productrow.append('<tr><td>' + re.id + '</td></tr>');
-                    console.log(re.Id);
+            success: function (Products) {
+                $.each(Products, function (key,product) {
+                    productrow.append('<tr>' + '<td>' + product.id + '</td>' +
+                        '<td>' + product.arabicName + '</td>' +
+                        '<td>' + product.model + '</td>' +
+                        '<td>' + product.desc + '</td>' +
+                        '<td>' + product.cost + '</td>'+
+                        '<td>' + product.salePrice + '</td>' +
+                        '<td>' + '<a href="/Products/Edit/' + product.id + '" >' + "Edit" + '</a>' +' | '+
+
+                         '<a href="/Products/Delete/' + product.id + '" >' + "Delete" + '</a>' +' | '+
+
+                         '<a href="/Products/Details/' + product.id + '" >' + "Details" + '</a>' +
+                        '</td>'+'</tr>');
                 });
-                console.log(reusluts);
             }
 
         });

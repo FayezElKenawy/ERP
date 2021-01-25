@@ -70,20 +70,18 @@
 <script>
     $(function () {
         console.log("first");
-        var productrow = $('#productrow');
+        var productrow = $('#TableProducts');
         $.ajax({
             type: "GET",
             url: '/Products/ProductsList', 
             contentType: "application/json; charset=utf-8",
-
             dataType: "json",
-            success: function (reuslut) {
-                reusluts = JSON.parse(reuslut);
+            success: function (reusluts) {
                 $.each(reusluts, function (i, re) {
-                    productrow.append('<td>' + re.id + '</td>');
+                    productrow.append('<tr><td>' + re.id + '</td></tr>');
                     console.log(re.Id);
                 });
-                console.log(reuslut);
+                console.log(reusluts);
             }
 
         });

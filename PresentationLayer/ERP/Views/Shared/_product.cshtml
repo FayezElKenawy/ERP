@@ -4,56 +4,86 @@
     <thead class="thead-light">
         <tr>
             <th>
-                Code
+                <input id="PartCode" placeholder="Part Code" type="text" />
             </th>
             <th>
-                Name Arabic
+                <input id="Name" placeholder="Part Name" type="text" />
             </th>
             <th>
-                Model
+                <input id="Balance" placeholder="Balance" type="text" />
             </th>
             <th>
-                Descritption
+                <input id="Cost" placeholder="Cost" type="text" />
             </th>
             <th>
-                Cost
+                <input id="Price" placeholder="Price" type="text" />
             </th>
             <th>
-                Sale Price
+                <input id="Model" placeholder="Model" type="text" />
             </th>
+
         </tr>
     </thead>
     <tbody id="TableProducts"></tbody>
-    </table>
+</table>
 
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script>
-            $(function () {
-                console.log("first");
-                var productrow = $('#TableProducts');
-                $.ajax({
-                    type: "GET",
-                    url: '/Products/ProductsList',
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (Products) {
-                        $.each(Products, function (key, product) {
-                            productrow.append('<tr>' + '<td>' + product.id + '</td>' +
-                                '<td>' + product.arabicName + '</td>' +
-                                '<td>' + product.model + '</td>' +
-                                '<td>' + product.desc + '</td>' +
-                                '<td>' + product.cost + '</td>' +
-                                '<td>' + product.salePrice + '</td>' +
-                                '<td>' + '<a href="/Products/Edit/' + product.id + '" >' + "Edit" + '</a>' + ' | ' +
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(function () {
+        console.log("first");
+        var productrow = $('#TableProducts');
+        function contain(text1, text2) {
+            if (text1.indexOf(text2) != -1) {
+                return true;
+            }
+        }
 
-                                '<a href="/Products/Delete/' + product.id + '" >' + "Delete" + '</a>' + ' | ' +
-
-                                '<a href="/Products/Details/' + product.id + '" >' + "Details" + '</a>' +
-                                '</td>' + '</tr>');
-                        });
-                    }
-
-                });
+        $('#PartCode').keyup(function () {
+            var text = $('#PartCode').val().toLowerCase();
+            $('#partcod').each(function () {
+                if (!contain($(this).innerText().toLowerCase(), text)) {
+                    $(this).hide();
+                }
+                else {
+                   $(this).show();
+                }
             });
+        });
+        $.ajax({
+            type: "GET",
+            url: '/Products/ProductsList',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (Products) {
 
-        </script>
+                $.each(Products, function (key, product) {
+
+                    productrow.append('<tr>' + '<td id="partcod">' + product.id + '</td>' +
+                        '<td id="">' + product.arabicName + '</td>' +
+                        '<td>' + product.balance + '</td>' +
+                        '<td>' + product.cost + '</td>' +
+                        '<td>' + product.salePrice + '</td>' +
+                        '<td>' + product.model + '</td>' + '</tr>');
+                });
+            }
+
+        });
+
+    });
+
+</script>
+<!--code
+
+
+                            $('#PartCode').keyup(function () {
+                                var text = $('#PartCode').val().toLowerCase();
+                                $('#TableProducts').each(function () {
+                                    if (!contain($(this).val().toLowerCase(), text)) {
+                                        $(this).hide();
+                                    }
+                                    else {
+                                        this.show();
+                                    }
+                                });
+                            });
+-->

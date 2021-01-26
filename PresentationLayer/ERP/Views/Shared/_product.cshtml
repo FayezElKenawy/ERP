@@ -1,9 +1,4 @@
-﻿@model IEnumerable<Domain.Models.Product>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
+﻿
 <table class="table table-bordered">
 
     <thead class="thead-light">
@@ -28,67 +23,37 @@
             </th>
         </tr>
     </thead>
-    <tbody  id="TableProducts">
-        @*@foreach (var item in Model) {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ArabicName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EnglishName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Model)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Desc)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Cost)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SalePrice)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        </td>
-                    </tr>
-            }*@
-    </tbody>
-</table>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script>
-    $(function () {
-        console.log("first");
-        var productrow = $('#TableProducts');
-        $.ajax({
-            type: "GET",
-            url: '/Products/ProductsList',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (Products) {
-                $.each(Products, function (key,product) {
-                    productrow.append('<tr>' + '<td>' + product.id + '</td>' +
-                        '<td>' + product.arabicName + '</td>' +
-                        '<td>' + product.model + '</td>' +
-                        '<td>' + product.desc + '</td>' +
-                        '<td>' + product.cost + '</td>'+
-                        '<td>' + product.salePrice + '</td>' +
-                        '<td>' + '<a href="/Products/Edit/' + product.id + '" >' + "Edit" + '</a>' +' | '+
+    <tbody id="TableProducts"></tbody>
+    </table>
 
-                         '<a href="/Products/Delete/' + product.id + '" >' + "Delete" + '</a>' +' | '+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script>
+            $(function () {
+                console.log("first");
+                var productrow = $('#TableProducts');
+                $.ajax({
+                    type: "GET",
+                    url: '/Products/ProductsList',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (Products) {
+                        $.each(Products, function (key, product) {
+                            productrow.append('<tr>' + '<td>' + product.id + '</td>' +
+                                '<td>' + product.arabicName + '</td>' +
+                                '<td>' + product.model + '</td>' +
+                                '<td>' + product.desc + '</td>' +
+                                '<td>' + product.cost + '</td>' +
+                                '<td>' + product.salePrice + '</td>' +
+                                '<td>' + '<a href="/Products/Edit/' + product.id + '" >' + "Edit" + '</a>' + ' | ' +
 
-                         '<a href="/Products/Details/' + product.id + '" >' + "Details" + '</a>' +
-                        '</td>'+'</tr>');
+                                '<a href="/Products/Delete/' + product.id + '" >' + "Delete" + '</a>' + ' | ' +
+
+                                '<a href="/Products/Details/' + product.id + '" >' + "Details" + '</a>' +
+                                '</td>' + '</tr>');
+                        });
+                    }
+
                 });
-            }
+            });
 
-        });
-    });
-
-</script>
+        </script>

@@ -6,4 +6,60 @@
 
 <h1 class="text-center text-danger">Products List</h1>
 
-<partial name="_product" />
+<table class="table table-bordered">
+
+    <thead class="thead-light">
+        <tr>
+            <th>
+                Code
+            </th>
+            <th>
+                Name Arabic
+            </th>
+            <th>
+                Model
+            </th>
+            <th>
+                Descritption
+            </th>
+            <th>
+                Cost
+            </th>
+            <th>
+                Sale Price
+            </th>
+        </tr>
+    </thead>
+    <tbody id="TableProducts">
+        @foreach (var item in Model) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ArabicName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EnglishName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Model)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Desc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cost)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SalePrice)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+            }
+    </tbody>
+</table>

@@ -1,16 +1,17 @@
-﻿
-@model Domain.ViewModels.InvoiceCustomerViewModel
-<table class="table table-bordered">
+﻿@model Domain.ViewModels.InvoiceCustomerViewModel
+
+
+<table class="table table-bordered" id="pro">
 
     <thead class="thead-light">
         <tr>
             <th>
-                <input id="PartCodeSearch" placeholder="Part Code" type="text" />
+                <input id="PartCodeSearch" onkeyup="myFunction(0,'PartCodeSearch')"  placeholder="Part Code" type="text" />
             </th>
             <th>
-                <input id="Name" placeholder="Part Name" type="text" />
+                <input id="Name" onkeyup="myFunction(1,'Name')" placeholder="Part Name" type="text" />
             </th>
-            <th>
+            @*<th>
                 <input id="Balance" placeholder="Balance" type="text" />
             </th>
             <th>
@@ -21,7 +22,7 @@
             </th>
             <th>
                 <input id="Model" placeholder="Model" type="text" />
-            </th>
+            </th>*@
 
         </tr>
     </thead>
@@ -31,13 +32,13 @@
         @foreach (var item in Model.Products.ToList())
         {
 
-        <tr id="search">
-            <td id="searchpart">@item.Id</td>
+        <tr class="search">
+            <td class="part_code">@item.Id</td>
             <td>@item.ArabicName</td>
-            <td>@item.Balance</td>
+            @*<td>@item.Balance</td>
             <td>@item.Cost</td>
             <td>@item.SalePrice</td>
-            <td>@item.Model</td>
+            <td>@item.Model</td>*@
         </tr>
         }
 
@@ -46,6 +47,29 @@
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script>
+    function myFunction(cell, name) {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById(name);
+        filter = input.value.toUpperCase();
+        table = document.getElementById("pro");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[cell];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+@*<script>
     $(function () {
         function contain(text1, text2) {
             if (text1.indexOf(text2) != -1) {
@@ -54,8 +78,8 @@
         }
         $('#PartCodeSearch').keyup(function () {
             var text = $('#PartCodeSearch').val().toLowerCase();
-            $('#search').each(function () {
-                if (!contain($(this).val().toLowerCase(), text)) {
+            $('.search').each(function () {
+                if (!contain($('.part_code').val().toLowerCase(), text)) {
                     $(this).hide();
                 }
                 else {
@@ -85,7 +109,7 @@
 
     });
 
-</script>
+</script>*@
 <!--code
 
 

@@ -22,7 +22,7 @@ namespace ERP.Controllers
         // GET: Products 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            return View(await _context.Products.AsNoTracking().ToListAsync());
         }
         //Return json products
         /*https://stackoverflow.com/questions/60604161/how-open-popup-dialog-windows-and-save-data-net-core-mvc-via-ajax */

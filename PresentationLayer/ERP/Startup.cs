@@ -18,7 +18,6 @@ using System.Threading.Tasks;
 using Domain.Data;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-
 namespace ERP
 {
     public class Startup
@@ -33,6 +32,7 @@ namespace ERP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -48,11 +48,14 @@ namespace ERP
             services.AddScoped<Irepository<Customer>, CustomersRepository>();
             services.AddScoped<Irepository<SalesInvoice>, SalesReopsitory>();
             services.AddAntiforgery(o => o.HeaderName = "Fayez-Token");
+            services.AddMiniProfiler();
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+           
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -72,7 +75,7 @@ namespace ERP
             app.UseAuthentication();
             app.UseAuthorization();
 
-            
+            app.UseMiniProfiler();
 
             app.UseEndpoints(endpoints =>
             {

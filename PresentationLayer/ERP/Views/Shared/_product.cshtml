@@ -1,10 +1,11 @@
 ﻿
+@model Domain.ViewModels.InvoiceCustomerViewModel
 <table class="table table-bordered">
 
     <thead class="thead-light">
         <tr>
             <th>
-                <input id="PartCode" placeholder="Part Code" type="text" />
+                <input id="PartCodeSearch" placeholder="Part Code" type="text" />
             </th>
             <th>
                 <input id="Name" placeholder="Part Name" type="text" />
@@ -24,24 +25,37 @@
 
         </tr>
     </thead>
-    <tbody id="TableProducts"></tbody>
+    <tbody id="TableProducts">
+        @{
+         }
+        @foreach (var item in Model.Products.ToList())
+        {
+
+        <tr id="search">
+            <td id="searchpart">@item.Id</td>
+            <td>@item.ArabicName</td>
+            <td>@item.Balance</td>
+            <td>@item.Cost</td>
+            <td>@item.SalePrice</td>
+            <td>@item.Model</td>
+        </tr>
+        }
+
+    </tbody>
 </table>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script>
     $(function () {
-        console.log("first");
-        var productrow = $('#TableProducts');
         function contain(text1, text2) {
             if (text1.indexOf(text2) != -1) {
                 return true;
             }
         }
-
-        $('#PartCode').keyup(function () {
-            var text = $('#PartCode').val().toLowerCase();
-            $('#partcod').each(function () {
-                if (!contain($(this).innerText().toLowerCase(), text)) {
+        $('#PartCodeSearch').keyup(function () {
+            var text = $('#PartCodeSearch').val().toLowerCase();
+            $('#search').each(function () {
+                if (!contain($(this).val().toLowerCase(), text)) {
                     $(this).hide();
                 }
                 else {
@@ -49,25 +63,25 @@
                 }
             });
         });
-        $.ajax({
-            type: "GET",
-            url: '/Products/ProductsList',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (Products) {
+        //$.ajax({
+        //    type: "GET",
+        //    url: '/Products/ProductsList',
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    success: function (Products) {
 
-                $.each(Products, function (key, product) {
+        //        $.each(Products, function (key, product) {
 
-                    productrow.append('<tr>' + '<td id="partcod">' + product.id + '</td>' +
-                        '<td id="">' + product.arabicName + '</td>' +
-                        '<td>' + product.balance + '</td>' +
-                        '<td>' + product.cost + '</td>' +
-                        '<td>' + product.salePrice + '</td>' +
-                        '<td>' + product.model + '</td>' + '</tr>');
-                });
-            }
+        //            productrow.append('<tr id="search">' + '<td id="partcod">' + product.id + '</td>' +
+        //                '<td id="">' + product.arabicName + '</td>' +
+        //                '<td>' + product.balance + '</td>' +
+        //                '<td>' + product.cost + '</td>' +
+        //                '<td>' + product.salePrice + '</td>' +
+        //                '<td>' + product.model + '</td>' + '</tr>');
+        //        });
+        //    }
 
-        });
+        //});
 
     });
 

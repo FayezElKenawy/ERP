@@ -2,44 +2,44 @@
 
 
 <table class="table table-bordered" id="pro">
-
+    <mini-profiler />
     <thead class="thead-light">
         <tr>
             <th>
-                <input id="PartCodeSearch" onkeyup="myFunction(0,'PartCodeSearch')"  placeholder="Part Code" type="text" />
+                <input id="PartCodeSearch" onkeyup="myFunction(0,'PartCodeSearch')" placeholder="Part Code" type="text" />
             </th>
             <th>
                 <input id="Name" onkeyup="myFunction(1,'Name')" placeholder="Part Name" type="text" />
             </th>
             @*<th>
-                <input id="Balance" placeholder="Balance" type="text" />
-            </th>
-            <th>
-                <input id="Cost" placeholder="Cost" type="text" />
-            </th>
-            <th>
-                <input id="Price" placeholder="Price" type="text" />
-            </th>
-            <th>
-                <input id="Model" placeholder="Model" type="text" />
-            </th>*@
+                    <input id="Balance" placeholder="Balance" type="text" />
+                </th>
+                <th>
+                    <input id="Cost" placeholder="Cost" type="text" />
+                </th>
+                <th>
+                    <input id="Price" placeholder="Price" type="text" />
+                </th>
+                <th>
+                    <input id="Model" placeholder="Model" type="text" />
+                </th>*@
 
         </tr>
     </thead>
     <tbody id="TableProducts">
         @{
-         }
+        }
         @foreach (var item in Model.Products.ToList())
         {
 
-        <tr class="search">
-            <td class="part_code">@item.Id</td>
-            <td>@item.ArabicName</td>
-            @*<td>@item.Balance</td>
-            <td>@item.Cost</td>
-            <td>@item.SalePrice</td>
-            <td>@item.Model</td>*@
-        </tr>
+            <tr class="search">
+                <td class="part_code">@item.Id</td>
+                <td>@item.ArabicName</td>
+                @*<td>@item.Balance</td>
+                    <td>@item.Cost</td>
+                    <td>@item.SalePrice</td>
+                    <td>@item.Model</td>*@
+            </tr>
         }
 
     </tbody>

@@ -10,12 +10,12 @@
 <hr />
 <div class="row">
     <!-- Large modal -->
-   
+
 
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <partial name="_product" model="Model"/>
+                <partial name="_product" model="Model" />
             </div>
         </div>
     </div>
@@ -33,7 +33,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="InvoiceDate" class="control-label"></label>
-                <input asp-for="InvoiceDate" class="form-control" />
+                <input asp-for="InvoiceDate" class="form-control mydatepicker">
                 <span asp-validation-for="InvoiceDate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -84,11 +84,37 @@
     </div>
 </div>
 
-<script>
-    $('#myModal').on('shown.bs.modal', function () {
-        $('#myInput').trigger('fucus')
-    });
-</script>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('fucus')
+        });
+        $(function () { // will trigger when the document is ready
+            //Initialise all datepickers whose class name are mydatepicker
+            // Display them with a button which containes a small calendar icon.
+            $(".mydatepicker")
+                .wrap('<div class="form-group">')
+                .datepicker({
+                    dateFormat: "dd.mm.yy",
+                    changeYear: true,
+                    yearRange: "-70:+0",//year selection is possible from starting 70 years before now
+                    showOn: "both"
+                })
+                .next("button").button({
+                    icons: { primary: "ui-icon-calendar" },
+                    label: "Select Date",
+                    text: false
+                })
+                .addClass("btn btn-default")
+                .wrap('<span class="form-group-btn">')
+                .find('.ui-button-text')
+                .css({
+                    'visibility': 'hidden',
+                    'display': 'inline'
+                });
+        });
+    </script>
 }

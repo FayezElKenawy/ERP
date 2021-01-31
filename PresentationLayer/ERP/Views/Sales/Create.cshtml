@@ -23,7 +23,7 @@
     <div>
         <a asp-action="Index">Back to List</a>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-8">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -33,7 +33,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="InvoiceDate" class="control-label"></label>
-                <input asp-for="InvoiceDate" class="form-control mydatepicker">
+                <input asp-for="InvoiceDate" id="datepicker" type="text" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="InvoiceDate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -77,9 +77,53 @@
                 <input asp-for="ProductId" class="form-control" data-toggle="modal" data-target=".bd-example-modal-lg" />
                 <span asp-validation-for="ProductId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+           
+            
+                
+                    <table class="inventory">
+                        <thead>
+                            <tr>
+                                <th><span contenteditable>Item</span></th>
+                                <th><span contenteditable>Description</span></th>
+                                <th><span contenteditable>Rate</span></th>
+                                <th><span contenteditable>Quantity</span></th>
+                                <th><span contenteditable>Price</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a class="cut">-</a><span contenteditable>Front End Consultation</span></td>
+                                <td><span contenteditable>Experience Review</span></td>
+                                <td><span data-prefix>$</span><span contenteditable>150.00</span></td>
+                                <td><span contenteditable>4</span></td>
+                                <td><span data-prefix>$</span><span>600.00</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="add">+</a>
+                    <table class="balance">
+                        <tr>
+                            <th><span contenteditable>Total</span></th>
+                            <td><span data-prefix>$</span><span>600.00</span></td>
+                        </tr>
+                        <tr>
+                            <th><span contenteditable>Amount Paid</span></th>
+                            <td><span data-prefix>$</span><span contenteditable>0.00</span></td>
+                        </tr>
+                        <tr>
+                            <th><span contenteditable>Balance Due</span></th>
+                            <td><span data-prefix>$</span><span>600.00</span></td>
+                        </tr>
+                    </table>
+                <aside>
+                    <h1><span contenteditable>Additional Notes</span></h1>
+                    <div contenteditable>
+                        <p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
+                    </div>
+                </aside>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
         </form>
     </div>
 </div>
@@ -87,34 +131,228 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        $('#myModal').on('shown.bs.modal', function () {
-            $('#myInput').trigger('fucus')
+        $(function () {
+            $("#datepicker").datepicker();
         });
-        $(function () { // will trigger when the document is ready
-            //Initialise all datepickers whose class name are mydatepicker
-            // Display them with a button which containes a small calendar icon.
-            $(".mydatepicker")
-                .wrap('<div class="form-group">')
-                .datepicker({
-                    dateFormat: "dd.mm.yy",
-                    changeYear: true,
-                    yearRange: "-70:+0",//year selection is possible from starting 70 years before now
-                    showOn: "both"
-                })
-                .next("button").button({
-                    icons: { primary: "ui-icon-calendar" },
-                    label: "Select Date",
-                    text: false
-                })
-                .addClass("btn btn-default")
-                .wrap('<span class="form-group-btn">')
-                .find('.ui-button-text')
-                .css({
-                    'visibility': 'hidden',
-                    'display': 'inline'
-                });
-        });
+
+        /* Prototyping
+        /* ========================================================================== */
+
+        (function (window, ElementPrototype, ArrayPrototype, polyfill) {
+            function NodeList() { [polyfill] }
+            NodeList.prototype.length = ArrayPrototype.length;
+
+            ElementPrototype.matchesSelector = ElementPrototype.matchesSelector ||
+                ElementPrototype.mozMatchesSelector ||
+                ElementPrototype.msMatchesSelector ||
+                ElementPrototype.oMatchesSelector ||
+                ElementPrototype.webkitMatchesSelector ||
+                function matchesSelector(selector) {
+                    return ArrayPrototype.indexOf.call(this.parentNode.querySelectorAll(selector), this) > -1;
+                };
+
+            ElementPrototype.ancestorQuerySelectorAll = ElementPrototype.ancestorQuerySelectorAll ||
+                ElementPrototype.mozAncestorQuerySelectorAll ||
+                ElementPrototype.msAncestorQuerySelectorAll ||
+                ElementPrototype.oAncestorQuerySelectorAll ||
+                ElementPrototype.webkitAncestorQuerySelectorAll ||
+                function ancestorQuerySelectorAll(selector) {
+                    for (var cite = this, newNodeList = new NodeList; cite = cite.parentElement;) {
+                        if (cite.matchesSelector(selector)) ArrayPrototype.push.call(newNodeList, cite);
+                    }
+
+                    return newNodeList;
+                };
+
+            ElementPrototype.ancestorQuerySelector = ElementPrototype.ancestorQuerySelector ||
+                ElementPrototype.mozAncestorQuerySelector ||
+                ElementPrototype.msAncestorQuerySelector ||
+                ElementPrototype.oAncestorQuerySelector ||
+                ElementPrototype.webkitAncestorQuerySelector ||
+                function ancestorQuerySelector(selector) {
+                    return this.ancestorQuerySelectorAll(selector)[0] || null;
+                };
+        })(this, Element.prototype, Array.prototype);
+
+        /* Helper Functions
+        /* ========================================================================== */
+
+        function generateTableRow() {
+            var emptyColumn = document.createElement('tr');
+
+            emptyColumn.innerHTML = '<td><a class="cut">-</a><span contenteditable></span></td>' +
+                '<td><span contenteditable></span></td>' +
+                '<td><span data-prefix>$</span><span contenteditable>0.00</span></td>' +
+                '<td><span contenteditable>0</span></td>' +
+                '<td><span data-prefix>$</span><span>0.00</span></td>';
+
+            return emptyColumn;
+        }
+
+        function parseFloatHTML(element) {
+            return parseFloat(element.innerHTML.replace(/[^\d\.\-]+/g, '')) || 0;
+        }
+
+        function parsePrice(number) {
+            return number.toFixed(2).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1,');
+        }
+
+        /* Update Number
+        /* ========================================================================== */
+
+        function updateNumber(e) {
+            var
+                activeElement = document.activeElement,
+                value = parseFloat(activeElement.innerHTML),
+                wasPrice = activeElement.innerHTML == parsePrice(parseFloatHTML(activeElement));
+
+            if (!isNaN(value) && (e.keyCode == 38 || e.keyCode == 40 || e.wheelDeltaY)) {
+                e.preventDefault();
+
+                value += e.keyCode == 38 ? 1 : e.keyCode == 40 ? -1 : Math.round(e.wheelDelta * 0.05);
+                value = Math.max(value, 0);
+
+                activeElement.innerHTML = wasPrice ? parsePrice(value) : value;
+            }
+
+            updateInvoice();
+        }
+
+        /* Update Invoice
+        /* ========================================================================== */
+
+        function updateInvoice() {
+            var total = 0;
+            var cells, price, total, a, i;
+
+            // update inventory cells
+            // ======================
+
+            for (var a = document.querySelectorAll('table.inventory tbody tr'), i = 0; a[i]; ++i) {
+                // get inventory row cells
+                cells = a[i].querySelectorAll('span:last-child');
+
+                // set price as cell[2] * cell[3]
+                price = parseFloatHTML(cells[2]) * parseFloatHTML(cells[3]);
+
+                // add price to total
+                total += price;
+
+                // set row total
+                cells[4].innerHTML = price;
+            }
+
+            // update balance cells
+            // ====================
+
+            // get balance cells
+            cells = document.querySelectorAll('table.balance td:last-child span:last-child');
+
+            // set total
+            cells[0].innerHTML = total;
+
+            // set balance and meta balance
+            cells[2].innerHTML = document.querySelector('table.meta tr:last-child td:last-child span:last-child').innerHTML = parsePrice(total - parseFloatHTML(cells[1]));
+
+            // update prefix formatting
+            // ========================
+
+            var prefix = document.querySelector('#prefix').innerHTML;
+            for (a = document.querySelectorAll('[data-prefix]'), i = 0; a[i]; ++i) a[i].innerHTML = prefix;
+
+            // update price formatting
+            // =======================
+
+            for (a = document.querySelectorAll('span[data-prefix] + span'), i = 0; a[i]; ++i) if (document.activeElement != a[i]) a[i].innerHTML = parsePrice(parseFloatHTML(a[i]));
+        }
+
+        /* On Content Load
+        /* ========================================================================== */
+
+        function onContentLoad() {
+            updateInvoice();
+
+            var
+                input = document.querySelector('input'),
+                image = document.querySelector('img');
+
+            function onClick(e) {
+                var element = e.target.querySelector('[contenteditable]'), row;
+
+                element && e.target != document.documentElement && e.target != document.body && element.focus();
+
+                if (e.target.matchesSelector('.add')) {
+                    document.querySelector('table.inventory tbody').appendChild(generateTableRow());
+                }
+                else if (e.target.className == 'cut') {
+                    row = e.target.ancestorQuerySelector('tr');
+
+                    row.parentNode.removeChild(row);
+                }
+
+                updateInvoice();
+            }
+
+            function onEnterCancel(e) {
+                e.preventDefault();
+
+                image.classList.add('hover');
+            }
+
+            function onLeaveCancel(e) {
+                e.preventDefault();
+
+                image.classList.remove('hover');
+            }
+
+            function onFileInput(e) {
+                image.classList.remove('hover');
+
+                var
+                    reader = new FileReader(),
+                    files = e.dataTransfer ? e.dataTransfer.files : e.target.files,
+                    i = 0;
+
+                reader.onload = onFileLoad;
+
+                while (files[i]) reader.readAsDataURL(files[i++]);
+            }
+
+            function onFileLoad(e) {
+                var data = e.target.result;
+
+                image.src = data;
+            }
+
+            if (window.addEventListener) {
+                document.addEventListener('click', onClick);
+
+                document.addEventListener('mousewheel', updateNumber);
+                document.addEventListener('keydown', updateNumber);
+
+                document.addEventListener('keydown', updateInvoice);
+                document.addEventListener('keyup', updateInvoice);
+
+                input.addEventListener('focus', onEnterCancel);
+                input.addEventListener('mouseover', onEnterCancel);
+                input.addEventListener('dragover', onEnterCancel);
+                input.addEventListener('dragenter', onEnterCancel);
+
+                input.addEventListener('blur', onLeaveCancel);
+                input.addEventListener('dragleave', onLeaveCancel);
+                input.addEventListener('mouseout', onLeaveCancel);
+
+                input.addEventListener('drop', onFileInput);
+                input.addEventListener('change', onFileInput);
+            }
+        }
+
+        window.addEventListener && document.addEventListener('DOMContentLoaded', onContentLoad);
+
     </script>
 }

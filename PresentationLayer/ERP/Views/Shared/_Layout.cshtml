@@ -6,8 +6,8 @@
     <title>@ViewData["Title"] - ERP</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    @await RenderSectionAsync("styles", required: false)
 
-   
 </head>
 <body>
     <mini-profiler />

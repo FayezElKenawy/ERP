@@ -69,3 +69,25 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.invoiceid {
+    width: 78px;
+    height: 20px;
+    /* left: 12px; */
+    position: absolute;
+    top: 4px;
+    left: 100px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 500;
+}
+
+.lblid {
+    /* margin-top: 72px; */
+    float: none;
+    /* margin-top: 32px; */
+    position: absolute;
+    top: 3px;
+    background-color: bisque;
+    padding: 5px;
+}

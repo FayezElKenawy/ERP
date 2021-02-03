@@ -1,25 +1,43 @@
-﻿.invoicebody
-{
-    background-color:aliceblue;
-    display:inline-block
+﻿.invoicebody {
+    background-color: aliceblue;
+    display: inline-block
 }
-.invoiceid {
-    width: 78px;
-    height: 20px;
-    /* left: 12px; */
-    position: absolute;
-    top: 4px;
-    left: 100px;
+.topheader  {
+    margin-left: 35px;
+    margin-top: 54px;
+}
+.topheader > div > input {
+    width: 160px;
+    height: 35px;
     text-align: center;
     font-size: 26px;
     font-weight: 500;
+    top: -39px;
+    position: absolute;
 }
-.lblid {
+
+.invoiceid {
+    left: 100px;
+}
+
+.lblid, .lbldatepicker, .lblinvoicetype {
+    position: absolute;
     /* margin-top: 72px; */
     float: none;
-    /* margin-top: 32px; */
-    position: absolute;
-    top: 3px;
+    /* margin-top: 32px;*/
+    top: -38px;
     background-color: bisque;
     padding: 5px;
+    left: 7px;
+    border-radius: 8%;
+    margin:0 5px 0 5px;
+}
+.lbldatepicker{
+
+}
+.datepicker {
+    LEFT: 108PX;
+}
+.invoicetype{
+left:150px;
 }

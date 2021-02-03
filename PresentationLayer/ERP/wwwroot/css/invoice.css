@@ -17,7 +17,7 @@
 }
 
 .invoiceid {
-    left: 100px;
+    left: 107px;
 }
 
 .lblid, .lbldatepicker, .lblinvoicetype {
@@ -28,15 +28,16 @@
     top: -38px;
     background-color: bisque;
     padding: 5px;
-    left: 7px;
     border-radius: 8%;
-    margin:0 5px 0 5px;
 }
 .lbldatepicker{
-
+left:20px;
+}
+.lblinvoicetype{
+    left:45px;;
 }
 .datepicker {
-    LEFT: 108PX;
+    LEFT: 125PX;
 }
 .invoicetype{
 left:150px;

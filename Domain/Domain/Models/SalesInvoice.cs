@@ -10,6 +10,8 @@ namespace Domain.Models
 {
     public class SalesInvoice : BaseDataClass
     {
+        public int InvoiceId { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime InvoiceDate { get; set; }
         public double InvoiceTotal { get; set; }
         public double InvoiceDiscount { get; set; }

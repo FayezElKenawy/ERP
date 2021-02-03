@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+@section styles{ }
 <h1>Index</h1>
 
 <p>
@@ -61,9 +61,9 @@
                     @Html.DisplayFor(modelItem => item.InvoiceChange)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">E</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Info</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Del</a>
                 </td>
             </tr>
         }

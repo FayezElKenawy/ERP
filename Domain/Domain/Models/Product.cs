@@ -9,6 +9,7 @@ namespace Domain.Models
 {
     public class Product :BaseDataClass
     {
+        public int ProductId { get; set; }
         public string ArabicName { get; set; }
         public string EnglishName { get; set; }
         public string Model { get; set; }

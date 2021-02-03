@@ -112,5 +112,12 @@ namespace ERP.Controllers
                 return View();
             }
         }
+        public int GenerateId()
+        {
+
+           
+            int id = 0;
+            return id;
+        }
     }
 }

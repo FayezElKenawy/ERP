@@ -39,6 +39,11 @@ namespace Infra.Repositories
             return context.Customers.ToList();
         }
 
+        public string MaxId()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Customer> Search(string term)
         {
             throw new NotImplementedException();

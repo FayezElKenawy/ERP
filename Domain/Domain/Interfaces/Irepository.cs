@@ -12,5 +12,6 @@ namespace Domain.Interfaces
         void Update(int id, TEntity entity);
         void Delete(int id);
         List<TEntity> Search(string term);
+        string MaxId();
     }
 }

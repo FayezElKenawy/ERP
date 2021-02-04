@@ -19,6 +19,7 @@ namespace ERP.Controllers
             _context = context;
         }
 
+
         // GET: Customers
         public async Task<IActionResult> Index()
         {

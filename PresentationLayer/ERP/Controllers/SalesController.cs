@@ -38,9 +38,10 @@ namespace ERP.Controllers
         }
 
         // GET: SalesController/Create
+
         public ActionResult Create()
         {
-
+            ViewBag.InvoiceId = (int.Parse(salesRepo.MaxId()) + 1).ToString();
             var model = new InvoiceCustomerViewModel
             {
                 Customers = CustomerRepo.List().ToList(),
@@ -63,7 +64,7 @@ namespace ERP.Controllers
                     SalesPrice=details.SalesPrice
                 };
                 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Create));
             }
             catch
             {
@@ -111,13 +112,6 @@ namespace ERP.Controllers
             {
                 return View();
             }
-        }
-        public int GenerateId()
-        {
-
-           
-            int id = 0;
-            return id;
         }
     }
 }

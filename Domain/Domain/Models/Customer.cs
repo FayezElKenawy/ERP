@@ -8,7 +8,7 @@ namespace Domain.Models
 {
     public class Customer :BaseDataClass
     {
-        public int CustID { get; set; }
+        public string CustID { get; set; }
         public string CustArName { get; set; }
         public string CustEnName { get; set; }
         public string CustMobileNo { get; set; }

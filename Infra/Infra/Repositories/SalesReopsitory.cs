@@ -39,6 +39,12 @@ namespace Infra.Repositories
             return context.SalesInvoices.ToList();
         }
 
+        public string MaxId()
+        {
+            string id = context.SalesInvoices.Max(i => i.InvoiceId).ToString();
+            return id;
+        }
+
         public List<SalesInvoice> Search(string term)
         {
             throw new NotImplementedException();

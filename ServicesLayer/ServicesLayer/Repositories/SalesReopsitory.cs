@@ -7,51 +7,52 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infra.Repositories
+namespace ServicesLayer.Repositories
 {
-    public class CustomersRepository : Irepository<Customer>
+    public class SalesReopsitory : Irepository<SalesInvoice>
     {
         private readonly ApplicationDbContext context;
 
-        public CustomersRepository(ApplicationDbContext context)
+        public SalesReopsitory(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public void Add(Customer entity)
+        public void Add(SalesInvoice entity)
         {
-            context.Customers.Add(entity);
+            context.SalesInvoices.Add(entity);
             context.SaveChanges();
         }
-
         public void Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Customer Find(int id)
+        public SalesInvoice Find(int id)
         {
-            return context.Customers.FirstOrDefault(c => c.Id == id);
+            throw new NotImplementedException();
         }
 
-        public IList<Customer> List()
+        public IList<SalesInvoice> List()
         {
-            return context.Customers.ToList();
+            return context.SalesInvoices.ToList();
         }
 
         public string MaxId()
         {
-            throw new NotImplementedException();
+            string id = context.SalesInvoices.Max(i => i.InvoiceId).ToString();
+            return id;
         }
 
-        public List<Customer> Search(string term)
+        public List<SalesInvoice> Search(string term)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(int id, Customer entity)
+        public void Update(int id, SalesInvoice entity)
         {
             throw new NotImplementedException();
         }
+
     }
 }

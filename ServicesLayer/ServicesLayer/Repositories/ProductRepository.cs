@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Infra.Repositories
+namespace ServicesLayer.Repositories
 {
     public class ProductRepository : Irepository<Product>
     {

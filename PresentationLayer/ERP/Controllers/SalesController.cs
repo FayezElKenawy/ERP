@@ -15,13 +15,14 @@ namespace ERP.Controllers
         private readonly Irepository<Product> productRepo;
         private readonly Irepository<Customer> CustomerRepo;
         private readonly Irepository<SalesInvoice> salesRepo;
-      
+        private readonly Irepository<SalesDetails> detailrepo;
 
-        public SalesController(Irepository<Product> productRepo, Irepository<Customer> customerRepo, Irepository<SalesInvoice> salesRepo)
+        public SalesController(Irepository<Product> productRepo, Irepository<Customer> customerRepo, Irepository<SalesInvoice> salesRepo, Irepository<SalesDetails> detailrepo)
         {
             this.productRepo = productRepo;
             CustomerRepo = customerRepo;
             this.salesRepo = salesRepo;
+            this.detailrepo = detailrepo;
         }
 
         // GET: SalesController
@@ -41,7 +42,8 @@ namespace ERP.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.InvoiceId = (int.Parse(salesRepo.MaxId()) + 1).ToString();
+            int id = int.Parse(salesRepo.MaxId());
+            ViewBag.InvoiceId = (id + 1).ToString();
             var model = new InvoiceCustomerViewModel
             {
                 Customers = CustomerRepo.List().ToList(),
@@ -59,15 +61,17 @@ namespace ERP.Controllers
                 salesRepo.Add(collection);
                 var model = new SalesDetails
                 {
+                    InvoiceId=details.InvoiceId,
                     ProductID=details.ProductID,
                     Quantity=details.Quantity,
                     SalesPrice=details.SalesPrice
                 };
-                
+                detailrepo.Add(model);
                 return RedirectToAction(nameof(Create));
             }
             catch
             {
+                
                 return View();
             }
         }

@@ -13,11 +13,12 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Infra.Repositories;
 using System.Threading.Tasks;
 using Domain.Data;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using ServicesLayer.Repositories;
+
 namespace ERP
 {
     public class Startup
@@ -47,6 +48,7 @@ namespace ERP
             services.AddScoped<Irepository<Product>, ProductRepository>();
             services.AddScoped<Irepository<Customer>, CustomersRepository>();
             services.AddScoped<Irepository<SalesInvoice>, SalesReopsitory>();
+            services.AddScoped<Irepository<SalesDetails>, SalesDetailsRepsitory>();
             services.AddAntiforgery(o => o.HeaderName = "Fayez-Token");
             services.AddMiniProfiler();
           

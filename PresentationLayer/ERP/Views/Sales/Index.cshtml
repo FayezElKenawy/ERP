@@ -9,9 +9,10 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-bordered ">
+<table class="table ">
     <thead class="thead-light">
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.InvoiceDate)
             </th>
@@ -33,12 +34,23 @@
             <th>
                 @Html.DisplayNameFor(model => model.InvoiceChange)
             </th>
+            <th></th>
         </tr>
+        <tr></tr>
     </thead>
-    <tbody>
+    <tbody id="accordion">
         @foreach (var item in Model)
         {
             <tr>
+                <td id="headingOne">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <i class="icon-info-sign icon-large"></i>
+                            </button>
+                        </h5>
+                    </div>
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.InvoiceDate)
                 </td>
@@ -61,11 +73,19 @@
                     @Html.DisplayFor(modelItem => item.InvoiceChange)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">E</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Info</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Del</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="icon-edit icon-large text-primary"></i> |</a>
+                    <a asp-action="Details" asp-route-id="@item.Id"><i class="icon-info-sign icon-large"></i> |</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><i class="icon-trash icon-large text-danger"></i></a>
                 </td>
             </tr>
+            <tr>
+                <div id="collapseOne" class="collapse collapsed" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                </div>
+            </tr>
+
         }
     </tbody>
 </table>

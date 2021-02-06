@@ -42,7 +42,7 @@ namespace ERP.Controllers
 
         public ActionResult Create()
         {
-            int id = int.Parse(salesRepo.MaxId());
+            var id = int.Parse(salesRepo.MaxId());
             ViewBag.InvoiceId = (id + 1).ToString();
             var model = new InvoiceCustomerViewModel
             {

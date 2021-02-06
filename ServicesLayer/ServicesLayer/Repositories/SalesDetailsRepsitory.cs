@@ -21,6 +21,7 @@ namespace ServicesLayer.Repositories
         public void Add(SalesDetails entity)
         {
              _context.SalesDetails.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)

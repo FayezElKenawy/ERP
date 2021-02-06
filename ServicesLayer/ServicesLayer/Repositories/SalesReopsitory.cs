@@ -40,8 +40,19 @@ namespace ServicesLayer.Repositories
 
         public string MaxId()
         {
-            string id = context.SalesInvoices.Max(i => i.InvoiceId).ToString();
-            return id;
+            try
+            {
+                string id = context.SalesInvoices.Max(i => i.InvoiceId).ToString();
+                return id;
+            }
+            catch (Exception)
+            {
+
+                return "0";
+            }
+            
+
+            
         }
 
         public List<SalesInvoice> Search(string term)

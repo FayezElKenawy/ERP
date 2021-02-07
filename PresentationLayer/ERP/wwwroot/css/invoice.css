@@ -68,33 +68,42 @@
 }
 
 .caret {
-    background: aquamarine;
+    background: bisque;
     border-radius: 10px;
     font-size: 22px;
     height: 30px;
     position: absolute;
     pointer-events: none;
-    right: -10px;
+    right: 340px;
     text-align: center;
-    top: 5px;
+    top: -36px;
     width: 30px;
 }
 
-
-
+    .caret:after {
+        content: "➜";
+        position: absolute;
+        right: 3px;
+        top: 0;
+        transform: rotate(90deg);
+    }
 
 .searchable-dropdown input {
-    background: rgba(0, 0, 0, 0.1);
-    border: 0;
-    border-radius: 10px;
-    font-size: 26px;
-    margin: 0;
-    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.1) !important;
+    border: 0 !important;
+    border-radius: 10px !important;
+    font-size: 26px !important;
+    margin: 0 !important;
+    padding: 5px 10px !important;
     width: 100% !important;
+    max-height: 36px;
+    left: -326px;
+    text-align:left !important;
+    font-weight:100 !important;
 }
 
 .searchable-dropdown ul {
-    background: rgba(0, 0, 0, 0.1);
+    background-color:white;
     border-radius: 10px;
     display: none;
     max-height: 200px;
@@ -102,14 +111,24 @@
     margin: 0;
     overflow-y: auto;
     padding: 10px;
+    right: 329px;
     position: absolute;
-    top: 45px;
+    top: -3px;
     width: 100%;
 }
 
+.active ul {
+    display: block;
+}
 
 .searchable-dropdown ul li {
     font-size: 18px;
     padding: 10px;
 }
 
+    .searchable-dropdown ul li:hover {
+        background: aquamarine;
+        cursor: pointer;
+    }
+
+/*End Customer Search*/

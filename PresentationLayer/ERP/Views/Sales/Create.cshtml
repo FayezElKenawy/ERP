@@ -47,13 +47,13 @@
                 <span asp-validation-for="InvoiceType" class="text-danger "></span>
             </div>
             <div class="searchable-dropdown js-searchable-dropdown">
-                <input type="text" name="text" class="js-searchable-dropdown-input" placeholder="Type something...">
-               
+                <input type="text" name="text" class="js-searchable-dropdown-input" placeholder="Customer Name" autocomplete="off">
+                <span class="caret"></span>
                 <ul class="js-searchable-dropdown-list">
                     @foreach (var item in Model.Customers)
                     {
                         <li class="js-searchable-dropdown-list-item" data-search-value="@item.CustArName">@item.CustArName</li>
-                        https://codepen.io/plestik/pen/EvRQdy
+                        /*codepen.io/plestik/pen/EvRQdy */
                     }
 
                     <li class="js-list-empty">Nothing found..</li>
@@ -114,7 +114,7 @@
         $(function () {
             $("#datepicker").datepicker();
         });
-
+        //customer search
         $('.js-searchable-dropdown-input')
             .on('focus', function (e) {
                 $('.js-searchable-dropdown').addClass('active');
@@ -148,5 +148,6 @@
         $('.js-searchable-dropdown-list-item').on('click', function () {
             $('.js-searchable-dropdown-input').val($(this).text());
         })
+
     </script>
 }

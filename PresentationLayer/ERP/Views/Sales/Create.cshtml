@@ -28,8 +28,8 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group topheader">
             <div class="d-md-inline-block border-danger col-md-3">
-                <label  class="control-label lblid">Invoice No</label>
-                <input asp-for="InvoiceId" type="text" value="@ViewBag.InvoiceId" class="form-control invoiceid" readonly/>
+                <label class="control-label lblid">Invoice No</label>
+                <input asp-for="InvoiceId" type="text" value="@ViewBag.InvoiceId" class="form-control invoiceid" readonly />
                 <span asp-validation-for="InvoiceId" class="text-danger "></span>
             </div>
             <div class="d-inline-block col-md-3">
@@ -46,19 +46,24 @@
                 </select>
                 <span asp-validation-for="InvoiceType" class="text-danger "></span>
             </div>
-            <div class="d-inline-block col-md-3">
-                <!--label class="control-label lblcust">Customer</!--label>-->
-                @*<input asp-for="CustId" class="form-control" />*@
-                <select asp-for="CustId" class="form-control select cust" id="custselect"
-                        asp-items="@(new SelectList(Model.Customers,"Id","CustArName"))"></select>
-                <span asp-validation-for="CustId" class="text-danger "></span>
+            <div class="searchable-dropdown js-searchable-dropdown">
+                <input type="text" name="text" class="js-searchable-dropdown-input" placeholder="Type something...">
+               
+                <ul class="js-searchable-dropdown-list">
+                    @foreach (var item in Model.Customers)
+                    {
+                        <li class="js-searchable-dropdown-list-item" data-search-value="@item.CustArName">@item.CustArName</li>
+                        https://codepen.io/plestik/pen/EvRQdy
+                    }
+
+                    <li class="js-list-empty">Nothing found..</li>
+                </ul>
             </div>
         </div>
 
         <div class="form-group invoicebody">
             <div>
-                <label asp-for="ProductId" class="control-label "></label>
-                <input asp-for="ProductId" class="form-control " type="text" data-toggle="modal" data-target=".bd-example-modal-lg" />
+                <input asp-for="ProductId" class="form-control text-center" type="text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder="Part Code" />
                 <span asp-validation-for="ProductId" class="text-danger "></span>
             </div>
         </div>
@@ -110,5 +115,38 @@
             $("#datepicker").datepicker();
         });
 
+        $('.js-searchable-dropdown-input')
+            .on('focus', function (e) {
+                $('.js-searchable-dropdown').addClass('active');
+                $('.js-list-empty').hide();
+            })
+            .on('blur', function (e) {
+                setTimeout(function () {
+                    $('.js-searchable-dropdown').removeClass('active');
+                }, 150);
+            })
+            .on('keyup', function (e) {
+                var _v = $(this).val().toLowerCase();
+                var _ul = $('.js-searchable-dropdown-list');
+                var _empty = $('.js-list-empty');
+
+                _ul.find('li').show();
+
+                if (_v !== '') {
+                    _ul.find('li[data-search-value*="' + _v + '"]').show();
+                    _ul.find('li:not([data-search-value*="' + _v + '"])').hide();
+                }
+
+                if (_ul.find('li:visible').length > 0) {
+                    _empty.hide();
+                }
+                else {
+                    _empty.show();
+                }
+            });
+
+        $('.js-searchable-dropdown-list-item').on('click', function () {
+            $('.js-searchable-dropdown-input').val($(this).text());
+        })
     </script>
 }

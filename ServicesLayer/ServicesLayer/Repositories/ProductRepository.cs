@@ -28,7 +28,8 @@ namespace ServicesLayer.Repositories
 
         public Product Find(int id)
         {
-            throw new NotImplementedException();
+            var pro=context.Products.Find(id);
+            return pro;
         }
 
         public IList<Product> List()

@@ -54,25 +54,28 @@ namespace ERP.Controllers
         // POST: SalesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SalesInvoice collection,SalesDetails details)
+        public ActionResult Create(SalesInvoice collection,[Bind("ProductID,Quantity,SalesPrice,Total,discount")] SalesDetails details)
         {
             try
             {
                 salesRepo.Add(collection);
                 var model = new SalesDetails
                 {
-                    InvoiceId=details.InvoiceId,
-                    ProductID=details.ProductID,
-                    Quantity=details.Quantity,
-                    SalesPrice=details.SalesPrice
-                };
+                    InvoiceId = int.Parse(collection.InvoiceId),
+                    ProductID = details.ProductID,
+                    Quantity = details.Quantity,
+                    SalesPrice = details.SalesPrice,
+                    Total = details.Total,
+                    discount = details.discount,
+                    Cost= productRepo.Find(details.ProductID).Cost//get cost of product
+            };
                 detailrepo.Add(model);
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
                 
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
 

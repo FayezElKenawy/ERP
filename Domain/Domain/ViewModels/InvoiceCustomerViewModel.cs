@@ -18,6 +18,7 @@ namespace Domain.ViewModels
         public int ProductId { get; set; }
         public List<Product> Products { get; set; }
         public List<Customer> Customers { get; set; }
-        public List<SalesInvoice> Invoices { get; set; }
+        public SalesInvoice Invoices { get; set; }
+        public SalesDetails Details { get; set; }
     }
 }

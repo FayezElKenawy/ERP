@@ -61,32 +61,24 @@
         </div>
 
         <div class="form-group invoicebody">
-            <div class="partcode">
-                <input asp-for="Details.ProductID" class="form-control text-center " type="text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder="Part Code" />
-                <span asp-validation-for="ProductId" class="text-danger "></span>
+            <table class="invoicetable">
+                <tr>
+                    <td class="partcode">
+                        <input asp-for="Details.ProductID" class="form-control text-center " onclick="generateTableRow();" type="text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder="Part Code" />
+                        <span asp-validation-for="ProductId" class="text-danger "></span>
+                    </td>
+                    <td class="partName"><input class="form-control text-center" disabled placeholder="Part Name" /> </td>
+                    <td class="quantity inv"> <input asp-for="Details.Quantity" id="Quantity" class="form-control text-center" autocomplete="off" placeholder="Quantity" /> </td>
+                    <td class="price inv"> <input asp-for="Details.SalesPrice" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>
+                    <td class="discount inv"><input asp-for="Details.discount" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>
+                    <td class="total inv"><input asp-for="Details.Total" class="form-control text-center" autocomplete="off" placeholder="Total" /></td>
+                    <td class="vatamount inv"><input asp-for="Details.VatAmount" class="form-control text-center" autocomplete="off" placeholder="Vat" /></td>
+                    <td class="totalvat inv"><input asp-for="Details.TotalWithVat" class="form-control text-center" autocomplete="off" placeholder="Net Total" /></td>
+                </tr>
+            </table>
+
             </div>
-            <div class="partName">
-                <input id="partName" class="form-control text-center" disabled placeholder="Part Name" />
-            </div>
-            <div class="quantity inv">
-                <input asp-for="Details.Quantity" id="Quantity" class="form-control text-center" autocomplete="off" placeholder="Quantity" />
-            </div>
-            <div class="price inv">
-                <input id="SalesPrice" asp-for="Details.SalesPrice" class="form-control text-center" autocomplete="off" placeholder="Sale Price" />
-            </div>
-            <div class="discount inv">
-                <input id="discount" asp-for="Details.discount" class="form-control text-center" autocomplete="off" placeholder="Sale Price" />
-            </div>
-            <div class="total inv">
-                <input id="total" asp-for="Details.Total" class="form-control text-center" autocomplete="off" placeholder="Total" />
-            </div>
-            <div class="vatamount inv">
-                <input id="vat" asp-for="Details.VatAmount" class="form-control text-center" autocomplete="off" placeholder="Vat" />
-            </div>
-            <div class="totalvat inv">
-                <input id="totalvat" asp-for="Details.TotalWithVat" class="form-control text-center" autocomplete="off" placeholder="Net Total" />
-            </div>
-        </div>
+
 
         <div class="form-group ">
             <div>
@@ -130,45 +122,5 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $(function () {
-            $("#datepicker").datepicker();
-        });
-        //customer search
-        $('.js-searchable-dropdown-input')
-            .on('focus', function (e) {
-                $('.js-searchable-dropdown').addClass('active');
-                $('.js-list-empty').hide();
-            })
-            .on('blur', function (e) {
-                setTimeout(function () {
-                    $('.js-searchable-dropdown').removeClass('active');
-                }, 150);
-            })
-            .on('keyup', function (e) {
-                var _v = $(this).val().toLowerCase();
-                var _ul = $('.js-searchable-dropdown-list');
-                var _empty = $('.js-list-empty');
-
-                _ul.find('li').show();
-
-                if (_v !== '') {
-                    _ul.find('li[data-search-value*="' + _v + '"]').show();
-                    _ul.find('li:not([data-search-value*="' + _v + '"])').hide();
-                }
-
-                if (_ul.find('li:visible').length > 0) {
-                    _empty.hide();
-                }
-                else {
-                    _empty.show();
-                }
-            });
-
-        $('.js-searchable-dropdown-list-item').on('click', function () {
-            $('.js-searchable-dropdown-input').val($(this).text());
-        })
-        var quantity = $('#Quantity');
-        var saleprice = $('#SalesPrice');
-    </script>
+ 
 }

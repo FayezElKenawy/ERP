@@ -1,33 +1,75 @@
-﻿
-/*section a
-/* Shivving (IE8 is not supported, but at least it won't look as awful)
-/* ========================================================================== 
-$(document).ready(function () {
-	let endpoint = 'https://localhost:5001/products/productslist'
-	let apiKey = '5b578yg9yvi8sogirbvegoiufg9v9g579gviuiub8'
+﻿//sales invoice 
+    $(function () {
+        $("#datepicker").datepicker();//invoice date picker
+        });
+        //customer search
+        $('.js-searchable-dropdown-input')
+            .on('focus', function (e) {
+        $('.js-searchable-dropdown').addClass('active');
+                $('.js-list-empty').hide();
+            })
+            .on('blur', function (e) {
+        setTimeout(function () {
+            $('.js-searchable-dropdown').removeClass('active');
+        }, 150);
+            })
+            .on('keyup', function (e) {
+                var _v = $(this).val().toLowerCase();
+                var _ul = $('.js-searchable-dropdown-list');
+                var _empty = $('.js-list-empty');
 
-	$(".content a").each(function (index, element) {
-		$.ajax({
-			url: endpoint + "?key=" + apiKey + " &q=" + $(this).text(),
-			contentType: "application/json",
-			dataType: 'json',
-			success: function (result) {
-				$(element).after(
-					'<a href="' + result.url + '"> \n ' +
-					'<div class="link-preview"> \n ' +
-					'<div class="preview-image" style="background-image:url(' + result.image + ');"></div> \n ' +
-					'<div style="width:70%;" class="link-info"> \n ' +
-					'<h4>' + result.title + '</h4> \n ' +
-					'<p>' + result.description + '</p> \n ' +
-					'</div><br> \n ' +
-					'<a href="' + result.url + '" class="url-info"><i class="far fa-link"></i>' + result.url + '</a> \n ' +
-					'</div></a>');
-				$(element).remove();
-			}
-		})
-	});
-});
-/*(function (document) {
+                _ul.find('li').show();
+
+                if (_v !== '') {
+        _ul.find('li[data-search-value*="' + _v + '"]').show();
+                    _ul.find('li:not([data-search-value*="' + _v + '"])').hide();
+                }
+
+                if (_ul.find('li:visible').length > 0) {
+        _empty.hide();
+                }
+                else {
+        _empty.show();
+                }
+            });
+        //invoice calculations
+        function generateTableRow() {
+            var emptyColumn = document.createElement('tr');
+
+            emptyColumn.innerHTML = '<td class="partcode"> < input asp -for= "Details.ProductID" class= "form-control text-center " type = "text" data - toggle="modal" data - target=".bd-example-modal-lg" placeholder = "Part Code" /><span asp-validation-for="ProductId" class="text-danger "></span></td >' +
+                '<td class="partName"><input class="form-control text-center" disabled placeholder="Part Name" /> </td>' +
+                '<td class="price inv"> <input asp-for="Details.SalesPrice" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>' +
+                '<td class="discount inv"><input asp-for="Details.discount" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>' +
+                '<td class="total inv"><input asp-for="Details.Total" class="form-control text-center" autocomplete="off" placeholder="Total" /></td>' +
+                '<td class="vatamount inv"><input asp-for="Details.VatAmount" class="form-control text-center" autocomplete="off" placeholder="Vat" /></td>' +
+                '<td class="totalvat inv"><input asp-for="Details.TotalWithVat" class="form-control text-center" autocomplete="off" placeholder="Net Total" /></td>';
+
+            return emptyColumn;
+        }
+        $('.js-searchable-dropdown-list-item').on('click', function () {
+        $('.js-searchable-dropdown-input').val($(this).text());
+        })
+        var quantity = $('#Quantity').val();
+        var saleprice = $('#SalesPrice').val();
+        var discount = $('#discount').val();
+        var total = $('#total').val();
+        var vat = $('#vat').val();
+        var totalvat = $('#totalvat').val();
+
+        $('#total').keyup(function () {
+        total = (quantity * saleprice) - discount;
+
+            $('#total').val() = total;
+        });
+
+
+
+
+
+///* Shivving (IE8 is not supported, but at least it won't look as awful)
+///* ========================================================================== */
+
+//(function (document) {
 //	var
 //		head = document.head = document.getElementsByTagName('head')[0] || document.documentElement,
 //		elements = 'article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output picture progress section summary time video x'.split(' '),
@@ -91,7 +133,7 @@ $(document).ready(function () {
 ///* Helper Functions
 ///* ========================================================================== */
 
-/*function generateTableRow() {
+//function generateTableRow() {
 //	var emptyColumn = document.createElement('tr');
 
 //	emptyColumn.innerHTML = '<td><a class="cut">-</a><span contenteditable></span></td>' +
@@ -123,7 +165,7 @@ $(document).ready(function () {
 //	if (!isNaN(value) && (e.keyCode == 38 || e.keyCode == 40 || e.wheelDeltaY)) {
 //		e.preventDefault();
 
-//		value += e.keyCode == 38 ? 1 : e.keyCode == 40 ? -1 : Math.round(e.wheelDelta * 0.005);
+//		value += e.keyCode == 38 ? 1 : e.keyCode == 40 ? -1 : Math.round(e.wheelDelta * 0.025);
 //		value = Math.max(value, 0);
 
 //		activeElement.innerHTML = wasPrice ? parsePrice(value) : value;

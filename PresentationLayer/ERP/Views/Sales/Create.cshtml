@@ -84,7 +84,7 @@
                 <input id="vat" asp-for="Details.VatAmount" class="form-control text-center" autocomplete="off" placeholder="Vat" />
             </div>
             <div class="totalvat inv">
-                <input id="totalvat" asp-for="Details.TotalWithVat" class="form-control text-center" autocomplete="off" placeholder="TotalWithVAt" />
+                <input id="totalvat" asp-for="Details.TotalWithVat" class="form-control text-center" autocomplete="off" placeholder="Net Total" />
             </div>
         </div>
 
@@ -168,6 +168,7 @@
         $('.js-searchable-dropdown-list-item').on('click', function () {
             $('.js-searchable-dropdown-input').val($(this).text());
         })
-
+        var quantity = $('#Quantity');
+        var saleprice = $('#SalesPrice');
     </script>
 }

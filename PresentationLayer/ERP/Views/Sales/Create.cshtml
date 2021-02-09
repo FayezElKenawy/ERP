@@ -61,21 +61,30 @@
         </div>
 
         <div class="form-group invoicebody">
-            <div class="partcode inv">
+            <div class="partcode">
                 <input asp-for="Details.ProductID" class="form-control text-center " type="text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder="Part Code" />
                 <span asp-validation-for="ProductId" class="text-danger "></span>
             </div>
-            <div class="partName inv">
-                <input id="partName" class="form-control" disabled  />
+            <div class="partName">
+                <input id="partName" class="form-control text-center" disabled placeholder="Part Name" />
             </div>
             <div class="quantity inv">
-                <input asp-for="Details.Quantity" id="Quantity" class="form-control" autocomplete="off"/>
+                <input asp-for="Details.Quantity" id="Quantity" class="form-control text-center" autocomplete="off" placeholder="Quantity" />
             </div>
             <div class="price inv">
-                <input id="SalesPrice" asp-for="Details.SalesPrice" class="form-control"  autocomplete="off"/>
+                <input id="SalesPrice" asp-for="Details.SalesPrice" class="form-control text-center" autocomplete="off" placeholder="Sale Price" />
+            </div>
+            <div class="discount inv">
+                <input id="discount" asp-for="Details.discount" class="form-control text-center" autocomplete="off" placeholder="Sale Price" />
             </div>
             <div class="total inv">
-                <input id="total" asp-for="Details.Total" class="form-control"  autocomplete="off"/>
+                <input id="total" asp-for="Details.Total" class="form-control text-center" autocomplete="off" placeholder="Total" />
+            </div>
+            <div class="vatamount inv">
+                <input id="vat" asp-for="Details.VatAmount" class="form-control text-center" autocomplete="off" placeholder="Vat" />
+            </div>
+            <div class="totalvat inv">
+                <input id="totalvat" asp-for="Details.TotalWithVat" class="form-control text-center" autocomplete="off" placeholder="TotalWithVAt" />
             </div>
         </div>
 

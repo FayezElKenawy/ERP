@@ -65,6 +65,7 @@
     margin: 50px auto 0 auto;
     position: relative;
     width: 400px;
+    height: 3px;
 }
 
 .caret {
@@ -103,7 +104,7 @@
 }
 
 .searchable-dropdown ul {
-    background-color:white;
+    background-color: white;
     border-radius: 10px;
     display: none;
     max-height: 200px;
@@ -115,6 +116,7 @@
     position: absolute;
     top: -3px;
     width: 100%;
+    z-index: 1;
 }
 
 .active ul {
@@ -138,31 +140,40 @@
     display:block;
     height:300px;
     background-color:gray;
+    overflow:scroll;
 }
 .inv {
     position: absolute;
     top: 172px;
+    width: 8.5%;
 }
 .partcode {
-    
     width: 15%;
-    
-    left: 104px;
+    left: 28px;
+    position: absolute;
+    top: 172px;
 }
 .partName {
     width: 25%;
-    left: 276px;
+    left: 207px;
+    position: absolute;
+    top: 172px;
 }
 .quantity {
-
-    left: 563px;
-    width: 10%;
+    left: 502px;
 }
 .price {
-    width: 10%;
-    left: 679px;
+    left: 602px;
+}
+.discount {
+    left: 702px;
 }
 .total {
-    width: 10%;
-    left: 795px;
+    left: 802px;
+}
+.vatamount {
+    left: 902px;
+}
+.totalvat {
+    left: 1002px;
 }

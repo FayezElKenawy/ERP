@@ -32,6 +32,9 @@
         _empty.show();
                 }
             });
+$('.js-searchable-dropdown-list-item').on('click', function () {
+    $('.js-searchable-dropdown-input').val($(this).attr('data-id-value'));
+})
         //invoice calculations
         function generateTableRow() {
             var emptyColumn = document.createElement('tr');
@@ -46,9 +49,7 @@
 
             return emptyColumn;
         }
-        $('.js-searchable-dropdown-list-item').on('click', function () {
-        $('.js-searchable-dropdown-input').val($(this).text());
-        })
+
         var quantity = $('#Quantity').val();
         var saleprice = $('#SalesPrice').val();
         var discount = $('#discount').val();

@@ -46,12 +46,12 @@
                 <span asp-validation-for="InvoiceType" class="text-danger "></span>
             </div>
             <div class="searchable-dropdown js-searchable-dropdown">
-                <input type="text" name="text" class="js-searchable-dropdown-input" placeholder="Customer Name" autocomplete="off">
+                <input type="text" name="text" asp-for="CustId" class="js-searchable-dropdown-input" placeholder="Customer Name" autocomplete="off">
                 <span class="caret"></span>
                 <ul class="js-searchable-dropdown-list">
                     @foreach (var item in Model.Customers)
                     {
-                        <li class="js-searchable-dropdown-list-item" data-search-value="@item.CustArName">@item.CustArName</li>
+                        <li class="js-searchable-dropdown-list-item" data-id-value="@item.CustID" data-search-value="@item.CustArName">@item.CustArName</li>
                         /*codepen.io/plestik/pen/EvRQdy */
                     }
 
@@ -64,7 +64,7 @@
             <table class="invoicetable">
                 <tr>
                     <td class="partcode">
-                        <input asp-for="Details.ProductID" class="form-control text-center " onclick="generateTableRow();" type="text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder="Part Code" />
+                        <input asp-for="Details.ProductID" class="form-control text-center " onfocus="generateTableRow();" type="text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder="Part Code" />
                         <span asp-validation-for="ProductId" class="text-danger "></span>
                     </td>
                     <td class="partName"><input class="form-control text-center" disabled placeholder="Part Name" /> </td>

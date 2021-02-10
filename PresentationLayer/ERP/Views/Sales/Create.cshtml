@@ -46,12 +46,14 @@
                 <span asp-validation-for="InvoiceType" class="text-danger "></span>
             </div>
             <div class="searchable-dropdown js-searchable-dropdown">
-                <input type="text" name="text" asp-for="CustId" class="js-searchable-dropdown-input" placeholder="Customer Name" autocomplete="off">
+                <input type="text" name="text"  class="js-searchable-dropdown-input text-center" value="" placeholder="Customer Name" autocomplete="off">
+                <input type="hidden" asp-for="CustId" class="js-searchable-dropdown-input-id"/>
                 <span class="caret"></span>
                 <ul class="js-searchable-dropdown-list">
                     @foreach (var item in Model.Customers)
                     {
-                        <li class="js-searchable-dropdown-list-item" data-id-value="@item.CustID" data-search-value="@item.CustArName">@item.CustArName</li>
+                        <li class="js-searchable-dropdown-list-item" data-id-value="@item.Id" data-search-value="@item.Id  @item.CustArName">
+                    <span class="custid text-danger">@item.Id</span> <span class="custname text-primary">@item.CustArName</span></li>
                         /*codepen.io/plestik/pen/EvRQdy */
                     }
 

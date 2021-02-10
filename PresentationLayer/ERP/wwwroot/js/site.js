@@ -33,7 +33,9 @@
                 }
             });
 $('.js-searchable-dropdown-list-item').on('click', function () {
-    $('.js-searchable-dropdown-input').val($(this).attr('data-id-value'));
+    $('.js-searchable-dropdown-input').val($(this).find('.custname').text());
+            $('.js-searchable-dropdown-input-id').val($(this).attr('data-id-value'));
+            console.log($(this).attr('data-id-value'));
 })
         //invoice calculations
         function generateTableRow() {

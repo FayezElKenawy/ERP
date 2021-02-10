@@ -54,7 +54,7 @@ namespace ERP.Controllers
         // POST: SalesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SalesInvoice collection,[Bind("ProductID,Quantity,SalesPrice,Total,discount")] SalesDetails details)
+        public ActionResult Create(SalesInvoice collection,[Bind("ProductID,Quantity,SalesPrice,Total,discount,VatAmount,TotalWithVat")] SalesDetails details)
         {
             try
             {
@@ -67,6 +67,8 @@ namespace ERP.Controllers
                     SalesPrice = details.SalesPrice,
                     Total = details.Total,
                     discount = details.discount,
+                    VatAmount=details.VatAmount,
+                    TotalWithVat=details.TotalWithVat,
                     Cost= productRepo.Find(details.ProductID).Cost//get cost of product
             };
                 detailrepo.Add(model);

@@ -99,10 +99,12 @@
     width: 100% !important;
     max-height: 36px;
     left: -326px;
-    text-align:left !important;
+   /* text-align:left !important;*/
     font-weight:100 !important;
 }
-
+.custid{
+    padding-right:160px;
+}
 .searchable-dropdown ul {
     background-color: white;
     border-radius: 10px;
@@ -176,4 +178,19 @@
 }
 .totalvat {
     left: 1002px;
+}
+/*invoice list*/
+.card-header{
+    padding:0 !important;
+    border:0 !important;
+    background-color:transparent !important;
+}
+.listtablecell {
+    padding: 0 !important;
+    border: 0 !important;
+    vertical-align:middle !important;
+    text-align:center;
+}
+.invoicedetails{
+    display:inline-block;
 }

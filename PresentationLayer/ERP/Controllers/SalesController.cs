@@ -54,14 +54,26 @@ namespace ERP.Controllers
         // POST: SalesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SalesInvoice collection,[Bind("ProductID,Quantity,SalesPrice,Total,discount,VatAmount,TotalWithVat")] SalesDetails details)
+        public ActionResult Create([Bind("InvoiceId,InvoiceDate,InvoiceType,CustId,InvoiceTotal,InvoiceDiscount,InvoiceNetTotal,InvoicePaid,InvoiceChange")]SalesInvoice collection,[Bind("ProductID,Quantity,SalesPrice,Total,discount,VatAmount,TotalWithVat")] SalesDetails details)
         {
             try
             {
-                salesRepo.Add(collection);
+                var smodel = new SalesInvoice
+                {
+                    InvoiceId = collection.InvoiceId,
+                    InvoiceDate = collection.InvoiceDate,
+                    InvoiceType = collection.InvoiceType,
+                    InvoiceTotal = collection.InvoiceTotal,
+                    InvoiceDiscount = collection.InvoiceDiscount,
+                    InvoiceNetTotal = collection.InvoiceNetTotal,
+                    InvoicePaid = collection.InvoicePaid,
+                    CustID=collection.CustID,
+                    InvoiceChange=collection.InvoiceChange
+                };
+                salesRepo.Add(smodel);
                 var model = new SalesDetails
                 {
-                    InvoiceId = int.Parse(collection.InvoiceId),
+                    InvoiceId = collection.InvoiceId,
                     ProductID = details.ProductID,
                     Quantity = details.Quantity,
                     SalesPrice = details.SalesPrice,
@@ -69,7 +81,7 @@ namespace ERP.Controllers
                     discount = details.discount,
                     VatAmount=details.VatAmount,
                     TotalWithVat=details.TotalWithVat,
-                    Cost= productRepo.Find(details.ProductID).Cost//get cost of product
+                    Cost= productRepo.Find(int.Parse(details.ProductID)).Cost//get cost of product
             };
                 detailrepo.Add(model);
                 return RedirectToAction(nameof(Index));

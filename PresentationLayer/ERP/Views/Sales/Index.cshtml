@@ -48,7 +48,7 @@
             <td id="headingOne " class="listtablecell">
                 <div class="card-header" id="headingOne">
                     <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#@item.Id" aria-expanded="true" aria-controls="@item.Id">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#one_@item.CustID" aria-expanded="true">
                             <i class="icon-expand-alt icon-large"></i>
                         </button>
                     </h5>
@@ -76,16 +76,34 @@
                 @Html.DisplayFor(modelItem => item.InvoiceChange)
             </td>
             <td class="listtablecell">
-                <a asp-action="Edit" asp-route-id="@item.Id"><i class="icon-edit icon-large text-primary"></i> |</a>
-                <a asp-action="Details" asp-route-id="@item.Id"><i class="icon-info-sign icon-large"></i> |</a>
-                <a asp-action="Delete" asp-route-id="@item.Id"><i class="icon-trash icon-large text-danger"></i></a>
+                <a asp-action="Edit" asp-route-id="@item.CustID"><i class="icon-edit icon-large text-primary"></i> |</a>
+                <a asp-action="Details" asp-route-id="@item.CustID"><i class="icon-info-sign icon-large"></i> |</a>
+                <a asp-action="Delete" asp-route-id="@item.CustID"><i class="icon-trash icon-large text-danger"></i></a>
             </td>
         </tr>
         <tr style="height:0px;">
             <td class="listtablecell" colspan=9>
-                <div id="@item.Id" class="collapse collapsed col-md-2 invoicedetails" aria-labelledby="headingOne" data-parent="#accordion">
+                <div id="one_@item.CustID" class="collapse collapsed col-md-2 " aria-labelledby="headingOne" data-parent="#accordion" style="max-width:100%;">
                     <div class="card-body">
-                        dhfdhfdh
+                        part Code
+                    </div>
+                    <div class="card-body">
+                        Part Name
+                    </div>
+                    <div class="card-body">
+                        Quantity
+                    </div>
+                    <div class="card-body">
+                        Sale Price
+                    </div>
+                    <div class="card-body">
+                        Total
+                    </div>
+                    <div class="card-body">
+                        Vat
+                    </div>
+                    <div class="card-body">
+                        Total With Vat
                     </div>
                 </div>
             </td>

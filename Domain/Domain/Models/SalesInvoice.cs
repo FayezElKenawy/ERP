@@ -10,6 +10,9 @@ namespace Domain.Models
 {
     public class SalesInvoice : BaseDataClass
     {
+        [Key]
+        public string InvoiceNo { get; set; }
+        public string CustID { get; set; }
         public string InvoiceId { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime InvoiceDate { get; set; }
@@ -19,7 +22,9 @@ namespace Domain.Models
         public int InvoiceType { get; set; }
         public double InvoicePaid { get; set; }
         public double InvoiceChange { get; set; }
-        public Customer Customers { get; set; }
+
+        [ForeignKey(nameof(CustID))]
+        public Customer Customer { get; set; }
 
     }
 }

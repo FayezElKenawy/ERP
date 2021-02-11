@@ -31,7 +31,7 @@ namespace ServicesLayer.Repositories
 
         public Customer Find(int id)
         {
-            return context.Customers.FirstOrDefault(c => c.Id == id);
+            return context.Customers.FirstOrDefault(c => c.CustID == id.ToString());
         }
 
         public IList<Customer> List()

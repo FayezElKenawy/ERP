@@ -35,7 +35,7 @@ namespace ERP.Controllers
             }
 
             var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CustID == id.ToString());
             if (customer == null)
             {
                 return NotFound();
@@ -89,7 +89,7 @@ namespace ERP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,CustArName,CustEnName,CustMobileNo,CustAdress,CustBalance,CustOpenBalance,AccountNo")] Customer customer)
         {
-            if (id != customer.Id)
+            if (id.ToString() != customer.CustID)
             {
                 return NotFound();
             }
@@ -103,7 +103,7 @@ namespace ERP.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(customer.Id))
+                    if (!CustomerExists(int.Parse(customer.CustID)))
                     {
                         return NotFound();
                     }
@@ -126,7 +126,7 @@ namespace ERP.Controllers
             }
 
             var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.CustID == id.ToString());
             if (customer == null)
             {
                 return NotFound();
@@ -148,7 +148,7 @@ namespace ERP.Controllers
 
         private bool CustomerExists(int id)
         {
-            return _context.Customers.Any(e => e.Id == id);
+            return _context.Customers.Any(e => e.CustID == id.ToString());
         }
     }
 }

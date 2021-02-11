@@ -9,8 +9,6 @@ namespace Domain.baseData
 {
    public class BaseDataClass
     {
-        [Key]
-        public int Id { get; set; }
         [ScaffoldColumn(false)]
         public DateTime DateCreated { get; set; }
         [ScaffoldColumn(false)]

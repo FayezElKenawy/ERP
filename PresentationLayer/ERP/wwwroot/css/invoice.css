@@ -15,22 +15,26 @@
         top: -39px;
         position: absolute;
     }
-
+.txtsums {
+    width: 65%;
+    text-align:center;
+}
+.lbl {
+    background-color: bisque;
+    padding: 5px;
+    border-radius: 8%;
+   position:absolute;
+}
+.downtotals .lbl {
+    width: 95px;
+    text-align:center;
+    position:unset !important;
+}
 .invoiceid {
     left: 107px;
 }
 .lblid {
     top: -38px;
-}
-.lblid, .lbldatepicker, .lblinvoicetype,.lblcust {
-    position: absolute;
-    /* margin-top: 72px; */
-    float: none;
-    /* margin-top: 32px;*/
-   
-    background-color: bisque;
-    padding: 5px;
-    border-radius: 8%;
 }
 .lbldatepicker {
     left: 20px;
@@ -192,5 +196,8 @@
     text-align:center;
 }
 .invoicedetails{
+    display:inline-block;
+}
+.card-body{
     display:inline-block;
 }

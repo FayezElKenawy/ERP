@@ -40,7 +40,7 @@ namespace ERP.Controllers
             }
 
             var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.ProductId == id.ToString());
             if (product == null)
             {
                 return NotFound();
@@ -90,7 +90,7 @@ namespace ERP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ArabicName,EnglishName,Model,Desc,Cost,SalePrice")] Product product)
         {
-            if (id != product.Id)
+            if (id.ToString() != product.ProductId)
             {
                 return NotFound();
             }
@@ -104,7 +104,7 @@ namespace ERP.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!ProductExists(int.Parse(product.ProductId)))
                     {
                         return NotFound();
                     }
@@ -127,7 +127,7 @@ namespace ERP.Controllers
             }
 
             var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.ProductId == id.ToString());
             if (product == null)
             {
                 return NotFound();
@@ -149,7 +149,7 @@ namespace ERP.Controllers
 
         private bool ProductExists(int id)
         {
-            return _context.Products.Any(e => e.Id == id);
+            return _context.Products.Any(e => e.ProductId == id.ToString());
         }
     }
 }

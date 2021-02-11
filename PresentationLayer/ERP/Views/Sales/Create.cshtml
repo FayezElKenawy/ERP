@@ -27,17 +27,17 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group topheader">
             <div class="d-md-inline-block border-danger col-md-3">
-                <label class="control-label lblid">Invoice No</label>
+                <label class="control-label lblid lbl">Invoice No</label>
                 <input asp-for="InvoiceId" type="text" value="@ViewBag.InvoiceId" class="form-control invoiceid" readonly />
                 <span asp-validation-for="InvoiceId" class="text-danger "></span>
             </div>
             <div class="d-inline-block col-md-3">
-                <label class="control-label lbldatepicker">Invoice Date</label>
+                <label class="control-label lbldatepicker lbl">Invoice Date</label>
                 <input asp-for="InvoiceDate" id="datepicker" type="text" class="form-control datepicker" value="@DateTime.Now.ToString("dd-MM-yyyy")" />
                 <span asp-validation-for="InvoiceDate" class="text-danger "></span>
             </div>
             <div class="d-inline-block col-md-3">
-                <label class="control-label lblinvoicetype">Invoice Type</label>
+                <label class="control-label lblinvoicetype lbl">Invoice Type</label>
                 <!--<input asp-for="InvoiceType" class="form-control invoicetype select" />-->
                 <select asp-for="InvoiceType" class="form-control invoicetype select">
                     <option value="0">Cash</option>
@@ -52,8 +52,8 @@
                 <ul class="js-searchable-dropdown-list">
                     @foreach (var item in Model.Customers)
                     {
-                        <li class="js-searchable-dropdown-list-item" data-id-value="@item.Id" data-search-value="@item.Id  @item.CustArName">
-                    <span class="custid text-danger">@item.Id</span> <span class="custname text-primary">@item.CustArName</span></li>
+                        <li class="js-searchable-dropdown-list-item" data-id-value="@item.CustID" data-search-value="@item.CustID  @item.CustArName">
+                    <span class="custid text-danger">@item.CustID</span> <span class="custname text-primary">@item.CustArName</span></li>
                         /*codepen.io/plestik/pen/EvRQdy */
                     }
 
@@ -82,30 +82,30 @@
             </div>
 
 
-        <div class="form-group ">
-            <div>
-                <label asp-for="InvoiceTotal" class="control-label "></label>
-                <input asp-for="InvoiceTotal" class="form-control " />
+        <div class="form-group downtotals">
+            <div class="d-md-inline-block border-danger col-md-2">
+                <label  class="control-label lbl" style="left: 83px;">Total</label>
+                <input asp-for="InvoiceTotal" class="form-control txtsums" />
                 <span asp-validation-for="InvoiceTotal" class="text-danger "></span>
             </div>
-            <div>
-                <label asp-for="InvoiceDiscount" class="control-label "></label>
-                <input asp-for="InvoiceDiscount" class="form-control " />
+            <div class="d-md-inline-block border-danger col-md-2">
+                <label  class="control-label lbl">Discount</label>
+                <input asp-for="InvoiceDiscount" class="form-control txtsums" />
                 <span asp-validation-for="InvoiceDiscount" class="text-danger "></span>
             </div>
-            <div>
-                <label asp-for="InvoiceNetTotal" class="control-label "></label>
-                <input asp-for="InvoiceNetTotal" class="form-control " />
+            <div class="d-md-inline-block border-danger col-md-2">
+                <label  class="control-label lbl">Net Total</label>
+                <input asp-for="InvoiceNetTotal" class="form-control txtsums" />
                 <span asp-validation-for="InvoiceNetTotal" class="text-danger "></span>
             </div>
-            <div>
-                <label asp-for="InvoicePaid" class="control-label "></label>
-                <input asp-for="InvoicePaid" class="form-control " />
+            <div class="d-md-inline-block border-danger col-md-2">
+                <label  class="control-label lbl">Paid</label>
+                <input asp-for="InvoicePaid" class="form-control txtsums" />
                 <span asp-validation-for="InvoicePaid" class="text-danger "></span>
             </div>
-            <div>
-                <label asp-for="InvoiceChange" class="control-label "></label>
-                <input asp-for="InvoiceChange" class="form-control " />
+            <div class="d-md-inline-block border-danger col-md-2">
+                <label class="control-label lbl">Remain</label>
+                <input asp-for="InvoiceChange" class="form-control txtsums" />
                 <span asp-validation-for="InvoiceChange" class="text-danger "></span>
             </div>
         </div>

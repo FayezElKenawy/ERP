@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Models
 {
     public class SalesDetails
     {
-        [Key]
-        public int InvoiceId { get; set; }
-        [Key]
-        public int ProductID { get; set; }
+
+        public string InvoiceId { get; set; }
+
+        public string ProductID { get; set; }
         public double? Quantity { get; set; }
         public double? SalesPrice { get; set; }
         public double? Total { get; set; }
@@ -17,7 +18,10 @@ namespace Domain.Models
         public double? VatAmount { get; set; }
         public double? TotalWithVat { get; set; }
 
-        public List<Product> Products { get; set; }
-        public List<SalesInvoice> SalesInvoices { get; set; }
+        [ForeignKey(nameof(ProductID))]
+        public Product Product { get; set; }
+
+        [ForeignKey(nameof(InvoiceId))]
+        public SalesInvoice SalesInvoice { get; set; }
     }
 }

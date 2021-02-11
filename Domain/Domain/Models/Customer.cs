@@ -8,6 +8,7 @@ namespace Domain.Models
 {
     public class Customer :BaseDataClass
     {
+        [Key]
         public string CustID { get; set; }
         public string CustArName { get; set; }
         public string CustEnName { get; set; }
@@ -16,5 +17,6 @@ namespace Domain.Models
         public double CustBalance { get; set; }
         public double CustOpenBalance { get; set; }
         public int AccountNo { get; set; }
+        public ICollection<SalesInvoice> Invoices { get; set; }
     }
 }

@@ -7,10 +7,10 @@ namespace Domain.Interfaces
    public interface Irepository<TEntity>
     {
         IList<TEntity> List();
-        TEntity Find(int id);
+        TEntity Find(object id);
         void Add(TEntity entity);
-        void Update(int id, TEntity entity);
-        void Delete(int id);
+        void Update(object id, TEntity entity);
+        void Delete(object id);
         List<TEntity> Search(string term);
         string MaxId();
     }

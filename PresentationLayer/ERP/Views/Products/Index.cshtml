@@ -3,9 +3,9 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+@section styles{ }
 <h1 class="text-center text-danger">Products List</h1>
-
+<a asp-action="Create">Create</a>
 <table class="table table-bordered">
 
     <thead class="thead-light">
@@ -31,35 +31,36 @@
         </tr>
     </thead>
     <tbody id="TableProducts">
-        @foreach (var item in Model) {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ProductId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ArabicName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EnglishName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Model)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Desc)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Cost)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SalePrice)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
-                        </td>
-                    </tr>
-            }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArabicName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnglishName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Desc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SalePrice)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

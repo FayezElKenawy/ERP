@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain.Models;
 using Domain.Data;
+using Domain.Interfaces;
 
 namespace ERP.Controllers
 {
     public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly Irepository<Customer> customerrepo;
 
-        public CustomersController(ApplicationDbContext context)
+        public CustomersController(ApplicationDbContext context,Irepository<Customer> customerrepo)
         {
             _context = context;
+            this.customerrepo = customerrepo;
         }
 
 
@@ -47,6 +50,8 @@ namespace ERP.Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
+            int CustId = int.Parse(customerrepo.MaxId());
+            ViewBag.CustId = CustId + 1;
             return View();
         }
 
@@ -55,12 +60,11 @@ namespace ERP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CustArName,CustEnName,CustMobileNo,CustAdress,CustBalance,CustOpenBalance,AccountNo")] Customer customer)
+        public async Task<IActionResult> Create([Bind("CustID,CustArName,CustEnName,CustMobileNo,CustAdress,CustBalance,CustOpenBalance,AccountNo")] Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
+                customerrepo.Add(customer);
                 return RedirectToAction(nameof(Index));
             }
             return View(customer);

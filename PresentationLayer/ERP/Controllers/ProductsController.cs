@@ -7,22 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Domain.Models;
 using Domain.Data;
+using Domain.Interfaces;
 
 namespace ERP.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly Irepository<Product> productrepo;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context,Irepository<Product>productrepo)
         {
             _context = context;
+            this.productrepo = productrepo;
         }
 
         // GET: Products 
-        public async Task<IActionResult> Index()
+        public  IActionResult Index()
         {
-            return View(await _context.Products.AsNoTracking().ToListAsync());
+            return View( productrepo.List());
         }
         //Return json products
         /*https://stackoverflow.com/questions/60604161/how-open-popup-dialog-windows-and-save-data-net-core-mvc-via-ajax */
@@ -58,12 +61,11 @@ namespace ERP.Controllers
         // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ArabicName,EnglishName,Model,Desc,Cost,SalePrice")] Product product)
+        public IActionResult Create([Bind("ProductId,ArabicName,EnglishName,Model,Desc,Cost,SalePrice")] Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
+                productrepo.Add(product);
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
@@ -88,9 +90,9 @@ namespace ERP.Controllers
         // POST: Products/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ArabicName,EnglishName,Model,Desc,Cost,SalePrice")] Product product)
+        public async Task<IActionResult> Edit(string ProductId, [Bind("ProductId,ArabicName,EnglishName,Model,Desc,Cost,SalePrice")] Product product)
         {
-            if (id.ToString() != product.ProductId)
+            if (ProductId != product.ProductId)
             {
                 return NotFound();
             }
@@ -104,7 +106,7 @@ namespace ERP.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(int.Parse(product.ProductId)))
+                    if (!ProductExists(product.ProductId))
                     {
                         return NotFound();
                     }
@@ -119,15 +121,15 @@ namespace ERP.Controllers
         }
 
         // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? ProductId)
         {
-            if (id == null)
+            if (ProductId == null)
             {
                 return NotFound();
             }
 
             var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.ProductId == id.ToString());
+                .FirstOrDefaultAsync(m => m.ProductId == ProductId);
             if (product == null)
             {
                 return NotFound();
@@ -139,17 +141,17 @@ namespace ERP.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string ProductId)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _context.Products.FindAsync(ProductId);
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
+        private bool ProductExists(string ProductId)
         {
-            return _context.Products.Any(e => e.ProductId == id.ToString());
+            return _context.Products.Any(e => e.ProductId == ProductId);
         }
     }
 }

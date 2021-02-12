@@ -28,7 +28,17 @@ namespace ServicesLayer.Repositories
             throw new NotImplementedException();
         }
 
+        public void Delete(object id)
+        {
+            throw new NotImplementedException();
+        }
+
         public SalesInvoice Find(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public SalesInvoice Find(object id)
         {
             throw new NotImplementedException();
         }
@@ -65,5 +75,9 @@ namespace ServicesLayer.Repositories
             throw new NotImplementedException();
         }
 
+        public void Update(object id, SalesInvoice entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

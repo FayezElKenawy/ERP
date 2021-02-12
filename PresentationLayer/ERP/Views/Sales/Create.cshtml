@@ -22,9 +22,8 @@
     <div>
         <a asp-action="Index" class="text-danger btn btn-outline-primary">Sales List</a>
     </div>
-
     <form class="col-md-12" asp-action="Create">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div asp-validation-summary="ModelOnly" class="text-danger" ></div>
         <div class="form-group topheader">
             <div class="d-md-inline-block border-danger col-md-3">
                 <label class="control-label lblid lbl">Invoice No</label>
@@ -47,7 +46,7 @@
             </div>
             <div class="searchable-dropdown js-searchable-dropdown">
                 <input type="text" name="text"  class="js-searchable-dropdown-input text-center" value="" placeholder="Customer Name" autocomplete="off">
-                <input type="hidden" asp-for="CustId" class="js-searchable-dropdown-input-id"/>
+                <input type="hidden" asp-for="CustID" class="js-searchable-dropdown-input-id"/>
                 <span class="caret"></span>
                 <ul class="js-searchable-dropdown-list">
                     @foreach (var item in Model.Customers)
@@ -66,16 +65,16 @@
             <table class="invoicetable">
                 <tr>
                     <td class="partcode">
-                        <input asp-for="Details.ProductID" class="form-control text-center " onfocus="generateTableRow();" type="text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder="Part Code" />
-                        <span asp-validation-for="ProductId" class="text-danger "></span>
+                        <input asp-for="ProductID" class="form-control text-center " onfocus="generateTableRow();" type="text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder="Part Code" />
+                        <span asp-validation-for="ProductID" class="text-danger "></span>
                     </td>
                     <td class="partName"><input class="form-control text-center" disabled placeholder="Part Name" /> </td>
-                    <td class="quantity inv"> <input asp-for="Details.Quantity" id="Quantity" class="form-control text-center" autocomplete="off" placeholder="Quantity" /> </td>
-                    <td class="price inv"> <input asp-for="Details.SalesPrice" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>
-                    <td class="discount inv"><input asp-for="Details.discount" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>
-                    <td class="total inv"><input asp-for="Details.Total" class="form-control text-center" autocomplete="off" placeholder="Total" /></td>
-                    <td class="vatamount inv"><input asp-for="Details.VatAmount" class="form-control text-center" autocomplete="off" placeholder="Vat" /></td>
-                    <td class="totalvat inv"><input asp-for="Details.TotalWithVat" class="form-control text-center" autocomplete="off" placeholder="Net Total" /></td>
+                    <td class="quantity inv"> <input asp-for="Quantity" id="Quantity" class="form-control text-center" autocomplete="off" placeholder="Quantity" /> </td>
+                    <td class="price inv"> <input asp-for="SalesPrice" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>
+                    <td class="discount inv"><input asp-for="discount" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>
+                    <td class="total inv"><input asp-for="Total" class="form-control text-center" autocomplete="off" placeholder="Total" /></td>
+                    <td class="vatamount inv"><input asp-for="VatAmount" class="form-control text-center" autocomplete="off" placeholder="Vat" /></td>
+                    <td class="totalvat inv"><input asp-for="TotalWithVat" class="form-control text-center" autocomplete="off" placeholder="Net Total" /></td>
                 </tr>
             </table>
 

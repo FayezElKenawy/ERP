@@ -21,12 +21,12 @@ namespace ServicesLayer.Repositories
             context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(object id)
         {
             throw new NotImplementedException();
         }
 
-        public Product Find(int id)
+        public Product Find(object id)
         {
             var pro=context.Products.Find(id);
             return pro;
@@ -34,7 +34,7 @@ namespace ServicesLayer.Repositories
 
         public IList<Product> List()
         {
-            return context.Products.ToList();
+            return  context.Products.ToList();
         }
 
         public string MaxId()
@@ -47,7 +47,8 @@ namespace ServicesLayer.Repositories
             throw new NotImplementedException();
         }
 
-        public void Update(int id, Product entity)
+
+        public void Update(object id, Product entity)
         {
             throw new NotImplementedException();
         }

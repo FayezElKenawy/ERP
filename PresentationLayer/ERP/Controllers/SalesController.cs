@@ -46,50 +46,51 @@ namespace ERP.Controllers
             ViewBag.InvoiceId = (id + 1).ToString();
             var model = new InvoiceCustomerViewModel
             {
-                Customers = CustomerRepo.List().ToList(),
-                Products = productRepo.List().ToList()
+                 Products=productRepo.List().ToList(),
+                 Customers=CustomerRepo.List().ToList()
+
             };
             return View(model);
         }
         // POST: SalesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("InvoiceId,InvoiceDate,InvoiceType,CustId,InvoiceTotal,InvoiceDiscount,InvoiceNetTotal,InvoicePaid,InvoiceChange")]SalesInvoice collection,[Bind("ProductID,Quantity,SalesPrice,Total,discount,VatAmount,TotalWithVat")] SalesDetails details)
+        public ActionResult Create([Bind("InvoiceId,InvoiceDate,InvoiceType,CustID,InvoiceTotal,InvoiceDiscount,InvoiceNetTotal,InvoicePaid,InvoiceChange,ProductID,Quantity,SalesPrice,Total,discount,VatAmount,TotalWithVat")] InvoiceCustomerViewModel Modeldetails)
         {
             try
             {
                 var smodel = new SalesInvoice
                 {
-                    InvoiceId = collection.InvoiceId,
-                    InvoiceDate = collection.InvoiceDate,
-                    InvoiceType = collection.InvoiceType,
-                    InvoiceTotal = collection.InvoiceTotal,
-                    InvoiceDiscount = collection.InvoiceDiscount,
-                    InvoiceNetTotal = collection.InvoiceNetTotal,
-                    InvoicePaid = collection.InvoicePaid,
-                    CustID=collection.CustID,
-                    InvoiceChange=collection.InvoiceChange
+                    InvoiceNo = Modeldetails.InvoiceId,
+                    InvoiceDate = Modeldetails.InvoiceDate,
+                    InvoiceType = Modeldetails.InvoiceType,
+                    InvoiceTotal = Modeldetails.InvoiceTotal,
+                    InvoiceDiscount = Modeldetails.InvoiceDiscount,
+                    InvoiceNetTotal = Modeldetails.InvoiceNetTotal,
+                    InvoicePaid = Modeldetails.InvoicePaid,
+                    CustID= Modeldetails.CustID,
+                    InvoiceChange= Modeldetails.InvoiceChange
                 };
                 salesRepo.Add(smodel);
                 var model = new SalesDetails
                 {
-                    InvoiceId = collection.InvoiceId,
-                    ProductID = details.ProductID,
-                    Quantity = details.Quantity,
-                    SalesPrice = details.SalesPrice,
-                    Total = details.Total,
-                    discount = details.discount,
-                    VatAmount=details.VatAmount,
-                    TotalWithVat=details.TotalWithVat,
-                    Cost= productRepo.Find(int.Parse(details.ProductID)).Cost//get cost of product
+                    InvoiceId = Modeldetails.InvoiceId,
+                    ProductID = Modeldetails.ProductID,
+                    Quantity = Modeldetails.Quantity,
+                    SalesPrice = Modeldetails.SalesPrice,
+                    Total = Modeldetails.Total,
+                    discount = Modeldetails.discount,
+                    VatAmount= Modeldetails.VatAmount,
+                    TotalWithVat= Modeldetails.TotalWithVat,
+                    Cost= productRepo.Find(Modeldetails.ProductID).Cost//get cost of product
             };
                 detailrepo.Add(model);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
-                
-                return RedirectToAction(nameof(Index));
+                ViewBag.ex = ex.ToString();
+                return RedirectToAction(nameof(Create));
             }
         }
 

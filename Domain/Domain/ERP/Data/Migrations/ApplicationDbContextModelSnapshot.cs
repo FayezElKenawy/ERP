@@ -92,7 +92,7 @@ namespace ERP.Data.Migrations
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 2, 11, 17, 46, 59, 554, DateTimeKind.Local).AddTicks(3241));
+                        .HasDefaultValue(new DateTime(2021, 2, 12, 23, 14, 34, 411, DateTimeKind.Local).AddTicks(767));
 
                     b.Property<string>("Desc")
                         .HasColumnType("nvarchar(max)");
@@ -123,7 +123,7 @@ namespace ERP.Data.Migrations
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 2, 11, 17, 46, 59, 556, DateTimeKind.Local).AddTicks(6525));
+                        .HasDefaultValue(new DateTime(2021, 2, 12, 23, 14, 34, 413, DateTimeKind.Local).AddTicks(684));
 
                     b.Property<string>("Model")
                         .HasColumnType("nvarchar(max)");

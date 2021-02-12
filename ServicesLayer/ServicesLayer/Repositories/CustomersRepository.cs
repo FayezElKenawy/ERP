@@ -29,9 +29,19 @@ namespace ServicesLayer.Repositories
             throw new NotImplementedException();
         }
 
+        public void Delete(object id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Customer Find(int id)
         {
             return context.Customers.FirstOrDefault(c => c.CustID == id.ToString());
+        }
+
+        public Customer Find(object id)
+        {
+            throw new NotImplementedException();
         }
 
         public IList<Customer> List()
@@ -41,7 +51,16 @@ namespace ServicesLayer.Repositories
 
         public string MaxId()
         {
-            throw new NotImplementedException();
+            try
+            {
+                string id = context.Customers.Max(i => i.CustID).ToString();
+                return id;
+            }
+            catch (Exception)
+            {
+
+                return "0";
+            }
         }
 
         public List<Customer> Search(string term)
@@ -50,6 +69,11 @@ namespace ServicesLayer.Repositories
         }
 
         public void Update(int id, Customer entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(object id, Customer entity)
         {
             throw new NotImplementedException();
         }

@@ -13,6 +13,11 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="CustID" class="control-label"></label>
+                <input asp-for="CustID" class="form-control" value="@ViewBag.CustId" />
+                <span asp-validation-for="CustID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="CustArName" class="control-label"></label>
                 <input asp-for="CustArName" class="form-control" />
                 <span asp-validation-for="CustArName" class="text-danger"></span>

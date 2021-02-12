@@ -18,6 +18,7 @@ namespace Domain.Data
 {
     public partial class ApplicationDbContext
     {
+
         public void SetGlobalQuery<T>(ModelBuilder builder) where T : BaseDataClass
         {
             builder.Entity<T>().HasQueryFilter(e => !e.IsDeleted);

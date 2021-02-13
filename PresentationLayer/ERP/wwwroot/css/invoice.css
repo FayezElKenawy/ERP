@@ -148,21 +148,24 @@
     background-color:gray;
     overflow:scroll;
 }
+.invoicetable {
+    margin-top: 31px;
+}
 .inv {
-    position: absolute;
+   /*position: absolute;*/
     top: 172px;
     width: 8.5%;
 }
 .partcode {
     width: 15%;
     left: 28px;
-    position: absolute;
+  /*position: absolute;*/
     top: 172px;
 }
 .partName {
     width: 25%;
     left: 207px;
-    position: absolute;
+    /*position: absolute;*/
     top: 172px;
 }
 .quantity {

@@ -38,18 +38,15 @@ $('.js-searchable-dropdown-list-item').on('click', function () {
             console.log($(this).attr('data-id-value'));
 })
         //invoice calculations
-        function generateTableRow() {
-            var emptyColumn = document.createElement('tr');
-
-            emptyColumn.innerHTML = '<td class="partcode"> < input asp -for= "Details.ProductID" class= "form-control text-center " type = "text" data - toggle="modal" data - target=".bd-example-modal-lg" placeholder = "Part Code" /><span asp-validation-for="ProductId" class="text-danger "></span></td >' +
-                '<td class="partName"><input class="form-control text-center" disabled placeholder="Part Name" /> </td>' +
-                '<td class="price inv"> <input asp-for="Details.SalesPrice" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>' +
-                '<td class="discount inv"><input asp-for="Details.discount" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>' +
-                '<td class="total inv"><input asp-for="Details.Total" class="form-control text-center" autocomplete="off" placeholder="Total" /></td>' +
-                '<td class="vatamount inv"><input asp-for="Details.VatAmount" class="form-control text-center" autocomplete="off" placeholder="Vat" /></td>' +
-                '<td class="totalvat inv"><input asp-for="Details.TotalWithVat" class="form-control text-center" autocomplete="off" placeholder="Net Total" /></td>';
-
-            return emptyColumn;
+function generateTableRow() {
+    $('table.invoicetable tbody').append('<tr><td class="partcode"><input asp-for= "Details.ProductID" class= "form-control text-center " type = "text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder = "Part Code" /><span asp-validation-for="ProductId" class="text-danger "></span></td ></tr>');
+            //$('table.invoicetable tbody').append(`<tr><td class="partcode"><input asp-for= "Details.ProductID" class= "form-control text-center " type = "text" data - toggle="modal" data - target=".bd-example-modal-lg" placeholder = "Part Code" /><span asp-validation-for="ProductId" class="text-danger "></span></td >' +
+            //    '<td class="partName"><input class="form-control text-center" disabled placeholder="Part Name" /> </td>' +
+            //    '<td class="price inv"> <input asp-for="Details.SalesPrice" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>' +
+            //    '<td class="discount inv"><input asp-for="Details.discount" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>' +
+            //    '<td class="total inv"><input asp-for="Details.Total" class="form-control text-center" autocomplete="off" placeholder="Total" /></td>' +
+            //    '<td class="vatamount inv"><input asp-for="Details.VatAmount" class="form-control text-center" autocomplete="off" placeholder="Vat" /></td>' +
+            //    '<td class="totalvat inv"><input asp-for="Details.TotalWithVat" class="form-control text-center" autocomplete="off" placeholder="Net Total" /></td></tr>`)
         }
 
         var quantity = $('#Quantity').val();

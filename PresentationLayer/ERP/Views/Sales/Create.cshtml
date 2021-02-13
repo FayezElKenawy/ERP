@@ -65,7 +65,7 @@
             <table class="invoicetable">
                 <tr>
                     <td class="partcode">
-                        <input asp-for="ProductID" class="form-control text-center " onclick="generateTableRow()" type="text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder="Part Code" />
+                        <input asp-for="ProductID" class="form-control text-center activeproduct"  type="text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder="Part Code" />
                         <span asp-validation-for="ProductID" class="text-danger "></span>
                     </td>
                     <td class="partName"><input class="form-control text-center" disabled placeholder="Part Name" /> </td>

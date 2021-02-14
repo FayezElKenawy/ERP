@@ -204,3 +204,6 @@
 .card-body{
     display:inline-block;
 }
+.activeproduct{
+    border-color:red;
+}

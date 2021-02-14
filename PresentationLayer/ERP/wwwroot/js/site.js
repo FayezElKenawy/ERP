@@ -1,4 +1,6 @@
-﻿//sales invoice 
+﻿
+
+//sales invoice 
     $(function () {
         $("#datepicker").datepicker();//invoice date picker
         });
@@ -50,14 +52,18 @@ $('.js-searchable-dropdown-list-item').on('click', function () {
 
         $('#total').val() = total;
     });
-$('.invoicetable .partcode input').click(function () {
-    if ($(this).hasClass('activeproduct')) {
-        $(this).removeClass('activeproduct');
-        $('.invoicetable tbody').append('<tr><td class="partcode"><input name="ProductId" id="ProductId" placeholder="ProductId" class="form-control activeproduct"/></td></tr>');
-    }
-
-
+$('#invoicetable tr:last-child td.partcode input.activeproduct').on("click", function () {
+    $(this).removeClass('activeproduct');
+    addRow();
+    
 });
+function addRow() {
+    $sampleRow = $(' <tr> <td class="partcode"><input asp-for="ProductID" class="form-control text-center activeproduct"  type="text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder="Part Code" /></td> <td><input type="text"/></td></tr>');
+    $sampleRow.find("td.partcode input.activeproduct").click(function () {
+        addRow();
+    });
+    $('#invoicetable tbody').append($sampleRow);
+}
 //function removeatt() {
 //    $('#ProductID').on('click', function () {
 //        if ($(this).attr('onclick')) {

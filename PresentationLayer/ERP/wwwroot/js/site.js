@@ -58,8 +58,16 @@ $('#invoicetable tr:last-child td.partcode input.activeproduct').on("click", fun
     
 });
 function addRow() {
-    $sampleRow = $(' <tr> <td class="partcode"><input asp-for="ProductID" class="form-control text-center activeproduct"  type="text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder="Part Code" /></td> <td><input type="text"/></td></tr>');
+    $sampleRow = $(' <tr> <td class="partcode"><input asp-for="ProductID" class="form-control text-center activeproduct"  type="text" id="ProductId" name="ProductId" value="" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder="Part Code" />' +
+        '<td class="partName"><input class="form-control text-center" disabled placeholder="Part Name" /> </td>' +
+        '<td class="price inv"> <input asp-for="Quantity" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>' +
+        '<td class="price inv"> <input asp-for="Details.SalesPrice" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>' +
+        '<td class="discount inv"><input asp-for="discount" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>' +
+        '<td class="total inv"><input asp-for="Total" class="form-control text-center" autocomplete="off" placeholder="Total" /></td>' +
+        '<td class="vatamount inv"><input asp-for="VatAmount" class="form-control text-center" autocomplete="off" placeholder="Vat" /></td>' +
+        '<td class="totalvat inv"><input asp-for="TotalWithVat" class="form-control text-center" autocomplete="off" placeholder="Net Total" /></td></tr>');
     $sampleRow.find("td.partcode input.activeproduct").click(function () {
+        $(this).removeClass('activeproduct');
         addRow();
     });
     $('#invoicetable tbody').append($sampleRow);

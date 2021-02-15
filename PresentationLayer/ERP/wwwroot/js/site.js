@@ -72,31 +72,3 @@ function addRow() {
     });
     $('#invoicetable tbody').append($sampleRow);
 }
-//function removeatt() {
-//    $('#ProductID').on('click', function () {
-//        if ($(this).attr('onclick')) {
-//            $(this).removeAttr('onclick');
-
-//            generateTableRow();
-//        }
-
-//    });
-//}
-
-////invoice calculations
-
-//function generateTableRow() {
-//    //var element = document.getElementById('ProductID');
-//    //element.removeAttribute('onclick');
-//    $('table.invoicetable tbody').append('<tr><td class="partcode"><input onclick="generateTableRow()" id="ProductID" asp-for= "Details.ProductID" class= "form-control text-center " type = "text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder = "Part Code" /><span asp-validation-for="ProductId" class="text-danger "></span></td ></tr>');
-//    //$('table.invoicetable tbody').append(
-//    //    '<tr><td class="partcode"><input asp-for="ProductID" id="ProductID" class="form-control text-center newpart" type ="text" data-toggle="modal" data-target=".bd-example-modal-lg" placeholder = "Part Code" /><span asp-validation-for="ProductId" class="text-danger "></span></td >' +
-//    //    '<td class="partName"><input class="form-control text-center" disabled placeholder="Part Name" /> </td>' +
-//    //    '<td class="price inv"> <input asp-for="Quantity" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>' +
-//    //    '<td class="price inv"> <input asp-for="Details.SalesPrice" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>' +
-//    //    '<td class="discount inv"><input asp-for="discount" class="form-control text-center" autocomplete="off" placeholder="Sale Price" /></td>' +
-//    //    '<td class="total inv"><input asp-for="Total" class="form-control text-center" autocomplete="off" placeholder="Total" /></td>' +
-//    //    '<td class="vatamount inv"><input asp-for="VatAmount" class="form-control text-center" autocomplete="off" placeholder="Vat" /></td>' +
-//    //    '<td class="totalvat inv"><input asp-for="TotalWithVat" class="form-control text-center" autocomplete="off" placeholder="Net Total" /></td></tr>');
-//    removeatt();
-//}

@@ -6,10 +6,10 @@
     <thead class="thead-light">
         <tr>
             <th>
-                <input id="PartCodeSearch" onkeyup="myFunction(0,'PartCodeSearch')" placeholder="Part Code" type="text" />
+                <input id="PartCodeSearch" class="form-control" onkeyup="myFunction(0,'PartCodeSearch')" placeholder="Part Code" type="text" />
             </th>
             <th>
-                <input id="Name" onkeyup="myFunction(1,'Name')" placeholder="Part Name" type="text" />
+                <input id="Name" class="form-control" onkeyup="myFunction(1,'Name')" placeholder="Part Name" type="text" />
             </th>
             @*<th>
                     <input id="Balance" placeholder="Balance" type="text" />
@@ -29,11 +29,12 @@
     <tbody id="TableProducts">
         @{
         }
+        
         @foreach (var item in Model.Products.ToList())
         {
 
             <tr class="search">
-                <td class="part_code"><input type="checkbox" value="@item.ProductId" id="@item.ProductId" /><label for="@item.ProductId">@item.ProductId</label></td>
+                <td class="part_code"><input  type="checkbox" value="@item.ProductId" id="@item.ProductId" /><label class="form-check-label font-weight-bold" style=" padding-left: 9px;" for="@item.ProductId">@item.ProductId</label></td>
                 <td>@item.ArabicName</td>
                 @*<td>@item.Balance</td>
                     <td>@item.Cost</td>
@@ -68,6 +69,7 @@
             }
         }
     }
+
 </script>
 @*<script>
     $(function () {

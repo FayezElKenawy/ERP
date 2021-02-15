@@ -151,8 +151,13 @@
 .invoicetable{
     border-collapse:separate !important;
 }
+.table th {
+    position: sticky;
+    top: 0;
+}
 .invoicetable th{
     border-top:none;
+
 }
 .invoicetable td {
 padding-left:0 !important;
@@ -161,8 +166,11 @@ border:none !important;
 padding-top:5px !important;
 padding-bottom:0 !important;
 }
+    .invoicetable .thead-light th {
+        background-color: antiquewhite;
+    }
 .inv {
-   /*position: absolute;*/
+    /*position: absolute;*/
     top: 172px;
     width: 8.5%;
 }

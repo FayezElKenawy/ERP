@@ -98,6 +98,8 @@ function calculateTotals() {
     const subtotals = $('.item').map((idx, val) => calculateSubtotal(val)).get();
     const total = subtotals.reduce((a, v) => a + Number(v), 0);
     $('#InvoiceTotal').val(formatAsCurrency(total));
+    $('#InvoiceNetTotal').val(formatAsCurrency(total));
+    $('#InvoiceChange').val(formatAsCurrency(total));
 }
 
 function calculateSubtotal(row) {
@@ -113,22 +115,19 @@ function calculateSubtotal(row) {
 //calculations main totals 
 $('.downtotals').on('mouseup keyup', 'input[type=number]', () => calculateMainTotals());
 
-function calculateMainTotals(totale) {
-    const total1 = totale;  
+function calculateMainTotals() {
     var row = $('.downtotals');
     const inputs = row.find('input');
-    const total = inputs[0].value;
-    const discount = inputs[1].value;
-    const net = inputs[2].value;
-    const paid = inputs[3].value;
-    const remain = inputs[4].value;
-    row.find(inputs[3]).val(fixUndefine(total) - fixUndefine(discount));
-    row.find(inputs[4]).val(fixUndefine(net) - fixUndefine(paid));
+    const net = inputs[0].value - inputs[1].value;
+    row.find(inputs[2]).val(formatAsCurrency(net));
+    const remain = inputs[2].value - inputs[3].value;
+    row.find(inputs[4]).val(formatAsCurrency(remain));
+
 }
 
 function fixUndefine(value) {
-    if (value == null) {
-        return 0;
+    if (value == "") {
+        formatAsCurrency(0);
     }
     else {
         formatAsCurrency(value);

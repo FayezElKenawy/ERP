@@ -39,7 +39,10 @@ namespace ERP.Controllers
         }
 
         // GET: SalesController/Create
-
+        public ActionResult _invoicetable()
+        {
+            return PartialView();
+        }
         public ActionResult Create()
         {
             var id = int.Parse(salesRepo.MaxId());
@@ -56,7 +59,7 @@ namespace ERP.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind("InvoiceId,ProductId,InvoiceDate,InvoiceType,CustID,InvoiceTotal,InvoiceDiscount,InvoiceNetTotal,InvoicePaid,InvoiceChange")] InvoiceCustomerViewModel Modeldetails,
-                                   [Bind("ProductId")]List<InvoiceCustomerViewModel> listdetails)
+                                   [Bind("ProductId")]InvoiceCustomerViewModel listdetails)
         {
             try
             {
@@ -73,22 +76,22 @@ namespace ERP.Controllers
                     InvoiceChange= Modeldetails.InvoiceChange
                 };
                 salesRepo.Add(smodel);
-                foreach (var item in listdetails)
-                {
-                    var model = new SalesDetails
-                    {
-                        InvoiceId = item.InvoiceId,
-                        ProductID = item.ProductID,
-                        Quantity = item.Quantity,
-                        SalesPrice = item.SalesPrice,
-                        Total = item.Total,
-                        discount = item.discount,
-                        VatAmount = item.VatAmount,
-                        TotalWithVat = item.TotalWithVat,
-                        Cost = productRepo.Find(item.ProductID).Cost//get cost of product
-                    };
-                    detailrepo.Add(model);
-                }
+                //foreach (var item in listdetails)
+                //{
+                //    var model = new SalesDetails
+                //    {
+                //        InvoiceId = item.InvoiceId,
+                //        ProductID = item.ProductID,
+                //        Quantity = item.Quantity,
+                //        SalesPrice = item.SalesPrice,
+                //        Total = item.Total,
+                //        discount = item.discount,
+                //        VatAmount = item.VatAmount,
+                //        TotalWithVat = item.TotalWithVat,
+                //        Cost = productRepo.Find(item.ProductID).Cost//get cost of product
+                //    };
+                //    detailrepo.Add(model);
+                //}
 
                 return RedirectToAction(nameof(Index));
             }

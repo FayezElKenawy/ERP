@@ -1,6 +1,4 @@
 ﻿
-
-
 //sales invoice 
     $(function () {
         $("#datepicker").datepicker();//invoice date picker
@@ -41,57 +39,46 @@ $('.js-searchable-dropdown-list-item').on('click', function () {
     $('.js-searchable-dropdown-input-id').val($(this).attr('data-id-value'));
     console.log($(this).attr('data-id-value'));
 });
-
-//invoice clac
-    var quantity = $('#Quantity').val();
-    var saleprice = $('#SalesPrice').val();
-    var discount = $('#discount').val();
-    var total = $('#total').val();
-    var vat = $('#vat').val();
-var totalvat = $('#totalvat').val();
-
-function calctotl(q,s,d) {
-    var t = (q * s) - d;
-    return t;
-}
-$('#total').on("keyup", function () {
-    total = calctotl(quantity, saleprice, discount);
-        $('#total').val() = total;
-    });
-
-
 //adding new row to invoice table
 $('.item:first input:first').on("click", function () {
     if ($('#invoicetable tr').length <3) {
         alert($('#invoicetable tr').length);
         $(this).removeClass('activeproduct');
-        addRow();
+        getrow();
     }
 
     
 });
-function addRow() {
-    $newRow = $(' <tr class="item"> <td class="partcode"><input asp-for="ProductID" class="form-control text-center activeproduct"  type="text" id="ProductId" name="ProductId" value="" data-toggle="modal" data-target=".bd-example-modal-lg"  />' +
-        '<td class="partName"><input class="form-control text-center"  value="" /> </td>' +
-        '<td class="price inv"> <input asp-for="Quantity" type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td>' +
-        '<td class="price inv"> <input asp-for="Details.SalesPrice" type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td>' +
-        '<td class="discount inv"><input asp-for="discount" type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0"  value=""/></td>' +
-        '<td class="total inv"><input asp-for="Total" type="number" disabled step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td>' +
-        '<td class="vatamount inv"><input asp-for="VatAmount" type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td>' +
-        '<td class="totalvat inv"><input asp-for="TotalWithVat" type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value=""/></td></tr>');
-    $newRow.find('.activeproduct').on('click', function () {
-        if ($(this).hasClass('activeproduct')) {
-            $(this).removeClass('activeproduct');
-            addRow();
-        }
 
+function getrow() {
+    $.ajax({
+       
+        url: "_invoicetable",//assume action name is 'addItem' with paramater 'dataparam' of type string in same controller
+        dataType: "html",
+        success: function (result) {
+            $('#invoicetable tbody').append(result);
+       }
     });
-    $('#invoicetable tbody').append($newRow);
+}
+$('.activeproduct').on('click', function () {
+    if ($(this).hasClass('activeproduct')) {
+        $(this).removeClass('activeproduct');
+        getrow();
+    }
+});
+function addRow() {
+    $newRow = $('#invoicetable');
+          $newRow.find('.activeproduct').on('click', function () {
+                if ($(this).hasClass('activeproduct')) {
+                    $(this).removeClass('activeproduct');
+                    getrow();
+                }
+            });
 }
 
 
 //calculations for table
-$('#invoicetable').on('mouseup keyup', 'input[type=number]', () => calculateTotals());
+$('#invoicetable').on('mouseup keyup','input[type=number]', () => calculateTotals());
 
 
 function calculateTotals() {
@@ -100,6 +87,7 @@ function calculateTotals() {
     $('#InvoiceTotal').val(formatAsCurrency(total));
     $('#InvoiceNetTotal').val(formatAsCurrency(total));
     $('#InvoiceChange').val(formatAsCurrency(total));
+    calculateMainTotals()
 }
 
 function calculateSubtotal(row) {

@@ -124,15 +124,6 @@ function calculateMainTotals() {
     row.find(inputs[4]).val(formatAsCurrency(remain));
 
 }
-
-function fixUndefine(value) {
-    if (value == "") {
-        formatAsCurrency(0);
-    }
-    else {
-        formatAsCurrency(value);
-    }
-}
 function formatAsCurrency(amount) {
     return Number(amount).toFixed(2);
 }

@@ -1,5 +1,6 @@
 ﻿
 
+
 //sales invoice 
     $(function () {
         $("#datepicker").datepicker();//invoice date picker
@@ -89,26 +90,50 @@ function addRow() {
 }
 
 
-
-$('table').on('mouseup keyup', 'input[type=number]', () => calculateTotals());
+//calculations for table
+$('#invoicetable').on('mouseup keyup', 'input[type=number]', () => calculateTotals());
 
 
 function calculateTotals() {
     const subtotals = $('.item').map((idx, val) => calculateSubtotal(val)).get();
     const total = subtotals.reduce((a, v) => a + Number(v), 0);
-    $('.total td:eq(1)').text(formatAsCurrency(total));
+    $('#InvoiceTotal').val(formatAsCurrency(total));
 }
 
 function calculateSubtotal(row) {
     const $row = $(row);
     const inputs = $row.find('input');
-    const subtotal = inputs[1].value * inputs[2].value;
+    const subtotal = (inputs[2].value * inputs[3].value) - inputs[4].value;
+    const vat = subtotal * 0.15;
+    $(row).find(inputs[6]).val(vat.toFixed(2));
+    $row.find('input:last').val(formatAsCurrency(subtotal + vat));
+    $row.find(inputs[5]).val(subtotal.toFixed(2));
+    return subtotal+vat;
+}
+//calculations main totals 
+$('.downtotals').on('mouseup keyup', 'input[type=number]', () => calculateMainTotals());
 
-    $row.find('td:last').text(formatAsCurrency(subtotal));
-
-    return subtotal;
+function calculateMainTotals(totale) {
+    const total1 = totale;  
+    var row = $('.downtotals');
+    const inputs = row.find('input');
+    const total = inputs[0].value;
+    const discount = inputs[1].value;
+    const net = inputs[2].value;
+    const paid = inputs[3].value;
+    const remain = inputs[4].value;
+    row.find(inputs[3]).val(fixUndefine(total) - fixUndefine(discount));
+    row.find(inputs[4]).val(fixUndefine(net) - fixUndefine(paid));
 }
 
+function fixUndefine(value) {
+    if (value == null) {
+        return 0;
+    }
+    else {
+        formatAsCurrency(value);
+    }
+}
 function formatAsCurrency(amount) {
-    return `$${Number(amount).toFixed(2)}`;
+    return Number(amount).toFixed(2);
 }

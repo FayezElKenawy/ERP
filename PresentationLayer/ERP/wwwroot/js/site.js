@@ -98,13 +98,11 @@ function formatAsCurrency(amount) {
 
 function getInvoiceProduct() {
     var rows = $('#invoicetable').find('.item');
-    var products = {};
-    for (var i = 0; i < rows.length; i++) {
+    var listdetails =new Array();
+    for (var i = 0; i < rows.length-1; i++) {
         var inputs = $(rows[i]).find('input');
-        for (var i = 0; i < inputs.length; i++) {
-
-        }
-        console.log(inputs);
+            var Product = {};
+            Product.ProductId = inputs[0].value;
+            listdetails.push(Product);
     }
-    console.log(rows);
 }

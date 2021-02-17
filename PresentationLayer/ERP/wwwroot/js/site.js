@@ -40,42 +40,21 @@ $('.js-searchable-dropdown-list-item').on('click', function () {
     console.log($(this).attr('data-id-value'));
 });
 //adding new row to invoice table
-$('.item:first input:first').on("click", function () {
-    if ($('#invoicetable tr').length <3) {
-        alert($('#invoicetable tr').length);
-        $(this).removeClass('activeproduct');
-        getrow();
-    }
+function getrow() {//get row from partial view
+    return $.ajax({
 
-    
-});
-
-function getrow() {
-    $.ajax({
-       
-        url: "_invoicetable",//assume action name is 'addItem' with paramater 'dataparam' of type string in same controller
+        url: "_invoicetable",//get row from partialview
         dataType: "html",
         success: function (result) {
-            $('#invoicetable tbody').append(result);
-       }
+            $('#invoicetable tbody').append(result);//add row to invoice table
+        }
     });
 }
-$('.activeproduct').on('click', function () {
-    if ($(this).hasClass('activeproduct')) {
+$('#invoicetable').on('click','.activeproduct', function () {
         $(this).removeClass('activeproduct');
         getrow();
-    }
-});
-function addRow() {
-    $newRow = $('#invoicetable');
-          $newRow.find('.activeproduct').on('click', function () {
-                if ($(this).hasClass('activeproduct')) {
-                    $(this).removeClass('activeproduct');
-                    getrow();
-                }
-            });
-}
 
+});
 
 //calculations for table
 $('#invoicetable').on('mouseup keyup','input[type=number]', () => calculateTotals());

@@ -94,3 +94,17 @@ function calculateMainTotals() {
 function formatAsCurrency(amount) {
     return Number(amount).toFixed(2);
 }
+//post data to controller
+
+function getInvoiceProduct() {
+    var rows = $('#invoicetable').find('.item');
+    var products = {};
+    for (var i = 0; i < rows.length; i++) {
+        var inputs = $(rows[i]).find('input');
+        for (var i = 0; i < inputs.length; i++) {
+
+        }
+        console.log(inputs);
+    }
+    console.log(rows);
+}

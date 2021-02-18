@@ -97,27 +97,41 @@ function formatAsCurrency(amount) {
 
 function getInvoiceProduct() {
     var rows = $('#invoicetable').find('.item');
-    var listdetails =new Array();
+    //var toprows = $('.topheader').find('input');
+    //var downtotals = $('.downtotals').find('input');
+    const listdetails = new Array();
+    //for (var i = 0; i < toprows.length; i++) {
+    //    var topr = {};
+    //    topr.InvoiceNo = toprows[0].value;
+    //    topr.InvoiceNo = toprows[1].value;
+    //    topr.InvoiceNo = toprows[2].value;
+    //    topr.InvoiceNo = toprows[3].value;
+    //}
     for (var i = 0; i < rows.length; i++) {
-        var inputs = $(rows[i]).find('input');
-            var Product = {};
-        Product.ProductID = inputs[0].value;
-        Product.SalesPrice = inputs[2].value;
-        Product.Quantity = inputs[3].value;
-        Product.discount = inputs[5].value;
-        Product.Total = inputs[4].value;
-        Product.Vat = inputs[6].value;
-        Product.TotalwVat = inputs[7].value;
+        const inputs = $(rows[i]).find('input');
+        const Product = new Array();
+        if (inputs[0].value != null) {
+            Product.ProductID = inputs[0].value;
+            Product.SalesPrice = inputs[2].value;
+            Product.Quantity = inputs[3].value;
+            Product.discount = inputs[5].value;
+            Product.Total = inputs[4].value;
+            Product.Vat = inputs[6].value;
+            Product.TotalwVat = inputs[7].value;
             listdetails.push(Product);
+        }
+
     }
     $.ajax({
         type: 'POST',
-        url: '/Sales/Create/',
+        url: '/Sales/InvoiceDetail/',
         dataType: 'Json',
         contentType: 'application/json;charset=utf-8',
         data: JSON.stringify(listdetails),
         headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-        success: function () {
+        success: function (listdetails) {
+            
+            console.log(listdetails)
             alert('success');
         },
         error: function (d) {

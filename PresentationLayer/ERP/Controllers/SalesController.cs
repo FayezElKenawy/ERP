@@ -58,41 +58,25 @@ namespace ERP.Controllers
         // POST: SalesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IEnumerable< InvoiceCustomerViewModel> listdetails)
+        public IActionResult Create([Bind("InvoiceId,InvoiceDate,InvoiceType,CustID,InvoiceTotal,InvoiceDiscount,InvoiceNetTotal,InvoicePaid,InvoiceChange")] 
+        InvoiceCustomerViewModel Modeldetails)
         {
             try
             {
-                //var smodel = new SalesInvoice
-                //{
-                //    InvoiceNo = Modeldetails.InvoiceId,
-                //    InvoiceDate = Modeldetails.InvoiceDate,
-                //    InvoiceType = Modeldetails.InvoiceType,
-                //    InvoiceTotal = Modeldetails.InvoiceTotal,
-                //    InvoiceDiscount = Modeldetails.InvoiceDiscount,
-                //    InvoiceNetTotal = Modeldetails.InvoiceNetTotal,
-                //    InvoicePaid = Modeldetails.InvoicePaid,
-                //    CustID= Modeldetails.CustID,
-                //    InvoiceChange= Modeldetails.InvoiceChange
-                //};
-                //salesRepo.Add(smodel);
-                //foreach (var item in listdetails)
-                //{
-                //    var model = new SalesDetails
-                //    {
-                //        InvoiceId = item.InvoiceId,
-                //        ProductID = item.ProductID,
-                //        Quantity = item.Quantity,
-                //        SalesPrice = item.SalesPrice,
-                //        Total = item.Total,
-                //        discount = item.discount,
-                //        VatAmount = item.VatAmount,
-                //        TotalWithVat = item.TotalWithVat,
-                //        Cost = productRepo.Find(item.ProductID).Cost//get cost of product
-                //    };
-                //    detailrepo.Add(model);
-                //}
-
-                return RedirectToAction(nameof(Index));
+                var smodel = new SalesInvoice
+                {
+                    InvoiceNo = Modeldetails.InvoiceId,
+                    InvoiceDate = Modeldetails.InvoiceDate,
+                    InvoiceType = Modeldetails.InvoiceType,
+                    InvoiceTotal = Modeldetails.InvoiceTotal,
+                    InvoiceDiscount = Modeldetails.InvoiceDiscount,
+                    InvoiceNetTotal = Modeldetails.InvoiceNetTotal,
+                    InvoicePaid = Modeldetails.InvoicePaid,
+                    CustID = Modeldetails.CustID,
+                    InvoiceChange = Modeldetails.InvoiceChange
+                };
+                salesRepo.Add(smodel);
+                return insertinvoice(null, Modeldetails);
             }
             catch(Exception ex)
             {
@@ -100,7 +84,34 @@ namespace ERP.Controllers
                 return RedirectToAction(nameof(Create));
             }
         }
+        public IActionResult insertinvoice(IEnumerable<InvoiceCustomerViewModel> listdetail,InvoiceCustomerViewModel list)
+        {
 
+            return Json(listdetail);
+        }
+        [HttpPost]
+        public IActionResult InvoiceDetail(IEnumerable<InvoiceCustomerViewModel> listdetail)
+        {
+            var listdetails = listdetail;
+            //foreach (var item in listdetails)
+            //{
+            //    var model = new SalesDetails
+            //    {
+            //        InvoiceId = item.InvoiceId,
+            //        ProductID = item.ProductID,
+            //        Quantity = item.Quantity,
+            //        SalesPrice = item.SalesPrice,
+            //        Total = item.Total,
+            //        discount = item.discount,
+            //        VatAmount = item.VatAmount,
+            //        TotalWithVat = item.TotalWithVat,
+            //        Cost = productRepo.Find(item.ProductID).Cost//get cost of product
+            //    };
+            //    detailrepo.Add(model);
+            //}
+      
+            return insertinvoice(listdetail,null);
+        }
         // GET: SalesController/Edit/5
         public ActionResult Edit(int id)
         {

@@ -42,7 +42,6 @@ $('.js-searchable-dropdown-list-item').on('click', function () {
 //adding new row to invoice table
 function getrow() {//get row from partial view
     return $.ajax({
-
         url: "_invoicetable",//get row from partialview
         dataType: "html",
         success: function (result) {
@@ -99,10 +98,30 @@ function formatAsCurrency(amount) {
 function getInvoiceProduct() {
     var rows = $('#invoicetable').find('.item');
     var listdetails =new Array();
-    for (var i = 0; i < rows.length-1; i++) {
+    for (var i = 0; i < rows.length; i++) {
         var inputs = $(rows[i]).find('input');
             var Product = {};
-            Product.ProductId = inputs[0].value;
+        Product.ProductID = inputs[0].value;
+        Product.SalesPrice = inputs[2].value;
+        Product.Quantity = inputs[3].value;
+        Product.discount = inputs[5].value;
+        Product.Total = inputs[4].value;
+        Product.Vat = inputs[6].value;
+        Product.TotalwVat = inputs[7].value;
             listdetails.push(Product);
     }
+    $.ajax({
+        type: 'POST',
+        url: '/Sales/Create/',
+        dataType: 'Json',
+        contentType: 'application/json;charset=utf-8',
+        data: JSON.stringify(listdetails),
+        headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+        success: function () {
+            alert('success');
+        },
+        error: function (d) {
+            alert('error');
+        }
+    });
 }

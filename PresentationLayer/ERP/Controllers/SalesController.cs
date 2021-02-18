@@ -58,24 +58,23 @@ namespace ERP.Controllers
         // POST: SalesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("InvoiceId,ProductId,InvoiceDate,InvoiceType,CustID,InvoiceTotal,InvoiceDiscount,InvoiceNetTotal,InvoicePaid,InvoiceChange")] InvoiceCustomerViewModel Modeldetails,
-                                   [Bind("ProductId")]InvoiceCustomerViewModel listdetails)
+        public ActionResult Create(IEnumerable< InvoiceCustomerViewModel> listdetails)
         {
             try
             {
-                var smodel = new SalesInvoice
-                {
-                    InvoiceNo = Modeldetails.InvoiceId,
-                    InvoiceDate = Modeldetails.InvoiceDate,
-                    InvoiceType = Modeldetails.InvoiceType,
-                    InvoiceTotal = Modeldetails.InvoiceTotal,
-                    InvoiceDiscount = Modeldetails.InvoiceDiscount,
-                    InvoiceNetTotal = Modeldetails.InvoiceNetTotal,
-                    InvoicePaid = Modeldetails.InvoicePaid,
-                    CustID= Modeldetails.CustID,
-                    InvoiceChange= Modeldetails.InvoiceChange
-                };
-                salesRepo.Add(smodel);
+                //var smodel = new SalesInvoice
+                //{
+                //    InvoiceNo = Modeldetails.InvoiceId,
+                //    InvoiceDate = Modeldetails.InvoiceDate,
+                //    InvoiceType = Modeldetails.InvoiceType,
+                //    InvoiceTotal = Modeldetails.InvoiceTotal,
+                //    InvoiceDiscount = Modeldetails.InvoiceDiscount,
+                //    InvoiceNetTotal = Modeldetails.InvoiceNetTotal,
+                //    InvoicePaid = Modeldetails.InvoicePaid,
+                //    CustID= Modeldetails.CustID,
+                //    InvoiceChange= Modeldetails.InvoiceChange
+                //};
+                //salesRepo.Add(smodel);
                 //foreach (var item in listdetails)
                 //{
                 //    var model = new SalesDetails

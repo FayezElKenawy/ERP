@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ERP.Controllers
 {
@@ -58,7 +59,7 @@ namespace ERP.Controllers
         // POST: SalesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("InvoiceId,InvoiceDate,InvoiceType,CustID,InvoiceTotal,InvoiceDiscount,InvoiceNetTotal,InvoicePaid,InvoiceChange")] 
+        public IActionResult Create([Bind("InvoiceId,ProductID,InvoiceDate,InvoiceType,CustID,InvoiceTotal,InvoiceDiscount,InvoiceNetTotal,InvoicePaid,InvoiceChange")] 
         InvoiceCustomerViewModel Modeldetails)
         {
             try
@@ -76,41 +77,31 @@ namespace ERP.Controllers
                     InvoiceChange = Modeldetails.InvoiceChange
                 };
                 salesRepo.Add(smodel);
-                return insertinvoice(null, Modeldetails);
+                string h = Modeldetails.ProductID.ToString();
+                List<SalesDetails>items = JsonConvert.DeserializeObject<List<SalesDetails>>(h.ToString());
+                foreach (var item in items)
+                {
+                    var model = new SalesDetails
+                    {
+                        InvoiceId = Modeldetails.InvoiceId,
+                        ProductID = item.ProductID,
+                        Quantity = item.Quantity,
+                        SalesPrice = item.SalesPrice,
+                        Total = item.Total,
+                        discount = item.discount,
+                        VatAmount = item.VatAmount,
+                        TotalWithVat = item.TotalWithVat,
+                        Cost = productRepo.Find(item.ProductID).Cost//get cost of product
+                    };
+                    detailrepo.Add(model);
+                }
+                return RedirectToAction(nameof(Create));
             }
             catch(Exception ex)
             {
                 ViewBag.ex = ex.ToString();
                 return RedirectToAction(nameof(Create));
             }
-        }
-        public IActionResult insertinvoice(IEnumerable<InvoiceCustomerViewModel> listdetail,InvoiceCustomerViewModel list)
-        {
-
-            return Json(listdetail);
-        }
-        [HttpPost]
-        public IActionResult InvoiceDetail(IEnumerable<InvoiceCustomerViewModel> listdetail)
-        {
-            var listdetails = listdetail;
-            //foreach (var item in listdetails)
-            //{
-            //    var model = new SalesDetails
-            //    {
-            //        InvoiceId = item.InvoiceId,
-            //        ProductID = item.ProductID,
-            //        Quantity = item.Quantity,
-            //        SalesPrice = item.SalesPrice,
-            //        Total = item.Total,
-            //        discount = item.discount,
-            //        VatAmount = item.VatAmount,
-            //        TotalWithVat = item.TotalWithVat,
-            //        Cost = productRepo.Find(item.ProductID).Cost//get cost of product
-            //    };
-            //    detailrepo.Add(model);
-            //}
-      
-            return insertinvoice(listdetail,null);
         }
         // GET: SalesController/Edit/5
         public ActionResult Edit(int id)

@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.ViewModels
 {
@@ -16,6 +17,7 @@ namespace Domain.ViewModels
         public int InvoiceType { get; set; }
         public double InvoicePaid { get; set; }
         public double InvoiceChange { get; set; }
+        [Required]
         public string ProductID { get; set; }
         public double? Quantity { get; set; }
         public double? SalesPrice { get; set; }

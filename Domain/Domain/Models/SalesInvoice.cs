@@ -13,7 +13,6 @@ namespace Domain.Models
         [Key]
         public string InvoiceNo { get; set; }
         public string CustID { get; set; }
-        public string InvoiceId { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime InvoiceDate { get; set; }
         public double InvoiceTotal { get; set; }

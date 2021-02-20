@@ -77,16 +77,21 @@
                 </thead>
                 <tr class="item">
                     <td class="partcode">
-                        <input asp-for="ProductID" class="form-control text-center activeproduct"  type="text" data-toggle="modal" data-target=".bd-example-modal-lg" />
+                        <input class="form-control text-center activeproduct" type="text" data-toggle="modal" data-target=".bd-example-modal-lg" required />
                         <span asp-validation-for="ProductID" class="text-danger "></span>
                     </td>
-                    <td class="partName"><input class="form-control text-center"  /> </td>
-                    <td class="quantity inv"> <input asp-for="Quantity" type="number" step="0.01" id="Quantity" class="form-control text-center" autocomplete="off" placeholder="0.0" /> </td>
-                    <td class="price inv"> <input asp-for="SalesPrice" type="number" step="0.01" class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
-                    <td class="discount inv"><input asp-for="discount" type="number" step="0.01" class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
-                    <td class="total inv"><input asp-for="Total" type="number" step="0.01" class="form-control text-center" disabled autocomplete="off" placeholder="0.0" /></td>
-                    <td class="vatamount inv"><input asp-for="VatAmount" type="number" step="0.01" class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
-                    <td class="totalvat inv"><input asp-for="TotalWithVat" type="number" step="0.01" class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
+                    <td class="partName"><input class="form-control text-center" /> </td>
+                    <td class="quantity inv"> <input asp-for="Quantity" type="number" step="0.01" required id="Quantity" class="form-control text-center" autocomplete="off" placeholder="0.0" /> </td>
+                    <td class="price inv"> <input asp-for="SalesPrice" type="number" step="0.01" required class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
+                    <td class="discount inv"><input asp-for="discount" type="number" step="0.01" required class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
+                    <td class="total inv"><input asp-for="Total" type="number" step="0.01" required class="form-control text-center" disabled autocomplete="off" placeholder="0.0" /></td>
+                    <td class="vatamount inv"><input asp-for="VatAmount" type="number" required step="0.01" class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
+                    <td class="totalvat inv"><input asp-for="TotalWithVat" type="number" required step="0.01" class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
+                </tr>
+                <tr class="hide allitems">
+                    <td>
+                        <input type="hidden" asp-for="ProductID" />
+                    </td>
                 </tr>
             </table>
 
@@ -96,33 +101,33 @@
         <div class="form-group downtotals">
             <div class="d-md-inline-block border-danger col-md-2">
                 <label  class="control-label lbl" style="left: 83px;">Total</label>
-                <input asp-for="InvoiceTotal" type="number" step="0.01" class="form-control txtsums disabled" value=""  disabled autocomplete="off" placeholder="0.0" />
+                <input asp-for="InvoiceTotal" type="number" step="0.01" class="form-control txtsums disabled"   disabled autocomplete="off" placeholder="0.0" />
                 <span asp-validation-for="InvoiceTotal "  class="text-danger "></span>
             </div>
             <div class="d-md-inline-block border-danger col-md-2">
                 <label  class="control-label lbl">Discount</label>
-                <input asp-for="InvoiceDiscount" type="number" step="0.01" class="form-control txtsums" value="" autocomplete="off" placeholder="0.0" />
+                <input asp-for="InvoiceDiscount" type="number" step="0.01" class="form-control txtsums" autocomplete="off" placeholder="0.0" />
                 <span asp-validation-for="InvoiceDiscount" class="text-danger "></span>
             </div>
             <div class="d-md-inline-block border-danger col-md-2">
                 <label  class="control-label lbl">Net Total</label>
-                <input asp-for="InvoiceNetTotal" type="number" step="0.01" class="form-control txtsums disabled" value="" disabled autocomplete="off" placeholder="0.0" />
+                <input asp-for="InvoiceNetTotal" type="number" step="0.01" class="form-control txtsums disabled"  disabled autocomplete="off" placeholder="0.0" />
                 <span asp-validation-for="InvoiceNetTotal" class="text-danger "></span>
             </div>
             <div class="d-md-inline-block border-danger col-md-2">
                 <label  class="control-label lbl">Paid</label>
-                <input asp-for="InvoicePaid" type="number" step="0.01" class="form-control txtsums" value="0.0" autocomplete="off" />
+                <input asp-for="InvoicePaid" type="number" step="0.01" class="form-control txtsums"  autocomplete="off" placeholder="0.0" />
                 <span asp-validation-for="InvoicePaid" class="text-danger "></span>
             </div>
             <div class="d-md-inline-block border-danger col-md-2">
                 <label class="control-label lbl">Remain</label>
-                <input asp-for="InvoiceChange" type="number" step="0.01"  class="form-control txtsums disabled" value="" disabled autocomplete="off" placeholder="0.0" />
+                <input asp-for="InvoiceChange" type="number" step="0.01"  class="form-control txtsums disabled"  disabled autocomplete="off" placeholder="0.0" />
                 <span asp-validation-for="InvoiceChange" class="text-danger "></span>
             </div>
         </div>
 
         <div class="form-group ">
-            <input type="submit" value="Create" class="btn btn-primary " onsubmit="getInvoiceProduct();"/>
+            <input type="submit" value="Create" class="btn btn-primary " onclick="getInvoiceProduct();"/>
         </div>
     </form>
 </div>

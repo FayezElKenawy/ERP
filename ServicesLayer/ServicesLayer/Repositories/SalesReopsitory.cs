@@ -52,7 +52,7 @@ namespace ServicesLayer.Repositories
         {
             try
             {
-                string id = context.SalesInvoices.Max(i => i.InvoiceId).ToString();
+                string id = context.SalesInvoices.Max(i => i.InvoiceNo).ToString();
                 return id;
             }
             catch (Exception)

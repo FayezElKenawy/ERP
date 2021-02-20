@@ -41,7 +41,7 @@ $('.js-searchable-dropdown-list-item').on('click', function () {
 });
 //adding new row to invoice table
 function getrow() {//get row from partial view
-    return $.ajax({
+     $.ajax({
         url: "_invoicetable",//get row from partialview
         dataType: "html",
         success: function (result) {
@@ -118,3 +118,64 @@ function getInvoiceProduct() {
     $(allitem).val(jsonitem);
 
 }
+//adding hover color
+$('#pro tr').hover(function () {
+    if (!$(this).hasClass('selectforinvoice')) {
+        $(this).toggleClass('hovero');
+    }
+    
+});
+//select items for adding to invoice table
+$('#pro #TableProducts tr').on('click', function () {
+    $(this).toggleClass('selectforinvoice').toggleClass('hovero');
+});
+function GetEmptyRow(partcode,partname,price,html) {
+    var rows = $('#invoicetable').find('.item');
+
+    for (var i = 0; i < rows.length; i++) {
+        const inputs = $(rows[i]).find('input');
+        if (inputs[0].value == "") {
+            if ($(rows[i]).hasClass('activeproduct')) {
+                $(this).removeClass('activeproduct');
+            }
+            $(inputs[0]).val(partcode);
+            $(inputs[1]).val(partname);
+            $(inputs[3]).val(price);
+
+            break;
+        }
+    }
+}
+function GetItems() {
+    const tr = $('#TableProducts').find('.selectforinvoice');
+    var h = '<tr class="item"><td class="partcode" > <input  class="form-control text-center " type="text"  data-toggle="modal" data-target=".bd-example-modal-lg" /></td>' +
+
+        '<td class="partName"><input class="form-control text-center" value="" /> </td>' +
+
+        '<td class="price inv"> <input  type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td>' +
+
+        '<td class="price inv"> <input  type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td>' +
+
+        '<td class="discount inv"><input  type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td>' +
+
+        '<td class="total inv"><input  type="number" disabled step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td>' +
+
+        ' <td class="vatamount inv"><input  type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td>' +
+
+        '<td class="totalvat inv"><input  type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td></tr >'
+    for (var i = 0; i < tr.length; i++) {
+        const partcode = $(tr[i]).find('.productid').text();
+        const partname = $(tr[i]).find('.pertname').text();
+        const salesprice = $(tr[i]).find('.price').text();
+        GetEmptyRow(partcode, partname, salesprice,h);
+
+    }
+  
+}
+$('html').keypress(function (e) {
+    var key = e.which;
+    if (key == 13)  // the enter key code
+    {
+        GetItems();
+    }
+});  

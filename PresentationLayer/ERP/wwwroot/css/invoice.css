@@ -15,6 +15,18 @@
         top: -39px;
         position: absolute;
     }
+.hovero {
+    background-color: #f5f5f5;
+}
+#pro #TableProducts tr td label {
+    width: 100% !important;
+    padding-left: 9px;
+    margin-left: 12px;
+    display: inline;
+}
+.selectforinvoice {
+    background-color: cornflowerblue;
+}
 .txtsums {
     width: 65%;
     text-align:center;

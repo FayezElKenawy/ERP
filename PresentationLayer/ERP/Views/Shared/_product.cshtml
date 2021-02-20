@@ -34,12 +34,12 @@
         {
 
             <tr class="search">
-                <td class="part_code"><input  type="checkbox" value="@item.ProductId" id="@item.ProductId" /><label class="form-check-label font-weight-bold" style=" padding-left: 9px;" for="@item.ProductId">@item.ProductId</label></td>
-                <td>@item.ArabicName</td>
-                @*<td>@item.Balance</td>
-                    <td>@item.Cost</td>
-                    <td>@item.SalePrice</td>
-                    <td>@item.Model</td>*@
+                    <td class="part_code"><label class="productid form-check-label font-weight-bold"  for="@item.ProductId">@item.ProductId</label></td>
+                    <td><label class="pertname">@item.ArabicName</label></td>
+                    <td><label class="balance">@item.Balance</label></td>
+                    <td><label calss="cost">@item.Cost</label></td>
+                    <td><label calss="price">@item.SalePrice</label></td>
+                    <td><label calss="model">@item.Model</label></td>
             </tr>
         }
 

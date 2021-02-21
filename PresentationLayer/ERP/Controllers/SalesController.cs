@@ -91,16 +91,23 @@ namespace ERP.Controllers
                         discount = item.discount,
                         VatAmount = item.VatAmount,
                         TotalWithVat = item.TotalWithVat,
-                        Cost = productRepo.Find(item.ProductID).Cost//get cost of product
+                        Cost = productRepo.Find(item.ProductID).Cost,//get cost of product
+                        
                     };
+                   var pro= productRepo.Find(item.ProductID);
+                    var productupdate = new Product
+                    {
+                        Balance=(double)(pro.Balance-item.Quantity)
+
+                    };
+                    productRepo.Update(item.ProductID,productupdate);
                     detailrepo.Add(model);
                 }
                 return RedirectToAction(nameof(Create));
             }
-            catch(Exception ex)
-            {
-                ViewBag.ex = ex.ToString();
-                return RedirectToAction(nameof(Create));
+            catch(Exception e)
+            { 
+                throw;
             }
         }
         // GET: SalesController/Edit/5

@@ -30,5 +30,6 @@ namespace Domain.ViewModels
         public List<Customer> Customers { get; set; }
         public SalesInvoice Invoices { get; set; }
         public SalesDetails Details { get; set; }
+        public Product product { get; set; }
     }
 }

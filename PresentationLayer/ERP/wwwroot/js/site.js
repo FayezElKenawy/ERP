@@ -44,16 +44,23 @@ function getrow() {//get row from partial view
      $.ajax({
         url: "_invoicetable",//get row from partialview
         dataType: "html",
-        success: function (result) {
+         success: function (result) {
             $('#invoicetable tbody').append(result);//add row to invoice table
         }
     });
 }
-$('#invoicetable').on('click','.activeproduct', function () {
+function addRow(e, u) {
+    const item = $('#invoicetable tbody').find('.item');
+    if (e != "" && item.length<=1) {
         $(this).removeClass('activeproduct');
         getrow();
+    }
+}
+//$('#invoicetable').on('click', '.activeproduct', function () {
 
-});
+
+
+//});
 
 //calculations for table
 $('#invoicetable').on('mouseup keyup','input[type=number]', () => calculateTotals());
@@ -141,14 +148,14 @@ function GetEmptyRow(partcode,partname,price,html) {
             $(inputs[0]).val(partcode);
             $(inputs[1]).val(partname);
             $(inputs[3]).val(price);
-
+            $('#invoicetable tbody').append(html);
             break;
         }
     }
 }
 function GetItems() {
     const tr = $('#TableProducts').find('.selectforinvoice');
-    var h = '<tr class="item"><td class="partcode" > <input  class="form-control text-center " type="text"  data-toggle="modal" data-target=".bd-example-modal-lg" /></td>' +
+    var h = '<tr class="item"><td class="partcode" > <input  class="form-control text-center " onclick="addRow(this.value)" type="text"  data-toggle="modal" data-target=".bd-example-modal-lg" /></td>' +
 
         '<td class="partName"><input class="form-control text-center" value="" /> </td>' +
 

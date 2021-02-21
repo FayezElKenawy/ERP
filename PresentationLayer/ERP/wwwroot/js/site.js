@@ -56,11 +56,13 @@ function addRow(e, u) {
         getrow();
     }
 }
-//$('#invoicetable').on('click', '.activeproduct', function () {
-
-
-
-//});
+$('#invoicetable').on('keyup', '.activeproduct', function () {
+    var h = $(this).find('activepart');
+    if (h != null) {
+        $(this).removeClass('activeproduct');
+        getrow();
+    }
+});
 
 //calculations for table
 $('#invoicetable').on('mouseup keyup','input[type=number]', () => calculateTotals());
@@ -147,7 +149,7 @@ function GetEmptyRow(partcode,partname,price,html) {
             }
             $(inputs[0]).val(partcode);
             $(inputs[1]).val(partname);
-            $(inputs[3]).val(price);
+            $(inputs[3]).val(formatAsCurrency(price));
             $('#invoicetable tbody').append(html);
             break;
         }
@@ -155,7 +157,7 @@ function GetEmptyRow(partcode,partname,price,html) {
 }
 function GetItems() {
     const tr = $('#TableProducts').find('.selectforinvoice');
-    var h = '<tr class="item"><td class="partcode" > <input  class="form-control text-center " onclick="addRow(this.value)" type="text"  data-toggle="modal" data-target=".bd-example-modal-lg" /></td>' +
+    var h = '<tr class="item"><td class="partcode" > <input  class="form-control text-center activeproduct " onclick="addRow(this.value)" type="text"  data-toggle="modal" data-target=".bd-example-modal-lg" /></td>' +
 
         '<td class="partName"><input class="form-control text-center" value="" /> </td>' +
 
@@ -171,10 +173,12 @@ function GetItems() {
 
         '<td class="totalvat inv"><input  type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td></tr >'
     for (var i = 0; i < tr.length; i++) {
-        const partcode = $(tr[i]).find('.productid').text();
-        const partname = $(tr[i]).find('.pertname').text();
-        const salesprice = $(tr[i]).find('.price').text();
-        GetEmptyRow(partcode, partname, salesprice,h);
+        const td = $(tr[i]).find('td');
+        const partcode = $(td[0]).text();
+        const partname = $(td[1]).text();
+        const salesprice = $(td[3]).text();
+        GetEmptyRow(partcode, partname, salesprice, h);
+        $(tr[i]).removeClass('selectforinvoice');
 
     }
   

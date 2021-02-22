@@ -121,7 +121,7 @@ namespace ERP.Controllers
         }
 
         // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(string? ProductId)
+        public async Task<IActionResult> Delete(string ProductId)
         {
             if (ProductId == null)
             {

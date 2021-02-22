@@ -60,7 +60,7 @@ namespace ERP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustID,CustArName,CustEnName,CustMobileNo,CustAdress,CustBalance,CustOpenBalance,AccountNo")] Customer customer)
+        public  IActionResult Create([Bind("CustID,CustArName,CustEnName,CustMobileNo,CustAdress,CustBalance,CustOpenBalance,AccountNo")] Customer customer)
         {
             if (ModelState.IsValid)
             {

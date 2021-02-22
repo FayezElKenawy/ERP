@@ -11,12 +11,12 @@ namespace Domain.ViewModels
         public string CustID { get; set; }
         public string InvoiceId { get; set; }
         public DateTime InvoiceDate { get; set; }
-        public double InvoiceTotal { get; set; }
-        public double InvoiceDiscount { get; set; }
-        public double InvoiceNetTotal { get; set; }
+        public double? InvoiceTotal { get; set; }
+        public double? InvoiceDiscount { get; set; }
+        public double? InvoiceNetTotal { get; set; }
         public int InvoiceType { get; set; }
-        public double InvoicePaid { get; set; }
-        public double InvoiceChange { get; set; }
+        public double? InvoicePaid { get; set; }
+        public double? InvoiceChange { get; set; }
         [Required]
         public string ProductID { get; set; }
         public double? Quantity { get; set; }

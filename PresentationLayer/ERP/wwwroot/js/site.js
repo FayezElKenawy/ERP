@@ -71,9 +71,10 @@ $('#invoicetable').on('mouseup keyup','input[type=number]', () => calculateTotal
 function calculateTotals() {
     const subtotals = $('.item').map((idx, val) => calculateSubtotal(val)).get();
     const total = subtotals.reduce((a, v) => a + Number(v), 0);
-    $('#InvoiceTotal').val(formatAsCurrency(total));
-    $('#InvoiceNetTotal').val(formatAsCurrency(total));
-    $('#InvoiceChange').val(formatAsCurrency(total));
+    const inputs = $('.downtotals').find('input');
+    $(inputs[0]).val(formatAsCurrency(total));
+    $(inputs[2]).val(formatAsCurrency(total));
+    $(inputs[4]).val(formatAsCurrency(total));
     calculateMainTotals()
 }
 
@@ -112,16 +113,27 @@ function getInvoiceProduct() {
         const Product = {};
         if (inputs[0].value != "") {
             Product.ProductID = inputs[0].value;
-            Product.SalesPrice = inputs[2].value;
-            Product.Quantity = inputs[3].value;
+            Product.SalesPrice = inputs[3].value;
+            Product.Quantity = inputs[2].value;
             Product.discount = inputs[4].value;
             Product.Total = inputs[5].value;
             Product.VatAmount = inputs[6].value;
             Product.TotalWithVat = inputs[7].value;
             listdetails.push(Product);
         }
-
     }
+    const inputsdown = $('.downtotals').find('input');
+    const top = {};
+    const downt = new Array();
+        top.InvoiceTotal = inputsdown[0].vlaue;
+        top.InvoiceDiscount = inputsdown[1].vlaue;
+        top.InvoiceNetTotal = inputsdown[2].vlaue;
+        top.InvoicePaid = inputsdown[3].vlaue;
+        top.InvoiceChange = inputsdown[4].vlaue;
+        downt.push(top);
+    var downtjson = JSON.stringify(downt);
+    var hiddeninput = $('.downtotals').find('input[type=hidden]');
+    $(hiddeninput).val(downtjson);
     var allitem = $('.allitems').find('input');
     var jsonitem = JSON.stringify(listdetails);
     $(allitem).val(jsonitem);

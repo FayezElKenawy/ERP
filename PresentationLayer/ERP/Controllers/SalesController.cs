@@ -64,17 +64,19 @@ namespace ERP.Controllers
         {
             try
             {
+                string totaljson = Modeldetails.InvoiceTotal.ToString();
+                SalesInvoice hh = (SalesInvoice)totals(totaljson);
                 var smodel = new SalesInvoice
                 {
                     InvoiceNo = Modeldetails.InvoiceId,
                     InvoiceDate = Modeldetails.InvoiceDate,
                     InvoiceType = Modeldetails.InvoiceType,
-                    InvoiceTotal = Modeldetails.InvoiceTotal,
-                    InvoiceDiscount = Modeldetails.InvoiceDiscount,
-                    InvoiceNetTotal = Modeldetails.InvoiceNetTotal,
-                    InvoicePaid = Modeldetails.InvoicePaid,
+                    InvoiceTotal = (double)returnzero(hh.InvoiceTotal.ToString()),
+                    InvoiceDiscount = (double)returnzero(hh.InvoiceDiscount.ToString()),
+                    InvoiceNetTotal = (double)returnzero(hh.InvoiceNetTotal.ToString()),
+                    InvoicePaid = (double)returnzero(hh.InvoicePaid.ToString()),
                     CustID = Modeldetails.CustID,
-                    InvoiceChange = Modeldetails.InvoiceChange
+                    InvoiceChange = (double)returnzero(hh.InvoiceChange.ToString())
                 };
                 salesRepo.Add(smodel);
                 string h = Modeldetails.ProductID.ToString();
@@ -88,7 +90,7 @@ namespace ERP.Controllers
                         Quantity = item.Quantity,
                         SalesPrice = item.SalesPrice,
                         Total = item.Total,
-                        discount = item.discount,
+                        discount = returnzero(item.discount.ToString()),
                         VatAmount = item.VatAmount,
                         TotalWithVat = item.TotalWithVat,
                         Cost = productRepo.Find(item.ProductID).Cost,//get cost of product
@@ -117,6 +119,33 @@ namespace ERP.Controllers
             { 
                 throw;
             }
+        }
+      public  double returnzero(string value)
+        {
+            if (value==null||value=="")
+            {
+                return 0.0;
+            }
+                return double.Parse(value); 
+        }
+        public object totals(string total)
+        {
+
+            List<SalesInvoice> totals = JsonConvert.DeserializeObject<List<SalesInvoice>>(total.ToString());
+            object h="";
+            foreach (var item in totals)
+            {
+                SalesInvoice t = new SalesInvoice
+                {
+                    InvoiceChange = item.InvoiceChange,
+                    InvoicePaid=item.InvoicePaid,
+                    InvoiceDiscount=item.InvoiceDiscount,
+                    InvoiceNetTotal=item.InvoiceNetTotal
+                };
+                 h = t;
+            }
+
+            return h;
         }
         // GET: SalesController/Edit/5
         public ActionResult Edit(int id)

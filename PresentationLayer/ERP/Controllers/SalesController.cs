@@ -97,8 +97,16 @@ namespace ERP.Controllers
                    var pro= productRepo.Find(item.ProductID);
                     var productupdate = new Product
                     {
-                        Balance=(double)(pro.Balance-item.Quantity)
-
+                        ProductId=pro.ProductId,
+                         Balance=(double)(pro.Balance-item.Quantity),
+                         ArabicName = pro.ArabicName,
+                        EnglishName = pro.EnglishName,
+                        Model = pro.Model,
+                        Desc = pro.Desc,
+                        Cost = pro.Cost,
+                        SalePrice = pro.SalePrice,
+                        OpenBalance = pro.OpenBalance,
+                        OpenCost = pro.OpenCost
                     };
                     productRepo.Update(item.ProductID,productupdate);
                     detailrepo.Add(model);

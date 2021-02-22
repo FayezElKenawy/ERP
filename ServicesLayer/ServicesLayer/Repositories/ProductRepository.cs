@@ -50,7 +50,16 @@ namespace ServicesLayer.Repositories
 
         public void Update(object id, Product entity)
         {
-            throw new NotImplementedException();
+            Product pro = Find(id);
+            pro.ArabicName = entity.ArabicName;
+            pro.EnglishName = entity.EnglishName;
+            pro.Model = entity.Model;
+            pro.Desc = entity.Desc;
+            pro.Cost = entity.Cost;
+            pro.SalePrice = entity.SalePrice;
+            pro.Balance = entity.Balance;
+            pro.OpenBalance = entity.OpenBalance;
+            pro.OpenCost = entity.OpenCost;
         }
     }
 }

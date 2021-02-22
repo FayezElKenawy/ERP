@@ -110,7 +110,7 @@ function getInvoiceProduct() {
     for (var i = 0; i < rows.length; i++) {
         const inputs = $(rows[i]).find('input');
         const Product = {};
-        if (inputs[0].value != null) {
+        if (inputs[0].value != "") {
             Product.ProductID = inputs[0].value;
             Product.SalesPrice = inputs[2].value;
             Product.Quantity = inputs[3].value;

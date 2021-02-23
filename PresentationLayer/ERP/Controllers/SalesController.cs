@@ -59,12 +59,12 @@ namespace ERP.Controllers
         // POST: SalesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("InvoiceId,ProductID,InvoiceDate,InvoiceType,CustID,InvoiceTotal,InvoiceDiscount,InvoiceNetTotal,InvoicePaid,InvoiceChange")] 
+        public IActionResult Create([Bind("InvoiceId,downdetails,ProductID,InvoiceDate,InvoiceType,CustID,InvoiceTotal,InvoiceDiscount,InvoiceNetTotal,InvoicePaid,InvoiceChange")] 
         InvoiceCustomerViewModel Modeldetails)
         {
             try
             {
-                string totaljson = Modeldetails.InvoiceTotal.ToString();
+                string totaljson = Modeldetails.downdetails.ToString();
                 SalesInvoice hh = (SalesInvoice)totals(totaljson);
                 var smodel = new SalesInvoice
                 {
@@ -140,7 +140,8 @@ namespace ERP.Controllers
                     InvoiceChange = item.InvoiceChange,
                     InvoicePaid=item.InvoicePaid,
                     InvoiceDiscount=item.InvoiceDiscount,
-                    InvoiceNetTotal=item.InvoiceNetTotal
+                    InvoiceNetTotal=item.InvoiceNetTotal,
+                    InvoiceTotal = item.InvoiceTotal
                 };
                  h = t;
             }

@@ -125,11 +125,11 @@ function getInvoiceProduct() {
     const inputsdown = $('.downtotals').find('input');
     const top = {};
     const downt = new Array();
-        top.InvoiceTotal = inputsdown[0].vlaue;
-        top.InvoiceDiscount = inputsdown[1].vlaue;
-        top.InvoiceNetTotal = inputsdown[2].vlaue;
-        top.InvoicePaid = inputsdown[3].vlaue;
-        top.InvoiceChange = inputsdown[4].vlaue;
+    top.InvoiceTotal = inputsdown[0].value;
+    top.InvoiceDiscount = inputsdown[1].value;
+    top.InvoiceNetTotal = inputsdown[2].value;
+    top.InvoicePaid = inputsdown[3].value;
+    top.InvoiceChange = inputsdown[4].value;
         downt.push(top);
     var downtjson = JSON.stringify(downt);
     var hiddeninput = $('.downtotals').find('input[type=hidden]');
@@ -149,6 +149,9 @@ $('#pro tr').hover(function () {
 //select items for adding to invoice table
 $('#pro #TableProducts tr').on('click', function () {
     $(this).toggleClass('selectforinvoice').toggleClass('hovero');
+});
+$('#pro #TableProducts tr').on('dblclick', function () {
+    GetItems();
 });
 function GetEmptyRow(partcode,partname,price,html) {
     var rows = $('#invoicetable').find('.item');

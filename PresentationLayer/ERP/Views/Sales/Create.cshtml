@@ -101,30 +101,30 @@
         <div class="form-group downtotals">
             <div class="d-md-inline-block border-danger col-md-2">
                 <label class="control-label lbl" style="left: 83px;">Total</label>
-                <input type="number" step="0.01" class="form-control txtsums disabled" disabled autocomplete="off" placeholder="0.0" value="" />
+                <input  type="number" step="0.01" class="form-control txtsums disabled" disabled autocomplete="off" placeholder="0.0" value="0" />
                 <span asp-validation-for="InvoiceTotal " class="text-danger "></span>
             </div>
             <div class="d-md-inline-block border-danger col-md-2">
                 <label class="control-label lbl">Discount</label>
-                <input asp-for="InvoiceDiscount" type="number" step="0.01" class="form-control txtsums" autocomplete="off" placeholder="0.0" value="" />
+                <input asp-for="InvoiceDiscount" type="number" step="0.01" class="form-control txtsums" autocomplete="off" placeholder="0.0" value="0" />
 
             </div>
             <div class="d-md-inline-block border-danger col-md-2">
                 <label class="control-label lbl">Net Total</label>
-                <input  type="number" step="0.01" class="form-control txtsums disabled" disabled autocomplete="off" placeholder="0.0" value="" />
+                <input asp-for="InvoiceNetTotal"   type="number" step="0.01" class="form-control txtsums disabled" disabled autocomplete="off" placeholder="0.0" value="0" />
                 <span asp-validation-for="InvoiceNetTotal" class="text-danger "></span>
             </div>
             <div class="d-md-inline-block border-danger col-md-2">
                 <label class="control-label lbl">Paid</label>
-                <input  type="number" step="0.01" class="form-control txtsums" autocomplete="off" placeholder="0.0" value="" />
+                <input asp-for="InvoicePaid"  type="number" step="0.01" class="form-control txtsums" autocomplete="off" placeholder="0.0" value="0" />
 
             </div>
             <div class="d-md-inline-block border-danger col-md-2">
                 <label class="control-label lbl">Remain</label>
-                <input  type="number" step="0.01" class="form-control txtsums disabled" disabled autocomplete="off" placeholder="0.0" value="" />
+                <input asp-for="InvoiceChange"  type="number" step="0.01" class="form-control txtsums disabled" disabled autocomplete="off" placeholder="0.0" value="0" />
                 <span asp-validation-for="InvoiceChange" class="text-danger "></span>
             </div>
-                <input asp-for="InvoiceTotal" type="hidden"  />
+                <input asp-for="downdetails" type="hidden"  />
         </div>
 
         <div class="form-group ">

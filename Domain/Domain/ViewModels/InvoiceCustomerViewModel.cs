@@ -19,6 +19,7 @@ namespace Domain.ViewModels
         public double? InvoiceChange { get; set; }
         [Required]
         public string ProductID { get; set; }
+        public string downdetails { get; set; }
         public double? Quantity { get; set; }
         public double? SalesPrice { get; set; }
         public double? Total { get; set; }

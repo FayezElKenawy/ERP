@@ -74,8 +74,10 @@ function calculateTotals() {
     const inputs = $('.downtotals').find('input');
     $(inputs[0]).val(formatAsCurrency(total));
     $(inputs[2]).val(formatAsCurrency(total));
-    $(inputs[4]).val(formatAsCurrency(total));
-    calculateMainTotals()
+
+    var select = $('.topheader').find('.select');
+    cridtcash();
+    calculateMainTotals();
 }
 
 function calculateSubtotal(row) {
@@ -97,15 +99,32 @@ function calculateMainTotals() {
     const net = inputs[0].value - inputs[1].value;
     row.find(inputs[2]).val(formatAsCurrency(net));
     const remain = inputs[2].value - inputs[3].value;
-    row.find(inputs[4]).val(formatAsCurrency(remain));
+    cridtcash();
 
+}
+//change value from cash and cridt
+function cridtcash() {
+    var select = $('.topheader').find('.select');
+    const inputs = $('.downtotals').find('input');
+    if (select.val() == 0) {
+        $(inputs[3]).val(formatAsCurrency(inputs[2].value));
+        $(inputs[4]).val(formatAsCurrency(0.0));
+    }
+    else {
+        $(inputs[3]).val(formatAsCurrency(0.0));
+        $(inputs[4]).val(formatAsCurrency(inputs[2].value));
+    }
 }
 function formatAsCurrency(amount) {
     return Number(amount).toFixed(2);
 }
+$('.select').on('change', function () {
+    cridtcash();
+});
 //post data to controller
 
 function getInvoiceProduct() {
+    onclick_ckeck();
     var rows = $('#invoicetable').find('.item');
     const listdetails = new Array();
     for (var i = 0; i < rows.length; i++) {
@@ -149,9 +168,6 @@ $('#pro tr').hover(function () {
 //select items for adding to invoice table
 $('#pro #TableProducts tr').on('click', function () {
     $(this).toggleClass('selectforinvoice').toggleClass('hovero');
-});
-$('#pro #TableProducts tr').on('dblclick', function () {
-    GetItems();
 });
 function GetEmptyRow(partcode,partname,price,html) {
     var rows = $('#invoicetable').find('.item');
@@ -205,3 +221,16 @@ $('html').keypress(function (e) {
         GetItems();
     }
 });  
+
+function onclick_ckeck() {
+    var type, customer;
+    var select = $('.topheader').find('.select');
+    type = select.val();
+    var input = $('.topheader').find('.CustID');
+    customer = input.value;
+    if (type = 1 && customer == "") {
+        alert('must enter custmoer name');
+       
+    }
+
+}

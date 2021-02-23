@@ -46,7 +46,7 @@
             </div>
             <div class="searchable-dropdown js-searchable-dropdown">
                 <input type="text" name="text"  class="js-searchable-dropdown-input text-center" value="" placeholder="Customer Name" autocomplete="off">
-                <input type="hidden" asp-for="CustID" class="js-searchable-dropdown-input-id"/>
+                <input type="hidden" asp-for="CustID" class="js-searchable-dropdown-input-id CustID"/>
                 <span class="caret"></span>
                 <ul class="js-searchable-dropdown-list">
                     @foreach (var item in Model.Customers)

@@ -66,7 +66,7 @@ namespace ERP.Controllers
         // POST: SalesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("InvoiceId,downdetails,ProductID,InvoiceDate,InvoiceType,CustID,InvoiceTotal,InvoiceDiscount,InvoiceNetTotal,InvoicePaid,InvoiceChange")] 
+        public IActionResult Create([Bind("InvoiceNo,downdetails,ProductID,InvoiceDate,InvoiceType,CustID,InvoiceTotal,InvoiceDiscount,InvoiceNetTotal,InvoicePaid,InvoiceChange")] 
         InvoiceCustomerViewModel Modeldetails)
         {
             try
@@ -75,7 +75,7 @@ namespace ERP.Controllers
                 SalesInvoice hh = (SalesInvoice)totals(totaljson);
                 var smodel = new SalesInvoice
                 {
-                    InvoiceNo = Modeldetails.InvoiceId,
+                    InvoiceNo = Modeldetails.InvoiceNo,
                     InvoiceDate = Modeldetails.InvoiceDate,
                     InvoiceType = Modeldetails.InvoiceType,
                     InvoiceTotal = (double)returnzero(hh.InvoiceTotal.ToString()),
@@ -92,7 +92,7 @@ namespace ERP.Controllers
                 {
                     var model = new SalesDetails
                     {
-                        InvoiceId = Modeldetails.InvoiceId,
+                        InvoiceId = Modeldetails.InvoiceNo,
                         ProductID = item.ProductID,
                         Quantity = item.Quantity,
                         SalesPrice = item.SalesPrice,
@@ -156,9 +156,15 @@ namespace ERP.Controllers
             return h;
         }
         // GET: SalesController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            var model = new InvoiceCustomerViewModel
+            {
+                invoice = salesRepo.Find(id),
+                Details=detailrepo.List().Where(i=>i.InvoiceId==id).ToList()
+
+            };
+            return View(model);
         }
 
         // POST: SalesController/Edit/5

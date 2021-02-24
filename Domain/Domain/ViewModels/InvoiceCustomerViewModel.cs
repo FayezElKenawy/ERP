@@ -9,7 +9,6 @@ namespace Domain.ViewModels
     {
         public string InvoiceNo { get; set; }
         public string CustID { get; set; }
-        public string InvoiceId { get; set; }
         public DateTime InvoiceDate { get; set; }
         public double? InvoiceTotal { get; set; }
         public double? InvoiceDiscount { get; set; }
@@ -31,6 +30,8 @@ namespace Domain.ViewModels
         public List<Customer> Customers { get; set; }
         public List<SalesInvoice> Invoices { get; set; }
         public List<SalesDetails> Details { get; set; }
+        public Customer customer { get; set; }
+        public SalesInvoice invoice { get; set; }
         public Product product { get; set; }
     }
 }

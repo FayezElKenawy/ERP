@@ -23,17 +23,8 @@ namespace ServicesLayer.Repositories
             context.SalesInvoices.Add(entity);
             context.SaveChanges();
         }
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Delete(object id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public SalesInvoice Find(int id)
         {
             throw new NotImplementedException();
         }
@@ -70,10 +61,6 @@ namespace ServicesLayer.Repositories
             throw new NotImplementedException();
         }
 
-        public void Update(int id, SalesInvoice entity)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Update(object id, SalesInvoice entity)
         {

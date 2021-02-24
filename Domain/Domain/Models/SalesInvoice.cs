@@ -24,6 +24,7 @@ namespace Domain.Models
 
         [ForeignKey(nameof(CustID))]
         public Customer Customer { get; set; }
+        public List<SalesDetails> Details { get; set; }
 
     }
 }

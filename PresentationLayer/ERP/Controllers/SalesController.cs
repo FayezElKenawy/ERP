@@ -29,8 +29,15 @@ namespace ERP.Controllers
         // GET: SalesController
         public ActionResult Index()
         {
-            var Invoices = salesRepo.List().ToList();
-            return View(Invoices);
+            var invoices = new InvoiceCustomerViewModel
+            {
+                Products= productRepo.List().ToList(),
+                Customers = CustomerRepo.List().ToList(),
+                Invoices= salesRepo.List().ToList(),
+                Details= detailrepo.List().ToList()
+
+            };
+            return View(invoices);
         }
 
         // GET: SalesController/Details/5

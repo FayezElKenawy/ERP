@@ -124,7 +124,6 @@ $('.select').on('change', function () {
 //post data to controller
 
 function getInvoiceProduct() {
-    onclick_ckeck();
     var rows = $('#invoicetable').find('.item');
     const listdetails = new Array();
     for (var i = 0; i < rows.length; i++) {
@@ -220,17 +219,4 @@ $('html').keypress(function (e) {
     {
         GetItems();
     }
-});  
-
-function onclick_ckeck() {
-    var type, customer;
-    var select = $('.topheader').find('.select');
-    type = select.val();
-    var input = $('.topheader').find('.CustID');
-    customer = input.value;
-    if (type = 1 && customer == "") {
-        alert('must enter custmoer name');
-       
-    }
-
-}
+});

@@ -161,7 +161,8 @@ namespace ERP.Controllers
             var model = new InvoiceCustomerViewModel
             {
                 invoice = salesRepo.Find(id),
-                Details=detailrepo.List().Where(i=>i.InvoiceId==id).ToList()
+                Details=detailrepo.List().Where(i=>i.InvoiceId==id).ToList(),
+                Products=productRepo.List().ToList()
 
             };
             return View(model);
@@ -170,13 +171,62 @@ namespace ERP.Controllers
         // POST: SalesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(InvoiceCustomerViewModel collection)
         {
             try
             {
+                string totaljson = collection.downdetails.ToString();
+                SalesInvoice hh = (SalesInvoice)totals(totaljson);
+                var smodel = new SalesInvoice
+                {
+                    InvoiceNo = collection.invoice.InvoiceNo,
+                    InvoiceDate = collection.invoice.InvoiceDate,
+                    InvoiceType = collection.invoice.InvoiceType,
+                    InvoiceTotal = (double)returnzero(hh.InvoiceTotal.ToString()),
+                    InvoiceDiscount = (double)returnzero(hh.InvoiceDiscount.ToString()),
+                    InvoiceNetTotal = (double)returnzero(hh.InvoiceNetTotal.ToString()),
+                    InvoicePaid = (double)returnzero(hh.InvoicePaid.ToString()),
+                    CustID = collection.invoice.CustID,
+                    InvoiceChange = (double)returnzero(hh.InvoiceChange.ToString())
+                };
+                salesRepo.Update(smodel.InvoiceNo,smodel);
+                string h = collection.ProductID.ToString();
+                List<SalesDetails> items = JsonConvert.DeserializeObject<List<SalesDetails>>(h.ToString());
+                foreach (var item in items)
+                {
+                    var model = new SalesDetails
+                    {
+                        InvoiceId = collection.invoice.InvoiceNo,
+                        ProductID = item.ProductID,
+                        Quantity = item.Quantity,
+                        SalesPrice = item.SalesPrice,
+                        Total = item.Total,
+                        discount = returnzero(item.discount.ToString()),
+                        VatAmount = item.VatAmount,
+                        TotalWithVat = item.TotalWithVat,
+                        Cost = productRepo.Find(item.ProductID).Cost,//get cost of product
+
+                    };
+                    var pro = productRepo.Find(item.ProductID);
+                    var productupdate = new Product
+                    {
+                        ProductId = pro.ProductId,
+                        Balance = (double)(pro.Balance - item.Quantity),
+                        ArabicName = pro.ArabicName,
+                        EnglishName = pro.EnglishName,
+                        Model = pro.Model,
+                        Desc = pro.Desc,
+                        Cost = pro.Cost,
+                        SalePrice = pro.SalePrice,
+                        OpenBalance = pro.OpenBalance,
+                        OpenCost = pro.OpenCost
+                    };
+                    productRepo.Update(item.ProductID, productupdate);
+                    detailrepo.Update(model.InvoiceId,model);
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }

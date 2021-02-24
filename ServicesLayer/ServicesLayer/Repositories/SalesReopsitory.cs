@@ -31,7 +31,7 @@ namespace ServicesLayer.Repositories
 
         public SalesInvoice Find(object id)
         {
-            throw new NotImplementedException();
+            return context.SalesInvoices.Find(id);
         }
 
         public IList<SalesInvoice> List()
@@ -64,7 +64,15 @@ namespace ServicesLayer.Repositories
 
         public void Update(object id, SalesInvoice entity)
         {
-            throw new NotImplementedException();
+            var invoice = Find(id);
+            invoice.InvoiceDate = entity.InvoiceDate;
+            invoice.InvoiceType = entity.InvoiceType;
+            invoice.InvoiceTotal = entity.InvoiceTotal;
+            invoice.InvoiceDiscount = entity.InvoiceDiscount;
+            invoice.InvoiceNetTotal = entity.InvoiceNetTotal;
+            invoice.InvoicePaid = entity.InvoicePaid;
+            invoice.CustID = entity.CustID;
+            invoice.InvoiceChange = entity.InvoiceChange;
         }
     }
 }

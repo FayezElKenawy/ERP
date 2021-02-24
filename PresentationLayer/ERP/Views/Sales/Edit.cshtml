@@ -3,116 +3,111 @@
 @{
     ViewData["Title"] = "Edit";
 }
-@section styles{ }
+@section styles{
+    <link href="~/css/invoice.css" rel="stylesheet" /> }
 <h1>Edit</h1>
 
 <h4>InvoiceCustomerViewModel</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="InvoiceNo" class="control-label"></label>
-                <input asp-for="InvoiceNo" class="form-control" />
-                <span asp-validation-for="InvoiceNo" class="text-danger"></span>
+            <div class="form-group topheader">
+                <div class="d-md-inline-block border-danger col-md-3">
+                    <label class="control-label lblid lbl">Invoice No</label>
+                    <input asp-for="invoice.InvoiceNo"class="form-control invoiceid" readonly />
+                    <span asp-validation-for="invoice.InvoiceNo" class="text-danger "></span>
+                </div>
+                <div class="d-inline-block col-md-3">
+                    <label class="control-label lbldatepicker lbl">Invoice Date</label>
+                    <input asp-for="invoice.InvoiceDate" id="datepicker"  class="form-control datepicker"  />
+                    <span asp-validation-for="invoice.InvoiceDate" class="text-danger "></span>
+                </div>
+                <div class="d-inline-block col-md-3">
+                    <label class="control-label lblinvoicetype lbl">Invoice Type</label>
+                    <!--<input asp-for="InvoiceType" class="form-control invoicetype select" />-->
+                    <select asp-for="invoice.InvoiceType" class="form-control invoicetype select">
+                        <option value="0">Cash</option>
+                        <option value="1">Credit</option>
+                    </select>
+                    <span asp-validation-for="invoice.InvoiceType" class="text-danger "></span>
+                </div>
+                <div class="searchable-dropdown js-searchable-dropdown">
+                    <input type="text" name="text" class="js-searchable-dropdown-input text-center" value="" placeholder="Customer Name" autocomplete="off">
+                    <input  asp-for="invoice.CustID" class="js-searchable-dropdown-input-id" />
+                </div>
+            </div>
+
+            <div class="form-group invoicebody">
+                <table class="table table-fixed invoicetable" id="invoicetable">
+                    <thead>
+                        <tr class="thead-light">
+                            <th class="text-center">Part Code</th>
+                            <th class="text-center">Part Name</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Sale Price</th>
+                            <th class="text-center">Discount</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-center">Vat</th>
+                            <th class="text-center">Net Total</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model.Details)
+                    {
+                        <tr class="item">
+                            <td class="partcode">
+                                <input asp-for="@item.ProductID" class="form-control text-center activeproduct"  required  />
+                                <span asp-validation-for="ProductID" class="text-danger "></span>
+                            </td>
+                            <td class="partName"><input asp-for="@item.Product.ArabicName" class="form-control text-center" /> </td>
+                            <td class="quantity inv"> <input asp-for="@item.Quantity" type="number" step="0.01" required id="Quantity" onfocus="" class="form-control text-center" autocomplete="off" placeholder="0.0" /> </td>
+                            <td class="price inv"> <input asp-for="@item.SalesPrice" type="number" step="0.01" required class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
+                            <td class="discount inv"><input asp-for="@item.discount" type="number" step="0.01" required class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
+                            <td class="total inv"><input asp-for="@item.Total" type="number" step="0.01" required class="form-control text-center" disabled autocomplete="off" placeholder="0.0" /></td>
+                            <td class="vatamount inv"><input asp-for="@item.VatAmount" type="number" required step="0.01" class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
+                            <td class="totalvat inv"><input asp-for="@item.TotalWithVat" type="number" required step="0.01" class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
+                        </tr>
+                    }
+                <tr class="hide allitems"><td><input type="hidden" asp-for="ProductID" /></td></tr>
+                </table>
+
+            </div>
+
+
+            <div class="form-group downtotals">
+                <div class="d-md-inline-block border-danger col-md-2">
+                    <label class="control-label lbl" style="left: 83px;">Total</label>
+                    <input asp-for="invoice.InvoiceTotal" type="number" step="0.01" class="form-control txtsums disabled" disabled autocomplete="off" placeholder="0.0" />
+                    <span asp-validation-for="invoice.InvoiceTotal " class="text-danger "></span>
+                </div>
+                <div class="d-md-inline-block border-danger col-md-2">
+                    <label class="control-label lbl">Discount</label>
+                    <input asp-for="invoice.InvoiceDiscount" type="number" step="0.01" class="form-control txtsums" autocomplete="off" placeholder="0.0" />
+                    <span asp-validation-for="invoice.InvoiceDiscount" class="text-danger "></span>
+                </div>
+                <div class="d-md-inline-block border-danger col-md-2">
+                    <label class="control-label lbl">Net Total</label>
+                    <input asp-for="invoice.InvoiceNetTotal" type="number" step="0.01" class="form-control txtsums disabled" disabled autocomplete="off" placeholder="0.0" />
+                    <span asp-validation-for="invoice.InvoiceNetTotal" class="text-danger "></span>
+                </div>
+                <div class="d-md-inline-block border-danger col-md-2">
+                    <label class="control-label lbl">Paid</label>
+                    <input asp-for="invoice.InvoicePaid" type="number" step="0.01" class="form-control txtsums" autocomplete="off" placeholder="0.0" />
+                    <span asp-validation-for="invoice.InvoicePaid" class="text-danger "></span>
+                </div>
+                <div class="d-md-inline-block border-danger col-md-2">
+                    <label class="control-label lbl">Remain</label>
+                    <input asp-for="invoice.InvoiceChange" type="number" step="0.01" class="form-control txtsums disabled" disabled autocomplete="off" placeholder="0.0" />
+                    <span asp-validation-for="invoice.InvoiceChange" class="text-danger "></span>
+                </div>
+                <input type="hidden" asp-for="downdetails" />
             </div>
             <div class="form-group">
-                <label asp-for="CustID" class="control-label"></label>
-                <input asp-for="CustID" class="form-control" />
-                <span asp-validation-for="CustID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InvoiceNo" class="control-label"></label>
-                <input asp-for="InvoiceNo" class="form-control" />
-                <span asp-validation-for="InvoiceNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InvoiceDate" class="control-label"></label>
-                <input asp-for="InvoiceDate" class="form-control" />
-                <span asp-validation-for="InvoiceDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InvoiceTotal" class="control-label"></label>
-                <input asp-for="InvoiceTotal" class="form-control" />
-                <span asp-validation-for="InvoiceTotal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InvoiceDiscount" class="control-label"></label>
-                <input asp-for="InvoiceDiscount" class="form-control" />
-                <span asp-validation-for="InvoiceDiscount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InvoiceNetTotal" class="control-label"></label>
-                <input asp-for="InvoiceNetTotal" class="form-control" />
-                <span asp-validation-for="InvoiceNetTotal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InvoiceType" class="control-label"></label>
-                <input asp-for="InvoiceType" class="form-control" />
-                <span asp-validation-for="InvoiceType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InvoicePaid" class="control-label"></label>
-                <input asp-for="InvoicePaid" class="form-control" />
-                <span asp-validation-for="InvoicePaid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InvoiceChange" class="control-label"></label>
-                <input asp-for="InvoiceChange" class="form-control" />
-                <span asp-validation-for="InvoiceChange" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductID" class="control-label"></label>
-                <input asp-for="ProductID" class="form-control" />
-                <span asp-validation-for="ProductID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="downdetails" class="control-label"></label>
-                <input asp-for="downdetails" class="form-control" />
-                <span asp-validation-for="downdetails" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SalesPrice" class="control-label"></label>
-                <input asp-for="SalesPrice" class="form-control" />
-                <span asp-validation-for="SalesPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Total" class="control-label"></label>
-                <input asp-for="Total" class="form-control" />
-                <span asp-validation-for="Total" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cost" class="control-label"></label>
-                <input asp-for="Cost" class="form-control" />
-                <span asp-validation-for="Cost" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="discount" class="control-label"></label>
-                <input asp-for="discount" class="form-control" />
-                <span asp-validation-for="discount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VatAmount" class="control-label"></label>
-                <input asp-for="VatAmount" class="form-control" />
-                <span asp-validation-for="VatAmount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalWithVat" class="control-label"></label>
-                <input asp-for="TotalWithVat" class="form-control" />
-                <span asp-validation-for="TotalWithVat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" onclick="getInvoiceProduct();" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
+
 
 <div>
     <a asp-action="Index">Back to List</a>

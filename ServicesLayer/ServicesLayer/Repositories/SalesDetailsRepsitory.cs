@@ -23,21 +23,11 @@ namespace ServicesLayer.Repositories
              _context.SalesDetails.Add(entity);
             _context.SaveChanges();
         }
-
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Delete(object id)
         {
             throw new NotImplementedException();
         }
 
-        public SalesDetails Find(int id)
-        {
-            return _context.SalesDetails.Find(id);
-        }
 
         public SalesDetails Find(object id)
         {
@@ -58,21 +48,12 @@ namespace ServicesLayer.Repositories
         {
             throw new NotImplementedException();
         }
-
-
-
         public void Update(object id, SalesDetails entity)
         {
-            var detail = Find(id);
-            detail.InvoiceId = entity.InvoiceId;
-            detail.ProductID = entity.ProductID;
-            detail.Quantity = entity.Quantity;
-            detail.SalesPrice = entity.SalesPrice;
-            detail.Total = entity.Total;
-            detail.discount = entity.discount;
-            detail.VatAmount = entity.VatAmount;
-            detail.TotalWithVat = entity.TotalWithVat;
-            detail.Cost = entity.Cost;
+
+            _context.SalesDetails.Update(entity);
+            _context.SaveChanges();
+
         }
     }
 }

@@ -17,28 +17,28 @@
         <tr>
             <th></th>
             <th>
-                @Html.DisplayNameFor(model => model.InvoiceNo)
+                Invoice No
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InvoiceDate)
+                Date
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InvoiceTotal)
+                Total
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InvoiceDiscount)
+                Discount
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InvoiceNetTotal)
+               Net Total
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InvoiceType)
+                Type
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InvoicePaid)
+                Amount Paid
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InvoiceChange)
+                Change
             </th>
             <th></th>
         </tr>
@@ -83,7 +83,7 @@
                 </td>
                 <td class="listtablecell">
                     <a asp-action="Edit" asp-route-id="@item.InvoiceNo"><i class="icon-edit icon-large text-primary"></i> |</a>
-                    <a asp-action="Details" asp-route-id="@item.InvoiceNo"><i class="icon-info-sign icon-large"></i> |</a>
+                    <a asp-action="Details" asp-route-id="@item.InvoiceNo"><i class="icon-print"></i> |</a>
                     <a asp-action="Delete" asp-route-id="@item.InvoiceNo"><i class="icon-trash icon-large text-danger"></i></a>
                 </td>
             </tr>
@@ -122,32 +122,32 @@
                             </thead>
                             @foreach (var item1 in item.Details)
                             {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.ProductID)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.Product.ArabicName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.Quantity)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.SalesPrice)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.discount)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.Total)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.VatAmount)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item1.TotalWithVat)
-                            </td>
-                        </tr>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.ProductID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Product.ArabicName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Quantity)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.SalesPrice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.discount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.Total)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.VatAmount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item1.TotalWithVat)
+                                    </td>
+                                </tr>
                             }
 
                         </table>

@@ -41,9 +41,16 @@ namespace ERP.Controllers
         }
 
         // GET: SalesController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            var model = new InvoiceCustomerViewModel
+            {
+                invoice = salesRepo.Find(id),
+                Details = detailrepo.List().Where(i => i.InvoiceId == id).ToList(),
+                Products = productRepo.List().ToList()
+
+            };
+            return View(model);
         }
 
         // GET: SalesController/Create
@@ -208,6 +215,7 @@ namespace ERP.Controllers
 
                     };
                     var pro = productRepo.Find(item.ProductID);
+
                     var productupdate = new Product
                     {
                         ProductId = pro.ProductId,
@@ -221,6 +229,10 @@ namespace ERP.Controllers
                         OpenBalance = pro.OpenBalance,
                         OpenCost = pro.OpenCost
                     };
+                    if (true)
+                    {
+
+                    }
                     productRepo.Update(item.ProductID, productupdate);
                     detailrepo.Update(model.InvoiceId,model);
                 }
@@ -228,7 +240,7 @@ namespace ERP.Controllers
             }
             catch(Exception e)
             {
-                return View();
+                throw;
             }
         }
 

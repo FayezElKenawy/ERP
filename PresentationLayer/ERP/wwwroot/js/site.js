@@ -131,23 +131,23 @@ function getInvoiceProduct() {
         const Product = {};
         if (inputs[0].value != "") {
             Product.ProductID = inputs[0].value;
-            Product.SalesPrice = inputs[3].value;
-            Product.Quantity = inputs[2].value;
-            Product.discount = inputs[4].value;
-            Product.Total = inputs[5].value;
-            Product.VatAmount = inputs[6].value;
-            Product.TotalWithVat = inputs[7].value;
+            Product.SalesPrice = removenull(inputs[3].value);
+            Product.Quantity = removenull(inputs[2].value);
+            Product.discount = removenull(inputs[4].value);
+            Product.Total = removenull(inputs[5].value);
+            Product.VatAmount = removenull(inputs[6].value);
+            Product.TotalWithVat = removenull(inputs[7].value);
             listdetails.push(Product);
         }
     }
     const inputsdown = $('.downtotals').find('input');
     const top = {};
     const downt = new Array();
-    top.InvoiceTotal = inputsdown[0].value;
-    top.InvoiceDiscount = inputsdown[1].value;
-    top.InvoiceNetTotal = inputsdown[2].value;
-    top.InvoicePaid = inputsdown[3].value;
-    top.InvoiceChange = inputsdown[4].value;
+    top.InvoiceTotal = removenull(inputsdown[0].value);
+    top.InvoiceDiscount = removenull(inputsdown[1].value)
+    top.InvoiceNetTotal = removenull(inputsdown[2].value)
+    top.InvoicePaid = removenull(inputsdown[3].value)
+    top.InvoiceChange = removenull(inputsdown[4].value)
         downt.push(top);
     var downtjson = JSON.stringify(downt);
     var hiddeninput = $('.downtotals').find('input[type=hidden]');
@@ -156,6 +156,15 @@ function getInvoiceProduct() {
     var jsonitem = JSON.stringify(listdetails);
     $(allitem).val(jsonitem);
 
+}
+//remove null
+function removenull(o) {
+    if (o != ""&&o!=null) {
+        return o
+    }
+    else {
+        return 0;
+    }
 }
 //adding hover color
 $('#pro tr').hover(function () {

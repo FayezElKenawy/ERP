@@ -80,7 +80,23 @@ namespace ERP.Controllers
             {
                 string totaljson = Modeldetails.downdetails.ToString();
                 SalesInvoice hh = (SalesInvoice)totals(totaljson);
-                var smodel = new SalesInvoice
+                if (Modeldetails.InvoiceType == 1)//update customer balance
+                {
+                    var customer = CustomerRepo.Find(Modeldetails.CustID);
+                    var newcustomer = new Customer
+                    {
+                        CustID = customer.CustID,
+                        CustArName = customer.CustArName,
+                        CustEnName = customer.CustEnName,
+                        AccountNo = customer.AccountNo,
+                        CustAdress = customer.CustAdress,
+                        CustMobileNo = customer.CustMobileNo,
+                        CustBalance = (double)(returnzero(customer.CustBalance.ToString()) + returnzero(hh.InvoiceChange.ToString())),
+                        CustOpenBalance = customer.CustOpenBalance
+                    };
+                    CustomerRepo.Update(Modeldetails.CustID, newcustomer);
+                }
+                var smodel = new SalesInvoice//insert invoice details
                 {
                     InvoiceNo = Modeldetails.InvoiceNo,
                     InvoiceDate = Modeldetails.InvoiceDate,
@@ -93,11 +109,12 @@ namespace ERP.Controllers
                     InvoiceChange = (double)returnzero(hh.InvoiceChange.ToString())
                 };
                 salesRepo.Add(smodel);
+               
                 string h = Modeldetails.ProductID.ToString();
                 List<SalesDetails>items = JsonConvert.DeserializeObject<List<SalesDetails>>(h.ToString());
                 foreach (var item in items)
                 {
-                    var model = new SalesDetails
+                    var model = new SalesDetails//insert invoice product details
                     {
                         InvoiceId = Modeldetails.InvoiceNo,
                         ProductID = item.ProductID,
@@ -111,7 +128,7 @@ namespace ERP.Controllers
                         
                     };
                    var pro= productRepo.Find(item.ProductID);
-                    var productupdate = new Product
+                    var productupdate = new Product//update products balnce
                     {
                         ProductId=pro.ProductId,
                          Balance=(double)(pro.Balance-item.Quantity),
@@ -197,6 +214,23 @@ namespace ERP.Controllers
                     InvoiceChange = (double)returnzero(hh.InvoiceChange.ToString())
                 };
                 salesRepo.Update(smodel.InvoiceNo,smodel);
+                if (collection.invoice.InvoiceType == 1)
+                {
+                    var customer = CustomerRepo.Find(collection.invoice.CustID);
+                    var newcustomer = new Customer
+                    {
+                        CustID=customer.CustID,
+                        CustArName = customer.CustArName,
+                        CustEnName = customer.CustEnName,
+                        AccountNo = customer.AccountNo,
+                        CustAdress = customer.CustAdress,
+                        CustMobileNo = customer.CustMobileNo,
+                        CustBalance = (double)(customer.CustBalance + hh.InvoiceChange),
+                        CustOpenBalance = customer.CustOpenBalance
+
+                    };
+                    CustomerRepo.Update(collection.invoice.CustID, newcustomer);
+                }
                 string h = collection.ProductID.ToString();
                 List<SalesDetails> items = JsonConvert.DeserializeObject<List<SalesDetails>>(h.ToString());
                 foreach (var item in items)

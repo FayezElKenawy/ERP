@@ -38,21 +38,22 @@
             <div class="d-inline-block col-md-3">
                 <label class="control-label lblinvoicetype lbl">Invoice Type</label>
                 <!--<input asp-for="InvoiceType" class="form-control invoicetype select" />-->
-                <select asp-for="InvoiceType" class="form-control invoicetype select">
+                <select asp-for="InvoiceType" class="form-control invoicetype select" onchange="change();">
                     <option value="0">Cash</option>
                     <option value="1">Credit</option>
                 </select>
                 <span asp-validation-for="InvoiceType" class="text-danger "></span>
             </div>
             <div class="searchable-dropdown js-searchable-dropdown">
-                <input type="text" name="text"  class="js-searchable-dropdown-input text-center" value="" placeholder="Customer Name" autocomplete="off">
-                <input type="hidden" asp-for="CustID" class="js-searchable-dropdown-input-id"/>
+                <input type="text" name="text" class="js-searchable-dropdown-input text-center" value="" placeholder="Customer Name" autocomplete="off">
+                <input type="hidden" asp-for="CustID" class="js-searchable-dropdown-input-id" />
                 <span class="caret"></span>
                 <ul class="js-searchable-dropdown-list">
                     @foreach (var item in Model.Customers)
                     {
                         <li class="js-searchable-dropdown-list-item" data-id-value="@item.CustID" data-search-value="@item.CustID  @item.CustArName">
-                    <span class="custid text-danger">@item.CustID</span> <span class="custname text-primary">@item.CustArName</span></li>
+                            <span class="custid text-danger">@item.CustID</span> <span class="custname text-primary">@item.CustArName</span>
+                        </li>
                         /*codepen.io/plestik/pen/EvRQdy */
                     }
 

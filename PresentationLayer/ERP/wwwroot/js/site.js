@@ -109,10 +109,15 @@ function cridtcash() {
     if (select.val() == 0) {
         $(inputs[3]).val(formatAsCurrency(inputs[2].value));
         $(inputs[4]).val(formatAsCurrency(0.0));
+        var x = $.find('.js-searchable-dropdown-input');
+        $(x).removeAttr('required');
+        
     }
     else {
         $(inputs[3]).val(formatAsCurrency(0.0));
         $(inputs[4]).val(formatAsCurrency(inputs[2].value));
+        var x = $.find('.js-searchable-dropdown-input');
+        $(x).attr('required', ''); 
     }
 }
 function formatAsCurrency(amount) {

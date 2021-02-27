@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ServicesLayer.Repositories
 {
@@ -32,7 +33,7 @@ namespace ServicesLayer.Repositories
 
         public Customer Find(object id)
         {
-            return context.Customers.FirstOrDefault(c => c.CustID == id.ToString());
+            return context.Customers.AsNoTracking().FirstOrDefault(c => c.CustID == id.ToString());
         }
 
         public IList<Customer> List()
@@ -63,6 +64,8 @@ namespace ServicesLayer.Repositories
         public Customer Update(object id, Customer entity)
         {
              Customer cust = Find(id);
+            context.Customers.Update(entity);
+            context.SaveChanges();
             return cust;
             
         }

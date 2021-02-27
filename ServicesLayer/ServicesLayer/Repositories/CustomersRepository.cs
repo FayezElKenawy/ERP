@@ -1,12 +1,10 @@
-﻿using Domain.Models;
-using Domain.Data;
+﻿using Domain.Data;
 using Domain.Interfaces;
+using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace ServicesLayer.Repositories
 {
@@ -63,11 +61,11 @@ namespace ServicesLayer.Repositories
 
         public Customer Update(object id, Customer entity)
         {
-             Customer cust = Find(id);
+            Customer cust = Find(id);
             context.Customers.Update(entity);
             context.SaveChanges();
             return cust;
-            
+
         }
     }
 }

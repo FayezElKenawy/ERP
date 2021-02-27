@@ -1,13 +1,12 @@
-﻿using Domain.Models;
+﻿using Domain.Interfaces;
+using Domain.Models;
 using Domain.ViewModels;
-using Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace ERP.Controllers
 {
@@ -31,10 +30,10 @@ namespace ERP.Controllers
         {
             var invoices = new InvoiceCustomerViewModel
             {
-                Products= productRepo.List().ToList(),
+                Products = productRepo.List().ToList(),
                 Customers = CustomerRepo.List().ToList(),
-                Invoices= salesRepo.List().ToList(),
-                Details= detailrepo.List().ToList()
+                Invoices = salesRepo.List().ToList(),
+                Details = detailrepo.List().ToList()
 
             };
             return View(invoices);
@@ -64,8 +63,8 @@ namespace ERP.Controllers
             ViewBag.InvoiceId = (id + 1).ToString();
             var model = new InvoiceCustomerViewModel
             {
-                 Products=productRepo.List().ToList(),
-                 Customers=CustomerRepo.List().ToList()
+                Products = productRepo.List().ToList(),
+                Customers = CustomerRepo.List().ToList()
 
             };
             return View(model);
@@ -73,7 +72,7 @@ namespace ERP.Controllers
         // POST: SalesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("InvoiceNo,downdetails,ProductID,InvoiceDate,InvoiceType,CustID,InvoiceTotal,InvoiceDiscount,InvoiceNetTotal,InvoicePaid,InvoiceChange")] 
+        public IActionResult Create([Bind("InvoiceNo,downdetails,ProductID,InvoiceDate,InvoiceType,CustID,InvoiceTotal,InvoiceDiscount,InvoiceNetTotal,InvoicePaid,InvoiceChange")]
         InvoiceCustomerViewModel Modeldetails)
         {
             try
@@ -109,9 +108,9 @@ namespace ERP.Controllers
                     InvoiceChange = (double)returnzero(hh.InvoiceChange.ToString())
                 };
                 salesRepo.Add(smodel);
-               
+
                 string h = Modeldetails.ProductID.ToString();
-                List<SalesDetails>items = JsonConvert.DeserializeObject<List<SalesDetails>>(h.ToString());
+                List<SalesDetails> items = JsonConvert.DeserializeObject<List<SalesDetails>>(h.ToString());
                 foreach (var item in items)
                 {
                     var model = new SalesDetails//insert invoice product details
@@ -125,14 +124,14 @@ namespace ERP.Controllers
                         VatAmount = item.VatAmount,
                         TotalWithVat = item.TotalWithVat,
                         Cost = productRepo.Find(item.ProductID).Cost,//get cost of product
-                        
+
                     };
-                   var pro= productRepo.Find(item.ProductID);
+                    var pro = productRepo.Find(item.ProductID);
                     var productupdate = new Product//update products balnce
                     {
-                        ProductId=pro.ProductId,
-                         Balance=(double)(pro.Balance-item.Quantity),
-                         ArabicName = pro.ArabicName,
+                        ProductId = pro.ProductId,
+                        Balance = (double)(pro.Balance - item.Quantity),
+                        ArabicName = pro.ArabicName,
                         EnglishName = pro.EnglishName,
                         Model = pro.Model,
                         Desc = pro.Desc,
@@ -141,40 +140,40 @@ namespace ERP.Controllers
                         OpenBalance = pro.OpenBalance,
                         OpenCost = pro.OpenCost
                     };
-                    productRepo.Update(item.ProductID,productupdate);
+                    productRepo.Update(item.ProductID, productupdate);
                     detailrepo.Add(model);
                 }
                 return RedirectToAction(nameof(Create));
             }
-            catch(Exception e)
-            { 
+            catch (Exception e)
+            {
                 throw;
             }
         }
-      public  double returnzero(string value)
+        public double returnzero(string value)
         {
-            if (value==null||value=="")
+            if (value == null || value == "")
             {
                 return 0.0;
             }
-                return double.Parse(value); 
+            return double.Parse(value);
         }
         public object totals(string total)
         {
 
             List<SalesInvoice> totals = JsonConvert.DeserializeObject<List<SalesInvoice>>(total.ToString());
-            object h="";
+            object h = "";
             foreach (var item in totals)
             {
                 SalesInvoice t = new SalesInvoice
                 {
                     InvoiceChange = item.InvoiceChange,
-                    InvoicePaid=item.InvoicePaid,
-                    InvoiceDiscount=item.InvoiceDiscount,
-                    InvoiceNetTotal=item.InvoiceNetTotal,
+                    InvoicePaid = item.InvoicePaid,
+                    InvoiceDiscount = item.InvoiceDiscount,
+                    InvoiceNetTotal = item.InvoiceNetTotal,
                     InvoiceTotal = item.InvoiceTotal
                 };
-                 h = t;
+                h = t;
             }
 
             return h;
@@ -185,8 +184,8 @@ namespace ERP.Controllers
             var model = new InvoiceCustomerViewModel
             {
                 invoice = salesRepo.Find(id),
-                Details=detailrepo.List().Where(i=>i.InvoiceId==id).ToList(),
-                Products=productRepo.List().ToList()
+                Details = detailrepo.List().Where(i => i.InvoiceId == id).ToList(),
+                Products = productRepo.List().ToList()
 
             };
             return View(model);
@@ -213,13 +212,13 @@ namespace ERP.Controllers
                     CustID = collection.invoice.CustID,
                     InvoiceChange = (double)returnzero(hh.InvoiceChange.ToString())
                 };
-                salesRepo.Update(smodel.InvoiceNo,smodel);
+                salesRepo.Update(smodel.InvoiceNo, smodel);
                 if (collection.invoice.InvoiceType == 1)
                 {
                     var customer = CustomerRepo.Find(collection.invoice.CustID);
                     var newcustomer = new Customer
                     {
-                        CustID=customer.CustID,
+                        CustID = customer.CustID,
                         CustArName = customer.CustArName,
                         CustEnName = customer.CustEnName,
                         AccountNo = customer.AccountNo,
@@ -265,13 +264,13 @@ namespace ERP.Controllers
                         OpenCost = pro.OpenCost
                     };
 
-                    detailrepo.Update(collection.invoice.InvoiceNo,model);
+                    detailrepo.Update(collection.invoice.InvoiceNo, model);
                     productRepo.Update(item.ProductID, productupdate);
-                    
+
                 }
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw;
             }

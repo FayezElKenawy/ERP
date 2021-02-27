@@ -20,6 +20,9 @@
                 Invoice No
             </th>
             <th>
+                Cusstomer Name
+            </th>
+            <th>
                 Date
             </th>
             <th>
@@ -29,7 +32,7 @@
                 Discount
             </th>
             <th>
-               Net Total
+                Net Total
             </th>
             <th>
                 Type
@@ -47,46 +50,58 @@
     <tbody id="accordion">
         @foreach (var item in Model.Invoices)
         {
-            <tr class="border-bottom">
-                <td id="headingOne " class="listtablecell">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#one_@item.InvoiceNo" aria-expanded="true">
-                                <i class="icon-expand-alt icon-large"></i>
-                            </button>
-                        </h5>
-                    </div>
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoiceNo)
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoiceDate)
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoiceTotal)
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoiceDiscount)
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoiceNetTotal)
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoiceType)
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoicePaid)
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoiceChange)
-                </td>
-                <td class="listtablecell">
-                    <a asp-action="Edit" asp-route-id="@item.InvoiceNo"><i class="icon-edit icon-large text-primary"></i> |</a>
-                    <a asp-action="Details" asp-route-id="@item.InvoiceNo"><i class="icon-print"></i> |</a>
-                    <a asp-action="Delete" asp-route-id="@item.InvoiceNo"><i class="icon-trash icon-large text-danger"></i></a>
-                </td>
-            </tr>
+        <tr class="border-bottom">
+            <td id="headingOne " class="listtablecell">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#one_@item.InvoiceNo" aria-expanded="true">
+                            <i class="icon-expand-alt icon-large"></i>
+                        </button>
+                    </h5>
+                </div>
+            </td>
+            <td class="listtablecell">
+                @Html.DisplayFor(modelItem => item.InvoiceNo)
+            </td>
+            <td class="listtablecell">
+                @Html.DisplayFor(modelItem => item.Customer.CustArName)
+                @Html.HiddenFor(m=>item.CustID)
+            </td>
+            <td class="listtablecell">
+                @Html.DisplayFor(modelItem => item.InvoiceDate)
+            </td>
+            <td class="listtablecell">
+                @Html.DisplayFor(modelItem => item.InvoiceTotal)
+            </td>
+            <td class="listtablecell">
+                @Html.DisplayFor(modelItem => item.InvoiceDiscount)
+            </td>
+            <td class="listtablecell">
+                @Html.DisplayFor(modelItem => item.InvoiceNetTotal)
+            </td>
+            <td class="listtablecell">
+                @if (item.InvoiceType == 1)
+                {
+                    <label> Credit</label>
+                }
+                @if (item.InvoiceType==0)
+                {
+            <label> Cash</label>
+                }
+
+            </td>
+            <td class="listtablecell">
+                @Html.DisplayFor(modelItem => item.InvoicePaid)
+            </td>
+            <td class="listtablecell">
+                @Html.DisplayFor(modelItem => item.InvoiceChange)
+            </td>
+            <td class="listtablecell">
+                <a asp-action="Edit" asp-route-id="@item.InvoiceNo"><i class="icon-edit icon-large text-primary"></i> |</a>
+                <a asp-action="Details" asp-route-id="@item.InvoiceNo"><i class="icon-print"></i> |</a>
+                <a asp-action="Delete" asp-route-id="@item.InvoiceNo"><i class="icon-trash icon-large text-danger"></i></a>
+            </td>
+        </tr>
             <tr style="height:0px;">
                 <td class="listtablecell" colspan=9>
                     <div id="one_@item.InvoiceNo" class="collapse collapsed col-md-2 " aria-labelledby="headingOne" data-parent="#accordion" style="max-width:100%;">

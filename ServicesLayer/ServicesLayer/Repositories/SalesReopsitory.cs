@@ -62,7 +62,7 @@ namespace ServicesLayer.Repositories
         }
 
 
-        public void Update(object id, SalesInvoice entity)
+        public SalesInvoice Update(object id, SalesInvoice entity)
         {
             var invoice = Find(id);
             invoice.InvoiceDate = entity.InvoiceDate;
@@ -73,6 +73,7 @@ namespace ServicesLayer.Repositories
             invoice.InvoicePaid = entity.InvoicePaid;
             invoice.CustID = entity.CustID;
             invoice.InvoiceChange = entity.InvoiceChange;
+            return invoice;
         }
     }
 }

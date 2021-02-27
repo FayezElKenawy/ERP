@@ -4,6 +4,7 @@ using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace ServicesLayer.Repositories
 {
@@ -28,8 +29,13 @@ namespace ServicesLayer.Repositories
 
         public Product Find(object id)
         {
-            var pro=context.Products.Find(id);
-            return pro;
+            var pro = context.Products.AsNoTracking().Where(i => i.ProductId == id.ToString());
+            var pro1 = new Product();
+            foreach (var item in pro)
+            {
+                pro1 = (Product)item;
+            }
+            return pro1;
         }
 
         public IList<Product> List()
@@ -48,18 +54,11 @@ namespace ServicesLayer.Repositories
         }
 
 
-        public void Update(object id, Product entity)
+        public Product Update(object id, Product entity)
         {
-            Product pro = Find(id);
-            pro.ArabicName = entity.ArabicName;
-            pro.EnglishName = entity.EnglishName;
-            pro.Model = entity.Model;
-            pro.Desc = entity.Desc;
-            pro.Cost = entity.Cost;
-            pro.SalePrice = entity.SalePrice;
-            pro.Balance = entity.Balance;
-            pro.OpenBalance = entity.OpenBalance;
-            pro.OpenCost = entity.OpenCost;
+            context.Products.Update(entity);
+            context.SaveChanges();
+            return entity;
         }
     }
 }

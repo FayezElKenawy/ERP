@@ -215,11 +215,12 @@ namespace ERP.Controllers
 
                     };
                     var pro = productRepo.Find(item.ProductID);
-
+                    var exsist = detailrepo.Find(model);
+                    var newquantity = item.Quantity - exsist.Quantity;
                     var productupdate = new Product
                     {
                         ProductId = pro.ProductId,
-                        Balance = (double)(pro.Balance - item.Quantity),
+                        Balance = (double)(pro.Balance - newquantity),
                         ArabicName = pro.ArabicName,
                         EnglishName = pro.EnglishName,
                         Model = pro.Model,
@@ -229,12 +230,10 @@ namespace ERP.Controllers
                         OpenBalance = pro.OpenBalance,
                         OpenCost = pro.OpenCost
                     };
-                    if (true)
-                    {
 
-                    }
+                    detailrepo.Update(collection.invoice.InvoiceNo,model);
                     productRepo.Update(item.ProductID, productupdate);
-                    detailrepo.Update(model.InvoiceId,model);
+                    
                 }
                 return RedirectToAction(nameof(Index));
             }

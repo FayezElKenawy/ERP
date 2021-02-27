@@ -1,6 +1,7 @@
 ﻿using Domain.Data;
 using Domain.Interfaces;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,14 @@ namespace ServicesLayer.Repositories
 
         public SalesDetails Find(object id)
         {
-            throw new NotImplementedException();
+            var x = (SalesDetails)id;
+            var existq = _context.SalesDetails.AsNoTracking().Where(i => i.InvoiceId == x.InvoiceId && i.ProductID == x.ProductID);
+            var exist = new SalesDetails();
+            foreach (var item in existq)
+            {
+                exist = (SalesDetails)item;
+            }
+            return exist;
         }
 
         public IList<SalesDetails> List()
@@ -48,12 +56,12 @@ namespace ServicesLayer.Repositories
         {
             throw new NotImplementedException();
         }
-        public void Update(object id, SalesDetails entity)
+        public SalesDetails Update(object id, SalesDetails entity)
         {
-
+            var exist = Find(entity);
             _context.SalesDetails.Update(entity);
             _context.SaveChanges();
-
+            return exist;
         }
     }
 }

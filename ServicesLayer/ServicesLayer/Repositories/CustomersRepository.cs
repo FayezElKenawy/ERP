@@ -60,9 +60,10 @@ namespace ServicesLayer.Repositories
         }
 
 
-        public void Update(object id, Customer entity)
+        public Customer Update(object id, Customer entity)
         {
-            Customer cust = Find(id);
+             Customer cust = Find(id);
+            return cust;
             
         }
     }

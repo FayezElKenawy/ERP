@@ -40,7 +40,9 @@ namespace ERP
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             //services.AddScoped<Irepository<Product>,ProductRepository>
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options =>
+            options.SignIn.RequireConfirmedAccount = true
+            )
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();

@@ -240,3 +240,15 @@ padding-bottom:0 !important;
 .activeproduct{
     border-color:red;
 }
+/*Edit Invoice*/
+.editinvoice .save{
+    display:inline-block;
+}
+.editinvoice .control-buttons {
+    position: absolute;
+    display: inline-block;
+}
+.control-buttons input{
+    width:10%;
+    display:inline-block;
+}

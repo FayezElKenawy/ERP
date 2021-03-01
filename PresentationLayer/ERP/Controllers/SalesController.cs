@@ -178,6 +178,19 @@ namespace ERP.Controllers
 
             return h;
         }
+      
+        //get invoice details for controle buttons
+        public JsonResult invoice(string id)
+        {
+            var model = new InvoiceCustomerViewModel
+            {
+                invoice = salesRepo.Find(id),
+                Details = detailrepo.List().Where(i => i.InvoiceId == id).ToList(),
+                Products = productRepo.List().ToList()
+
+            };
+            return Json(model);
+        }
         // GET: SalesController/Edit/5
         public ActionResult Edit(string id)
         {

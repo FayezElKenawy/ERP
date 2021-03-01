@@ -2,7 +2,11 @@
     background-color: aliceblue;
     display: inline-block
 }
-.topheader  {
+/*modal width*/
+.modal-dialog, .modal-lg{
+    max-width:1192px;
+}
+.topheader {
     margin-left: 35px;
     margin-top: 54px;
 }

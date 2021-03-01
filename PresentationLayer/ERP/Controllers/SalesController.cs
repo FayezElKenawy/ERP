@@ -57,6 +57,10 @@ namespace ERP.Controllers
         {
             return PartialView();
         }
+        public ActionResult _invoicesTable()
+        {
+            return PartialView();
+        }
         public ActionResult Create()
         {
             var id = int.Parse(salesRepo.MaxId());
@@ -198,7 +202,8 @@ namespace ERP.Controllers
             {
                 invoice = salesRepo.Find(id),
                 Details = detailrepo.List().Where(i => i.InvoiceId == id).ToList(),
-                Products = productRepo.List().ToList()
+                Products = productRepo.List().ToList(),
+                Invoices = salesRepo.List().ToList()
 
             };
             return View(model);

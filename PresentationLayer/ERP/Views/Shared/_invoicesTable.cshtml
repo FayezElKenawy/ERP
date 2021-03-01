@@ -1,0 +1,104 @@
+﻿@model Domain.ViewModels.InvoiceCustomerViewModel
+
+<table class="table table table table-striped" style="margin-top:10px;" id="sinv">
+    <thead class="thead-light">
+        <tr>
+            <th >
+                <input id="InvoiceNo" class="form-control text-center" onkeyup="myFunction(0,'InvoiceNo')" placeholder="#" type="text" />
+            </th>
+            <th>
+                <input id="Customer" class="form-control text-center" onkeyup="myFunction(1,'Customer')" placeholder="Customer" type="text" />
+            </th>
+            <th>
+                <input id="Date" class="form-control text-center" placeholder="Date" type="text" onkeyup="myFunction(2,'Date')" />
+            </th>
+            <th>
+                <input id="total" class="form-control text-center" placeholder="total" type="text" onkeyup="myFunction(3,'total')" />
+            </th>
+            <th>
+                <input id="discount" class="form-control text-center" placeholder="discount" type="text" onkeyup="myFunction(4,'discount')" />
+            </th>
+            <th>
+                <input id="net" class="form-control text-center" placeholder="NetTotal" type="text" onkeyup="myFunction(4,'net')" />
+            </th>
+            <th>
+                <input id="type" class="form-control text-center" placeholder="type" type="text" onkeyup="myFunction(5,'type')" />
+            </th>
+            <th>
+                <input id="paid" class="form-control text-center " placeholder="paid" type="text" onkeyup="myFunction(6,'paid')" />
+            </th>
+            <th>
+                <input id="remain" class="form-control text-center" placeholder="remain" type="text" onkeyup="myFunction(7,'remain')" />
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="accordion">
+        @foreach (var item in Model.Invoices.ToList())
+        {
+            <tr class="border-bottom"  ondblclick="Getitems(this);">
+                <td class="listtablecell">
+                    @Html.DisplayFor(modelItem => item.InvoiceNo)
+                </td>
+                <td class="listtablecell">
+                    @Html.DisplayFor(modelItem => item.Customer.CustArName)
+                    @Html.HiddenFor(m => item.CustID)
+                </td>
+                <td class="listtablecell">
+                    @Html.DisplayFor(modelItem => item.InvoiceDate)
+                </td>
+                <td class="listtablecell">
+                    @Html.DisplayFor(modelItem => item.InvoiceTotal)
+                </td>
+                <td class="listtablecell">
+                    @Html.DisplayFor(modelItem => item.InvoiceDiscount)
+                </td>
+                <td class="listtablecell">
+                    @Html.DisplayFor(modelItem => item.InvoiceNetTotal)
+                </td>
+                <td class="listtablecell">
+                    @if (item.InvoiceType == 1)
+                    {
+                        <label> Credit</label>
+                    }
+                    @if (item.InvoiceType == 0)
+                    {
+                        <label> Cash</label>
+                    }
+
+                </td>
+                <td class="listtablecell">
+                    @Html.DisplayFor(modelItem => item.InvoicePaid)
+                </td>
+                <td class="listtablecell">
+                    @Html.DisplayFor(modelItem => item.InvoiceChange)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    function myFunction(cell, name) {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById(name);
+        filter = input.value.toUpperCase();
+        table = document.getElementById("sinv");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[cell];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+</script>

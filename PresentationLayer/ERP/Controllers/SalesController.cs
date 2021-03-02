@@ -3,6 +3,7 @@ using Domain.Models;
 using Domain.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,15 @@ namespace ERP.Controllers
         private readonly Irepository<Customer> CustomerRepo;
         private readonly Irepository<SalesInvoice> salesRepo;
         private readonly Irepository<SalesDetails> detailrepo;
+        private readonly IMemoryCache cash;
 
-        public SalesController(Irepository<Product> productRepo, Irepository<Customer> customerRepo, Irepository<SalesInvoice> salesRepo, Irepository<SalesDetails> detailrepo)
+        public SalesController(Irepository<Product> productRepo, Irepository<Customer> customerRepo, Irepository<SalesInvoice> salesRepo, Irepository<SalesDetails> detailrepo, IMemoryCache cash)
         {
             this.productRepo = productRepo;
             CustomerRepo = customerRepo;
             this.salesRepo = salesRepo;
             this.detailrepo = detailrepo;
+            this.cash = cash;
         }
 
         // GET: SalesController
@@ -36,6 +39,14 @@ namespace ERP.Controllers
                 Details = detailrepo.List().ToList()
 
             };
+            if (!cash.TryGetValue("invoices", out invoices))
+            {
+                // var memoryCacheEntryOptions = new MemoryCacheEntryOptions()
+                //                             .SetAbsoluteExpiration(TimeSpan.FromMinutes(60));
+
+                cash.Set("invoices", invoices);
+            }
+            invoices = (InvoiceCustomerViewModel)cash.Get("invoices");
             return View(invoices);
         }
 

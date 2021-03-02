@@ -18,10 +18,10 @@
         <tr>
             <th></th>
             <th>
-                Invoice No
+                 No
             </th>
             <th>
-                Cusstomer Name
+                Cusstomer
             </th>
             <th>
                 Date
@@ -33,13 +33,13 @@
                 Discount
             </th>
             <th>
-                Net Total
+                Net 
             </th>
             <th>
                 Type
             </th>
             <th>
-                Amount Paid
+                 Paid
             </th>
             <th>
                 Change
@@ -103,23 +103,23 @@
                     <a asp-action="Delete" asp-route-id="@item.InvoiceNo"><i class="icon-trash icon-large text-danger"></i></a>
                 </td>
             </tr>
-            <tr style="height:0px;">
+            @*<tr style="height:0px;">
                 <td class="listtablecell" colspan=9>
                     <div id="one_@item.InvoiceNo" class="collapse collapsed col-md-2 " aria-labelledby="headingOne" data-parent="#accordion" style="max-width:100%;">
                         <table class="table table-active table-bordered">
                             <thead class="" style="background-color:yellow;">
                                 <tr>
                                     <th>
-                                        part Code
+                                        partCode
                                     </th>
                                     <th>
-                                        Part Name
+                                        PartName
                                     </th>
                                     <th>
                                         Quantity
                                     </th>
                                     <th>
-                                        Sale Price
+                                         Price
                                     </th>
                                     <th>
                                         Discount
@@ -131,7 +131,7 @@
                                         Vat
                                     </th>
                                     <th>
-                                        Total With Vat
+                                        TotalVat
                                     </th>
 
                                 </tr>
@@ -169,7 +169,7 @@
                         </table>
                     </div>
                 </td>
-            </tr>
+            </tr>*@
 
 
         }

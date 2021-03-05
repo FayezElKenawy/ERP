@@ -18,6 +18,7 @@ using Domain.Data;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using ServicesLayer.Repositories;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace ERP
 {
@@ -38,7 +39,7 @@ namespace ERP
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-
+            services.AddControllers().AddNewtonsoftJson(option=>option.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             //services.AddScoped<Irepository<Product>,ProductRepository>
             services.AddDefaultIdentity<IdentityUser>(options =>
             options.SignIn.RequireConfirmedAccount = true

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Models;
 using Domain.Data;
 using Domain.Interfaces;
+using AutoMapper;
+using Domain.ViewModels;
 
 namespace ERP.Controllers
 {
@@ -15,17 +17,22 @@ namespace ERP.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly Irepository<Product> productrepo;
+        private readonly IMapper _mapper;
 
-        public ProductsController(ApplicationDbContext context,Irepository<Product>productrepo)
+        public ProductsController(ApplicationDbContext context,Irepository<Product>productrepo,IMapper mapper)
         {
             _context = context;
             this.productrepo = productrepo;
+            _mapper = mapper;
         }
 
         // GET: Products 
         public  IActionResult Index()
         {
-            return View( productrepo.List());
+            var products=productrepo.List().ToList();
+
+
+            return View( _mapper.Map<List<ProductReadViewModel>>(products));
         }
         //Return json products
         /*https://stackoverflow.com/questions/60604161/how-open-popup-dialog-windows-and-save-data-net-core-mvc-via-ajax */
@@ -35,21 +42,18 @@ namespace ERP.Controllers
         //    return Json(_context.Products.ToList());
         //}
         // GET: Products/Details/
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.ProductId == id.ToString());
+            var product = productrepo.Find(id);
             if (product == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            //var product =  _context.Products
+            //    .FirstOrDefaultAsync(m => m.ProductId == id.ToString());
+
+            return View(_mapper.Map<ProductReadViewModel>(product));
         }
 
         // GET: Products/Create
@@ -61,62 +65,41 @@ namespace ERP.Controllers
         // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("ProductId,ArabicName,EnglishName,Model,Desc,Cost,SalePrice")] Product product)
+        public IActionResult Create([Bind("ProductId,ArabicName,EnglishName,Model,Desc,Cost,SalePrice")] ProductCreateVieewModel product)
         {
             if (ModelState.IsValid)
             {
-                productrepo.Add(product);
+                var pro = _mapper.Map<Product>(product);
+                productrepo.Add(pro);
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
         }
 
         // GET: Products/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Products.FindAsync(id);
+            var product = productrepo.Find(id);
             if (product == null)
             {
                 return NotFound();
             }
-            return View(product);
+           
+            return View(_mapper.Map<ProductUpdateViewModel>(product));
         }
 
         // POST: Products/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string ProductId, [Bind("ProductId,ArabicName,EnglishName,Model,Desc,Cost,SalePrice")] Product product)
+        public IActionResult Edit(string ProductId, [Bind("ProductId,ArabicName,EnglishName,Model,Desc,Cost,SalePrice")] ProductUpdateViewModel product)
         {
-            if (ProductId != product.ProductId)
+            var pro = productrepo.Find(ProductId);
+            if (pro ==null)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductExists(product.ProductId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
+            var Upro = _mapper.Map(product, pro);
+            productrepo.SaveChanges();
             return View(product);
         }
 

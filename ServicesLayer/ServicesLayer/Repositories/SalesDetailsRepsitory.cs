@@ -52,6 +52,11 @@ namespace ServicesLayer.Repositories
             throw new NotImplementedException();
         }
 
+        public void SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<SalesDetails> Search(string term)
         {
             throw new NotImplementedException();

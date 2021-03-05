@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace ServicesLayer.Repositories
 {
     public class ProductRepository : Irepository<Product>
@@ -59,6 +60,11 @@ namespace ServicesLayer.Repositories
             context.Products.Update(entity);
             context.SaveChanges();
             return entity;
+        }
+
+       public void  SaveChanges()
+        {
+            context.SaveChanges();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Domain.Models.Product>
+﻿@model IEnumerable<Domain.ViewModels.ProductReadViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -28,6 +28,7 @@
             <th>
                 Sale Price
             </th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody id="TableProducts">

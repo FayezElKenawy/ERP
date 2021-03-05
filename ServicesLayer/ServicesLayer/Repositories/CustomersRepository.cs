@@ -67,5 +67,10 @@ namespace ServicesLayer.Repositories
             return cust;
 
         }
+
+        void Irepository<Customer>.SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

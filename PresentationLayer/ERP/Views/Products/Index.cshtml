@@ -4,61 +4,107 @@
     ViewData["Title"] = "Index";
 }
 @section styles{ }
+<link href="~/lib/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
 <h1 class="text-center text-danger">Products List</h1>
 <a asp-action="Create">Create</a>
-<table class="table table-bordered">
-
-    <thead class="thead-light">
+<a class="btn btn-primary" onclick="GetProducts();">Get All</a>
+<hr />
+<table id="Productstableview" class="table table-active overflow-auto">
+    <thead>
         <tr>
             <th>
-                Code
+                ProductId
             </th>
             <th>
-                Name Arabic
+                Product
             </th>
             <th>
-                Model
+                Product
             </th>
             <th>
-                Descritption
+                Product
             </th>
             <th>
-                Cost
+                Product
             </th>
             <th>
-                Sale Price
+                Product
             </th>
-            <th>Actions</th>
+            <th>
+                Product
+            </th>
+            <th>
+                Product
+            </th>
+            <th>
+                Product
+            </th>
+            <th>
+                Product
+            </th>
+
         </tr>
     </thead>
-    <tbody id="TableProducts">
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ArabicName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Model)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Desc)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cost)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SalePrice)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
 </table>
+@*<table class="table table-bordered">
+
+        <thead class="thead-light">
+            <tr>
+                <th>
+                    Code
+                </th>
+                <th>
+                    Name Arabic
+                </th>
+                <th>
+                    Model
+                </th>
+                <th>
+                    Descritption
+                </th>
+                <th>
+                    Cost
+                </th>
+                <th>
+                    Sale Price
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="TableProducts">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArabicName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Desc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SalePrice)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+@section Scripts{
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+    <script src="~/js/product.js"></script>
+
+}

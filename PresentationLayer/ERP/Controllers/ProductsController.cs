@@ -32,15 +32,23 @@ namespace ERP.Controllers
             var products=productrepo.List().ToList();
 
 
-            return View( _mapper.Map<List<ProductReadViewModel>>(products));
+            return View( (_mapper.Map<List<ProductReadViewModel>>(products)).Skip(0).Take(10));
         }
         //Return json products
         /*https://stackoverflow.com/questions/60604161/how-open-popup-dialog-windows-and-save-data-net-core-mvc-via-ajax */
-        //public JsonResult ProductsList()
-        //{
+        [HttpPost]
+        public IActionResult ProductsList()
+        {
+            var pageSize = int.Parse(Request.Form["length"]);
+            var skip = int.Parse(Request.Form["start"]);
 
-        //    return Json(_context.Products.ToList());
-        //}
+            var searchValue = Request.Form["search[value]"];
+            var products = productrepo.List().ToList();
+            var readProduct= (_mapper.Map<List<ProductReadViewModel>>(products)).Skip(skip).Take(pageSize);
+            var allrecords = products.Count();
+            var jsonData = new { recordsFiltered = allrecords, allrecords, readProduct };
+            return Ok(jsonData);
+        }
         // GET: Products/Details/
         public IActionResult Details(string id)
         {

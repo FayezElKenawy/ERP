@@ -42,7 +42,7 @@ namespace ERP.Controllers
         //    return Json(_context.Products.ToList());
         //}
         // GET: Products/Details/
-        public IActionResult Details(int id)
+        public IActionResult Details(string id)
         {
             var product = productrepo.Find(id);
             if (product == null)

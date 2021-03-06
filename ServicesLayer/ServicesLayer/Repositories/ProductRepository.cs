@@ -57,8 +57,7 @@ namespace ServicesLayer.Repositories
 
         public Product Update(object id, Product entity)
         {
-            context.Products.Update(entity);
-            context.SaveChanges();
+            
             return entity;
         }
 

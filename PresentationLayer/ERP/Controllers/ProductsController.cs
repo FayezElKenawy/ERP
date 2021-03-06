@@ -85,22 +85,24 @@ namespace ERP.Controllers
                 return NotFound();
             }
            
-            return View(_mapper.Map<ProductUpdateViewModel>(product));
+            return View(_mapper.Map<ProductReadViewModel>(product));
         }
 
         // POST: Products/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(string ProductId, [Bind("ProductId,ArabicName,EnglishName,Model,Desc,Cost,SalePrice")] ProductUpdateViewModel product)
+        public IActionResult Edit(string ProductId, [Bind("ProductId,ArabicName,EnglishName,Model,Desc,Cost,SalePrice")] ProductReadViewModel product)
         {
             var pro = productrepo.Find(ProductId);
             if (pro ==null)
             {
                 return NotFound();
             }
-            var Upro = _mapper.Map(product, pro);
+            var rpro = _mapper.Map<ProductUpdateViewModel>(product);
+             _mapper.Map(rpro, pro);
+            productrepo.Update(ProductId, pro);
             productrepo.SaveChanges();
-            return View(product);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Products/Delete/5

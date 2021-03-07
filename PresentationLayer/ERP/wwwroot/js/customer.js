@@ -5,13 +5,13 @@
         "filter": true,
         "searching": true,
         "ajax": {
-            "url": "/api/ProductsApi",
+            "url": "/api/CustomersApi",
             "type": "Post",
             "datatype": "json",
             "dataFilter": "",
             "dataSrc": ""
         },
-       
+
         "columns": [
             { "data": "productId", "name": "ProductId", "autowidth": true },
             { "data": "arabicName", "name": "ArabicName", "autowidth": true },
@@ -24,12 +24,3 @@
         ]
     });
 });
-//function GetProducts(){
-//    $.ajax({
-//        url: "_ProductsList",//get row from partialview
-//        dataType: "html",
-//        success: function (result) {
-//            $('#Productstableview').append(result);//add row to invoice table
-//        }
-//    });
-//}

@@ -3,12 +3,10 @@ using Domain.Data;
 using Domain.Interfaces;
 using Domain.Models;
 using Domain.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Linq.Dynamic.Core;
 
 namespace ERP.Controllers
 {
@@ -25,7 +23,6 @@ namespace ERP.Controllers
             this.productrepo = productrepo;
             _mapper = mapper;
         }
-        /*https://stackoverflow.com/questions/60604161/how-open-popup-dialog-windows-and-save-data-net-core-mvc-via-ajax */
         [HttpPost]
         public IActionResult ProductsList()//for data table
         {
@@ -41,12 +38,12 @@ namespace ERP.Controllers
                 ? true
                 : (m.ProductId.Contains(searchValue) || m.ArabicName.Contains(searchValue) || m.EnglishName.Contains(searchValue) || m.Desc.Contains(searchValue)));
 
-            //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
-            //    products = products.OrderBy(p=>p string.Concat(sortColumn, " ", sortColumnDirection));
+            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                products = products.OrderBy(string.Concat(sortColumn, " ", sortColumnDirection));
 
-            var readProduct = (_mapper.Map<List<ProductReadViewModel>>(products)).Skip(skip).Take(pageSize);
+            var readProduct = (_mapper.Map<List<ProductReadViewModel>>(products)).Skip(skip).Take(pageSize).ToList();
             var allrecords = products.Count();
-            var jsonData = new { draw = draw, recordsFiltered = allrecords, recordsTotal=allrecords, data=readProduct };
+            var jsonData = new { draw = int.Parse(draw), recordsFiltered = allrecords, recordsTotal=allrecords, data=readProduct };
             return Ok(jsonData);
         }
     }

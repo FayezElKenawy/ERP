@@ -28,7 +28,7 @@ namespace ERP.Controllers
         {
             var customers = _context.Customers.Skip(0).Take(10).ToList();
             var count = customers.Count();
-            var jsndata = new { draw = 1, recordsFiltered = count, count, customers };
+            var jsndata = new { draw = 1, recordsFiltered = count, recordsTotal= count, data=customers };
             return Ok(jsndata);
         }
     }

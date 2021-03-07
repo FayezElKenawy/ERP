@@ -1,11 +1,11 @@
 ﻿$(document).ready(function () {
-    $('#Productstableview').dataTable({
+    $('#CustomerList').dataTable({
         "processing": true,
         "serverSide": true,
         "filter": true,
         "searching": true,
         "ajax": {
-            "url": "/api/CustomersApi",
+            "url": "/api/CustomerApi",
             "type": "Post",
             "datatype": "json",
             "dataFilter": "",
@@ -13,14 +13,10 @@
         },
 
         "columns": [
-            { "data": "productId", "name": "ProductId", "autowidth": true },
-            { "data": "arabicName", "name": "ArabicName", "autowidth": true },
-            { "data": "englishName", "name": "EnglishName", "autowidth": true },
-            { "data": "model", "name": "Model", "autowidth": true },
-            { "data": "desc", "name": "Desc", "autowidth": true },
-            { "data": "cost", "name": "Cost", "autowidth": true },
-            { "data": "salesPrice", "name": "SalePrice", "autowidth": true },
-            { "data": "balance", "name": "Balance", "autowidth": true }
+            { "data": "custArName", "name": "CustArName", "autowidth": true },
+            { "data": "custEnName", "name": "CustEnName", "autowidth": true },
+            { "data": "custMobileNo", "name": "CustMobileNo", "autowidth": true },
+            { "data": "custAdress", "name": "CustAdress", "autowidth": true }
         ]
     });
 });

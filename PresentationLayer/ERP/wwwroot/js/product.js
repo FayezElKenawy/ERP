@@ -1,9 +1,8 @@
 ﻿$(document).ready(function () {
-    $('#Productstableview').dataTable({
+    $('#Productstableview').DataTable({
         "processing": true,
         "serverSide": true,
-        "filter": true,
-        "searching": true,
+
         "ajax": {
             "url": "/api/ProductsApi",
             "type": "Post",

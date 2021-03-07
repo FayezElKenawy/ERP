@@ -3,13 +3,13 @@
 @{
     ViewData["Title"] = "Index";
 }
-@section styles{ }
+@section styles{<link href="~/lib/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" /> }
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-bordered">
+<table id="CustomerList" class="table table-bordered">
     <thead class="thead-light">
         <tr>
             <th>
@@ -24,48 +24,45 @@
             <th>
                 @Html.DisplayNameFor(model => model.CustAdress)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CustBalance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CustOpenBalance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccountNo)
-            </th>
-            <th></th>
+
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustArName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustEnName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustMobileNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustAdress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustBalance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustOpenBalance)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccountNo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CustID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CustID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CustID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+    @*<tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustArName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustEnName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustMobileNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustAdress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustBalance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustOpenBalance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountNo)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CustID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.CustID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.CustID">Delete</a>
+                    </td>
+                </tr>
+        }
+            </tbody>*@
 </table>
+@section Scripts{
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+    <script src="~/js/customer.js"></script>
+
+}

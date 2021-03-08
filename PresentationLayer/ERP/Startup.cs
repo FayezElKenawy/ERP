@@ -40,11 +40,11 @@ namespace ERP
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ERP", Version = "v1" });
             });
-            services.AddDefaultIdentity<IdentityUser>(options =>
-            options.SignIn.RequireConfirmedAccount = true
-            )
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-            
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+       .AddEntityFrameworkStores<ApplicationDbContext>()
+       .AddDefaultUI()
+       .AddDefaultTokenProviders();
+
             services.AddControllersWithViews();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddHttpContextAccessor();

@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Domain.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Data
 {
@@ -126,6 +127,17 @@ namespace Domain.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            //costum identity tables
+           modelBuilder.Entity<ApplicationUser>().ToTable("Users", "security");
+           modelBuilder.Entity<IdentityRole>().ToTable("Roles", "security");
+           modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRoles", "security");
+           modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims", "security");
+           modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins", "security");
+           modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims", "security");
+            modelBuilder.Entity<IdentityUserToken<string>>().ToTable("UserTokens", "security");
+
+
             modelBuilder.Entity<SalesDetails>()
                .HasKey(cs => new { cs.ProductID, cs.InvoiceId });
             modelBuilder.Entity<Product>()

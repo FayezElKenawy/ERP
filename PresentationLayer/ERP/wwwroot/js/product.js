@@ -4,7 +4,7 @@
         "serverSide": true,
 
         "ajax": {
-            "url": "/api/ProductsApi",
+            "url": "/api/Product",
             "type": "Post",
             "datatype": "json",
             "dataFilter": "",

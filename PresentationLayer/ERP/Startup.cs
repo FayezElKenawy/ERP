@@ -12,6 +12,7 @@ using Domain.Data;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using ServicesLayer.Repositories;
+using Microsoft.OpenApi.Models;
 
 namespace ERP
 {
@@ -34,6 +35,11 @@ namespace ERP
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllers().AddNewtonsoftJson(option=>option.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             //services.AddScoped<Irepository<Product>,ProductRepository>
+            services.AddControllers();
+            object p = services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ERP", Version = "v1" });
+            });
             services.AddDefaultIdentity<IdentityUser>(options =>
             options.SignIn.RequireConfirmedAccount = true
             )
@@ -60,6 +66,8 @@ namespace ERP
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ERP v1"));
             }
             else
             {

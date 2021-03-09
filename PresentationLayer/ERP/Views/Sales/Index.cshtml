@@ -48,7 +48,7 @@
         </tr>
         <tr></tr>
     </thead>
-    <tbody id="accordion">
+    @*<tbody id="accordion">
         @foreach (var item in Model.Invoices)
         {
             <tr class="border-bottom">
@@ -102,7 +102,7 @@
                     <a asp-action="Details" asp-route-id="@item.InvoiceNo"><i class="icon-print"></i> |</a>
                     <a asp-action="Delete" asp-route-id="@item.InvoiceNo"><i class="icon-trash icon-large text-danger"></i></a>
                 </td>
-            </tr>
+            </tr>*@
             @*<tr style="height:0px;">
                 <td class="listtablecell" colspan=9>
                     <div id="one_@item.InvoiceNo" class="collapse collapsed col-md-2 " aria-labelledby="headingOne" data-parent="#accordion" style="max-width:100%;">
@@ -172,6 +172,6 @@
             </tr>*@
 
 
-        }
-    </tbody>
+        @*}*@
+    @*</tbody>*@
 </table>

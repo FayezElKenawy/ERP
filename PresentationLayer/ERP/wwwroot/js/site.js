@@ -39,30 +39,7 @@ $('.js-searchable-dropdown-list-item').on('click', function () {
     $('.js-searchable-dropdown-input-id').val($(this).attr('data-id-value'));
     console.log($(this).attr('data-id-value'));
 });
-//adding new row to invoice table
-function getrow() {//get row from partial view
-     $.ajax({
-        url: "_invoicetable",//get row from partialview
-        dataType: "html",
-         success: function (result) {
-            $('#invoicetable tbody').append(result);//add row to invoice table
-        }
-    });
-}
-function addRow(e, u) {
-    const item = $('#invoicetable tbody').find('.item');
-    if (e != "" && item.length<=1) {
-        $(this).removeClass('activeproduct');
-        getrow();
-    }
-}
-$('#invoicetable').on('keyup', '.activeproduct', function () {
-    var h = $(this).find('activepart');
-    if (h != null) {
-        $(this).removeClass('activeproduct');
-        getrow();
-    }
-});
+
 
 //calculations for table
 $('#invoicetable').on('mouseup keyup','input[type=number]', () => calculateTotals());
@@ -178,55 +155,70 @@ $('#pro tr').hover(function () {
     }
     
 });
+//adding new row to invoice table
+function getrow() {//get row from partial view
+     $.ajax({
+        url: "_invoicetable",//get row from partialview
+        dataType: "html",
+         success: function (result) {
+            $('#invoicetable tbody').append(result);//add row to invoice table
+        }
+    });
+}
+function addRow(e, u) {
+    const item = $('#invoicetable tbody').find('.item');
+    if (e != "" && item.length<=1) {
+        $(this).removeClass('activeproduct');
+        getrow();
+    }
+}
+$('#invoicetable').on('keyup', '.activeproduct', function () {
+    var h = $(this).find('activepart');
+    if (h != null) {
+        $(this).removeClass('activeproduct');
+        getrow();
+    }
+});
 //select items for adding to invoice table
 $('#pro #TableProducts tr').on('click', function () {
     $(this).toggleClass('selectforinvoice').toggleClass('hovero');
 });
-function GetEmptyRow(partcode,partname,price,html) {
+function GetEmptyRow(partcode,partname,price) {
     var rows = $('#invoicetable').find('.item');
 
     for (var i = 0; i < rows.length; i++) {
         const inputs = $(rows[i]).find('input');
         if (inputs[0].value == "") {
-            if ($(rows[i]).hasClass('activeproduct')) {
-                $(this).removeClass('activeproduct');
-            }
+            $(inputs[0]).removeClass('activeproduct');
             $(inputs[0]).val(partcode);
             $(inputs[1]).val(partname);
             $(inputs[3]).val(formatAsCurrency(price));
-            $('#invoicetable tbody').append(html);
+            getrow();
             break;
         }
     }
 }
 function GetItems() {
     const tr = $('#TableProducts').find('.selectforinvoice');
-    var h = '<tr class="item"><td class="partcode" > <input  class="form-control text-center activeproduct " onclick="addRow(this.value)" type="text"  data-toggle="modal" data-target=".bd-example-modal-lg" /></td>' +
-
-        '<td class="partName"><input class="form-control text-center" value="" /> </td>' +
-
-        '<td class="price inv"> <input  type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td>' +
-
-        '<td class="price inv"> <input  type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td>' +
-
-        '<td class="discount inv"><input  type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td>' +
-
-        '<td class="total inv"><input  type="number" disabled step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td>' +
-
-        ' <td class="vatamount inv"><input  type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td>' +
-
-        '<td class="totalvat inv"><input  type="number" step="0.001" class="form-control text-center" autocomplete="off" placeholder="0.0" value="" /></td></tr >'
     for (var i = 0; i < tr.length; i++) {
         const td = $(tr[i]).find('td');
         const partcode = $(td[0]).text();
         const partname = $(td[1]).text();
         const salesprice = $(td[3]).text();
-        GetEmptyRow(partcode, partname, salesprice, h);
+        GetEmptyRow(partcode, partname, salesprice);
         $(tr[i]).removeClass('selectforinvoice');
 
     }
   
 }
+function GetItems1(trh) {
+    const tr = trh;
+        const partcode = $(tr[0]).text();
+        const partname = $(tr[1]).text();
+        const salesprice = $(tr[3]).text();
+        GetEmptyRow(partcode, partname, salesprice);
+}
+$('#pro #TableProducts tr').on('dblclick', function () { GetItems1($(this).find("td")); });
 $('html').keypress(function (e) {
     var key = e.which;
     if (key == 13)  // the enter key code

@@ -35,6 +35,11 @@ namespace ERP.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "Frist Name")]
+            public string FristName { get; set; }
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -46,7 +51,9 @@ namespace ERP.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FristName=user.FristName,
+                LastName=user.LastName
             };
         }
 
@@ -75,7 +82,18 @@ namespace ERP.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
-
+            var fristname =  user.FristName;
+            var lastname = user.LastName;
+            if (Input.FristName!=fristname)
+            {
+                user.FristName = Input.FristName;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Input.LastName != lastname)
+            {
+                user.LastName = Input.LastName;
+                await _userManager.UpdateAsync(user);
+            }
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {

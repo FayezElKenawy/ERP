@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Register";
 }
-
+@section Styles{ }
 <h1>@ViewData["Title"]</h1>
 
 <div class="row">
@@ -12,11 +12,25 @@
             <h4>Create a new account.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
-
+            <div class="form-group">
+                <label asp-for="Input.FristName"></label>
+                <input asp-for="Input.FristName" class="form-control" />
+                <span asp-validation-for="Input.FristName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.LastName"></label>
+                <input asp-for="Input.LastName" class="form-control" />
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.MobileNo"></label>
+                <input asp-for="Input.MobileNo" class="form-control" inputmode="numeric" type="tel"/>
+                <span asp-validation-for="Input.MobileNo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Password"></label>

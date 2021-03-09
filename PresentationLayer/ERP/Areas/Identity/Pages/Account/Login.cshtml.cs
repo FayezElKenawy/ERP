@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Domain.Models;
+using System.Net.Mail;
 
 namespace ERP.Areas.Identity.Pages.Account
 {
@@ -44,7 +45,7 @@ namespace ERP.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
+            [Display(Name ="Email Or Phone Number")]
             public string Email { get; set; }
 
             [Required]
@@ -71,17 +72,23 @@ namespace ERP.Areas.Identity.Pages.Account
 
             ReturnUrl = returnUrl;
         }
-
+        public  string GetUsername(string data)
+        {
+            var username = new EmailAddressAttribute().IsValid(data) ? new MailAddress(data).User : data;
+            return "";
+        }
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        
+            
+
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {

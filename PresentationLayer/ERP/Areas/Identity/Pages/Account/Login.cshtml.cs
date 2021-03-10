@@ -74,8 +74,9 @@ namespace ERP.Areas.Identity.Pages.Account
         }
         public  string GetUsername(string data)
         {
-            var username = new EmailAddressAttribute().IsValid(data) ? new MailAddress(data).User : data;
-            return "";
+            var username = new EmailAddressAttribute().IsValid(data) ? new MailAddress(data).User : 
+                new PhoneAttribute().IsValid(data)?_userManager.Users.FirstOrDefault(p=>p.PhoneNumber==data).ToString():"notfound";
+            return username;
         }
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
@@ -88,8 +89,8 @@ namespace ERP.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var user = GetUsername(Input.Email.ToString());
+                var result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

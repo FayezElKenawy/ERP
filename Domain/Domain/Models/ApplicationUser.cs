@@ -16,5 +16,8 @@ namespace Domain.Models
         [Display(Name = "Last Name")]
         [MaxLength(50)]
         public string  LastName { get; set; }
+
+
+        
     }
 }

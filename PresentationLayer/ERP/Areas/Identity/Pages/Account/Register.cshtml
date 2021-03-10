@@ -7,109 +7,55 @@
 
  }
 <link href="~/css/admin.css" rel="stylesheet" />
-<div class="row">
-    <div class="form_wrapper">
-        <div class="form_container">
-            <div class="title_container">
-                <h2>Responsive Registration Form</h2>
-            </div>
-            <div class="row clearfix">
-                <div class="">
-                    <form>
-                        <div class="input_field">
-                            <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-                            <input type="email" name="email" placeholder="Email" required />
-                        </div>
-                        <div class="input_field">
-                            <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-                            <input type="password" name="password" placeholder="Password" required />
-                        </div>
-                        <div class="input_field">
-                            <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-                            <input type="password" name="password" placeholder="Re-type Password" required />
-                        </div>
-                        <div class="row clearfix">
-                            <div class="col_half">
-                                <div class="input_field">
-                                    <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                                    <input type="text" name="name" placeholder="First Name" />
-                                </div>
-                            </div>
-                            <div class="col_half">
-                                <div class="input_field">
-                                    <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                                    <input type="text" name="name" placeholder="Last Name" required />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input_field radio_option">
-                            <input type="radio" name="radiogroup1" id="rd1">
-                            <label for="rd1">Male</label>
-                            <input type="radio" name="radiogroup1" id="rd2">
-                            <label for="rd2">Female</label>
-                        </div>
-                        <div class="input_field select_option">
-                            <select>
-                                <option>Select a country</option>
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                            </select>
-                            <div class="select_arrow"></div>
-                        </div>
-                        <div class="input_field checkbox_option">
-                            <input type="checkbox" id="cb1">
-                            <label for="cb1">I agree with terms and conditions</label>
-                        </div>
-                        <div class="input_field checkbox_option">
-                            <input type="checkbox" id="cb2">
-                            <label for="cb2">I want to receive the newsletter</label>
-                        </div>
-                        <input class="button" type="submit" value="Register" />
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <p class="credit">Developed by <a href="http://www.designtheway.com" target="_blank">Design the way</a></p>
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+<div class="row"  style="background-color:lightgray;">
+    <div class="col-md-6">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post" style="padding:20px;">
             <h4>Create a new account.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <input asp-for="Input.FristName" class="form-control" placeholder="Frist Name" />
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="icon-user"></i> </span>
+                </div>
+                <input asp-for="Input.FristName" class="form-control col-md-4" placeholder="Frist Name" />
                 <span asp-validation-for="Input.FristName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="Input.LastName" class="form-control" placeholder="Last Name" />
+
+
+                <input asp-for="Input.LastName" class="form-control col-md-8" placeholder="Last Name" />
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.UserName"></label>
-                <input asp-for="Input.UserName" class="form-control" placeholder="User Name" />
-                <span asp-validation-for="Input.UserName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="icon-envelope"></i> </span>
+                </div>
+                <input asp-for="Input.Email" class="form-control" placeholder="Email Address" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.MobileNo"></label>
-                <input asp-for="Input.MobileNo" class="form-control" inputmode="numeric" type="tel" />
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="icon-user"></i> </span>
+                </div>
+                <input asp-for="Input.UserName" class="form-control" placeholder="User Name" autocomplete="off"/>
+                <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="icon-phone"></i> </span>
+                </div>
+                <input asp-for="Input.MobileNo" class="form-control" placeholder="Phone Number" />
                 <span asp-validation-for="Input.MobileNo" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="icon-lock"></i> </span>
+                </div>
+                <input asp-for="Input.Password" class="form-control" placeholder="Password" autocomplete="off"/>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="icon-lock"></i> </span>
+                </div>
+                <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm Password"/>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Register</button>
         </form>
     </div>
     <div class="col-md-6 col-md-offset-2">

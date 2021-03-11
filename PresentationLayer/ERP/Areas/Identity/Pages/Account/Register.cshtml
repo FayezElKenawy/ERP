@@ -4,61 +4,67 @@
     ViewData["Title"] = "Register";
 }
 @section Styles{
+    <link href="~/css/admin.css" rel="stylesheet" />
+}
 
- }
-<link href="~/css/admin.css" rel="stylesheet" />
-<div class="row"  style="
+<div class="row" style="
         height: 478px;
 ">
     <div class="col-md-6 offset-3" style="background-color: lightgray;">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post" style="padding: 20px;">
             <h4 class="text-primary text-center">Register Now</h4>
             <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="icon-user"></i> </span>
                 </div>
-                <input asp-for="Input.FristName" class="form-control col-md-4" placeholder="Frist Name" />
-                <span asp-validation-for="Input.FristName" class="text-danger"></span>
-
-
-                <input asp-for="Input.LastName" class="form-control col-md-6" placeholder="Last Name" />
-                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                <input asp-for="Input.FristName" class="form-control" placeholder="Frist Name" />
+                <span asp-validation-for="Input.FristName" class="text-danger validation"></span>
             </div>
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="icon-user"></i> </span>
                 </div>
-                <input asp-for="Input.UserName" class="form-control col-md-4" placeholder="User Name" autocomplete="off" />
-                <span asp-validation-for="Input.UserName" class="text-danger"></span>
-                <div class="input-group-prepend " style="margin-left: 10%;">
+                <input asp-for="Input.LastName" class="form-control" placeholder="Last Name" />
+                <span asp-validation-for="Input.LastName" class="text-danger validation"></span>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="icon-user"></i> </span>
+                </div>
+                <input asp-for="Input.UserName" class="form-control" placeholder="User Name" autocomplete="off" />
+                <span asp-validation-for="Input.UserName" class="text-danger validation"></span>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend ">
                     <span class="input-group-text offset-1"> <i class="icon-phone"></i> </span>
                 </div>
-                <input asp-for="Input.MobileNo" class="form-control col-md-4 " placeholder="Phone Number" />
-                <span asp-validation-for="Input.MobileNo" class="text-danger"></span>
+                <input asp-for="Input.MobileNo" class="form-control " placeholder="Phone Number" />
+                <span asp-validation-for="Input.MobileNo" class="text-danger validation"></span>
             </div>
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="icon-envelope"></i> </span>
                 </div>
-                <input asp-for="Input.Email" class="form-control col-md-10" placeholder="Email Address" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                <input asp-for="Input.Email" class="form-control" placeholder="Email Address" />
+                <span asp-validation-for="Input.Email" class="text-danger validation"></span>
             </div>
 
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="icon-lock"></i> </span>
                 </div>
-                <input asp-for="Input.Password" class="form-control col-md-4" placeholder="Password" autocomplete="off" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-                <div class="input-group-prepend " style="margin-left: 10%;">
+                <input asp-for="Input.Password" class="form-control" placeholder="Password" autocomplete="off" />
+                <span asp-validation-for="Input.Password" class="text-danger validation"></span>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend ">
                     <span class="input-group-text offset-1"> <i class="icon-lock"></i> </span>
                 </div>
-                <input asp-for="Input.ConfirmPassword" class="form-control col-md-4" placeholder="Confirm Password" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger validation"></span>
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;">Register</button>
+            <button type="submit" class="btn btn-primary">Register</button>
         </form>
         <section>
             <h4 class="text-danger text-capitalize text-center">OR</h4>
@@ -94,4 +100,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/admin.js"></script>
 }

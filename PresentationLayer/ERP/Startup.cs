@@ -41,9 +41,14 @@ namespace ERP
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ERP", Version = "v1" });
             });
             services.AddIdentity<ApplicationUser, IdentityRole>()
-       .AddEntityFrameworkStores<ApplicationDbContext>()
-       .AddDefaultUI()
-       .AddDefaultTokenProviders();
+           .AddEntityFrameworkStores<ApplicationDbContext>()
+           .AddDefaultUI()
+           .AddDefaultTokenProviders();
+            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ClientId"];
+                microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
+            });
 
             services.AddControllersWithViews();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

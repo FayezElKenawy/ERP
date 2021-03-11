@@ -240,9 +240,9 @@ namespace ERP.Controllers
                     InvoicePaid = (double)returnzero(hh.InvoicePaid.ToString()),
                     CustID = collection.invoice.CustID,
                     InvoiceChange = (double)returnzero(hh.InvoiceChange.ToString())
-                };
-                salesRepo.Update(smodel.InvoiceNo, smodel);
-                if (collection.invoice.InvoiceType == 1)
+                }; 
+                var invoice = salesRepo.Find(collection.invoice.InvoiceNo);
+                if (collection.invoice.InvoiceType == 1&&collection.invoice.InvoiceChange!=invoice.InvoiceChange)
                 {
                     var customer = CustomerRepo.Find(collection.invoice.CustID);
                     var newcustomer = new Customer
@@ -253,12 +253,14 @@ namespace ERP.Controllers
                         AccountNo = customer.AccountNo,
                         CustAdress = customer.CustAdress,
                         CustMobileNo = customer.CustMobileNo,
-                        CustBalance = (double)(customer.CustBalance + hh.InvoiceChange),
+                        CustBalance = (double)((customer.CustBalance-invoice.InvoiceChange) + hh.InvoiceChange),
                         CustOpenBalance = customer.CustOpenBalance
 
                     };
+
                     CustomerRepo.Update(collection.invoice.CustID, newcustomer);
                 }
+                salesRepo.Update(smodel.InvoiceNo, smodel);
                 string h = collection.ProductID.ToString();
                 List<SalesDetails> items = JsonConvert.DeserializeObject<List<SalesDetails>>(h.ToString());
                 foreach (var item in items)

@@ -160,7 +160,7 @@ namespace ERP.Controllers
                 }
                 return RedirectToAction(nameof(Create));
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }
@@ -242,7 +242,8 @@ namespace ERP.Controllers
                     InvoiceChange = (double)returnzero(hh.InvoiceChange.ToString())
                 }; 
                 var invoice = salesRepo.Find(collection.invoice.InvoiceNo);
-                if (collection.invoice.InvoiceType == 1&&collection.invoice.InvoiceChange!=invoice.InvoiceChange)
+                if ((collection.invoice.InvoiceType == 1&&hh.InvoiceChange!=invoice.InvoiceChange) ||
+                    (invoice.InvoiceType !=collection.invoice.InvoiceType))
                 {
                     var customer = CustomerRepo.Find(collection.invoice.CustID);
                     var newcustomer = new Customer
@@ -301,7 +302,7 @@ namespace ERP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception e)
+            catch
             {
                 throw;
             }

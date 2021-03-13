@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using AutoMapper;
+using Domain.Interfaces;
 using Domain.Models;
 using Domain.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -18,36 +19,23 @@ namespace ERP.Controllers
         private readonly Irepository<SalesInvoice> salesRepo;
         private readonly Irepository<SalesDetails> detailrepo;
         private readonly IMemoryCache cash;
+        private readonly IMapper mapper;
 
-        public SalesController(Irepository<Product> productRepo, Irepository<Customer> customerRepo, Irepository<SalesInvoice> salesRepo, Irepository<SalesDetails> detailrepo, IMemoryCache cash)
+        public SalesController(Irepository<Product> productRepo, Irepository<Customer> customerRepo, Irepository<SalesInvoice> salesRepo, Irepository<SalesDetails> detailrepo, IMemoryCache cash, IMapper mapper)
         {
             this.productRepo = productRepo;
             CustomerRepo = customerRepo;
             this.salesRepo = salesRepo;
             this.detailrepo = detailrepo;
             this.cash = cash;
+            this.mapper = mapper;
         }
 
         // GET: SalesController
         public ActionResult Index()
         {
-            var invoices = new InvoiceCustomerViewModel
-            {
-                Products = productRepo.List().ToList(),
-                Customers = CustomerRepo.List().ToList(),
-                Invoices = salesRepo.List().ToList(),
-                Details = detailrepo.List().ToList()
-
-            };
-            if (!cash.TryGetValue("invoices", out invoices))
-            {
-                // var memoryCacheEntryOptions = new MemoryCacheEntryOptions()
-                //                             .SetAbsoluteExpiration(TimeSpan.FromMinutes(60));
-
-                cash.Set("invoices", invoices);
-            }
-            invoices = (InvoiceCustomerViewModel)cash.Get("invoices");
-            return View(invoices);
+            var invoices = salesRepo.List().ToList();
+            return View(mapper.Map<List<InvoiceListViewModel>>(invoices));
         }
 
         // GET: SalesController/Details/5

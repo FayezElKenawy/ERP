@@ -1,4 +1,4 @@
-﻿@model Domain.ViewModels.InvoiceCustomerViewModel
+﻿@model List<Domain.ViewModels.InvoiceListViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -48,8 +48,8 @@
         </tr>
         <tr></tr>
     </thead>
-    @*<tbody id="accordion">
-        @foreach (var item in Model.Invoices)
+    <tbody id="accordion">
+        @foreach (var item in Model)
         {
             <tr class="border-bottom">
                 <td id="headingOne " class="listtablecell">
@@ -65,7 +65,7 @@
                     @Html.DisplayFor(modelItem => item.InvoiceNo)
                 </td>
                 <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.Customer.CustArName)
+                    @Html.DisplayFor(modelItem => item.Customer.CustEnName)
                     @Html.HiddenFor(m => item.CustID)
                 </td>
                 <td class="listtablecell">
@@ -102,7 +102,7 @@
                     <a asp-action="Details" asp-route-id="@item.InvoiceNo"><i class="icon-print"></i> |</a>
                     <a asp-action="Delete" asp-route-id="@item.InvoiceNo"><i class="icon-trash icon-large text-danger"></i></a>
                 </td>
-            </tr>*@
+            </tr>
             @*<tr style="height:0px;">
                 <td class="listtablecell" colspan=9>
                     <div id="one_@item.InvoiceNo" class="collapse collapsed col-md-2 " aria-labelledby="headingOne" data-parent="#accordion" style="max-width:100%;">
@@ -172,6 +172,6 @@
             </tr>*@
 
 
-        @*}*@
-    @*</tbody>*@
+        }
+    </tbody>
 </table>

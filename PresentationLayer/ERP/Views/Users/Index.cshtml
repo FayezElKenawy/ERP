@@ -1,0 +1,22 @@
+﻿@model List<ApplicationUser>
+ @{ 
+     ViewData["Title"] = "UserList";
+ }
+    
+<h1 class="text-center text-primary ">Users</h1>
+<hr />
+<table>
+    <thead>
+        <tr>
+            <th>userId</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var user in Model)
+{
+    <tr>
+        <td>user</td>
+    </tr>
+}
+    </tbody>
+</table>

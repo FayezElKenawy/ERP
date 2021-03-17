@@ -9,7 +9,6 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ERP.Controllers.Api
 {
@@ -25,12 +24,6 @@ namespace ERP.Controllers.Api
             this.context = context;
             this.mapper = mapper;
         }
-        // GET: api/<ProductController>
-        //[HttpGet]
-        //public IEnumerable<Product> Get()
-        //{
-        //    return context.Products.ToList().ToList();
-        //}
         [HttpPost]
         public IActionResult All()
         {
@@ -53,30 +46,6 @@ namespace ERP.Controllers.Api
             var count = invoices.Count();
             var jdata = new { drew = 1, recordsFiltered = count, recordsTotal = count, data = data };
             return Ok(jdata);
-        }
-        // GET api/<ProductController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<ProductController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
-        // PUT api/<ProductController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ProductController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

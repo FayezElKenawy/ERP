@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,10 +30,25 @@ namespace ERP.Controllers.Api
         [HttpPost]
         public IActionResult All()
         {
-            var products = context.Products.Skip(0).Take(50).ToList();
-            var count = context.Products.Count();
-            var data = new { drew = 1, filterdData = count, count, data=products };
-            return Ok(data);
+            var pageSize = int.Parse(Request.Form["length"]);
+            var skip = int.Parse(Request.Form["start"]);
+
+            var searchValue = Request.Form["search[value]"];
+
+            var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
+            var sortColumnDirection = Request.Form["order[0][dir]"];
+
+            IQueryable<Product> products = context.Products.Where(m => string.IsNullOrEmpty(searchValue)
+                ? true
+                : (m.ProductId.Contains(searchValue) || m.ArabicName.Contains(searchValue) ||
+                m.EnglishName.Contains(searchValue) || m.Desc.Contains(searchValue)));
+
+            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                products = products.OrderBy(sortColumn + " " + sortColumnDirection);
+            var data = products.Skip(skip).Take(pageSize).ToList();
+            var count = products.Count();
+            var jdata = new { drew = 1, recordsFiltered = count, recordsTotal=count, data= data };
+            return Ok(jdata);
         }
         // GET api/<ProductController>/5
         [HttpGet("{id}")]

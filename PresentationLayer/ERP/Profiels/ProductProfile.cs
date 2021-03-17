@@ -13,6 +13,7 @@ namespace ERP.Profiels
             CreateMap<ProductUpdateViewModel, Product>();
             CreateMap<ProductReadViewModel, ProductUpdateViewModel>();
             CreateMap<SalesInvoice, InvoiceListViewModel>();
+            
         }
     }
 }

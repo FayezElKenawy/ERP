@@ -5,11 +5,10 @@
         "filter": true,
         "searching": true,
         "ajax": {
-            "url": "/api/CustomerApi",
+            "url": "/api/Customer",
             "type": "Post",
             "datatype": "json",
-            "dataFilter": "",
-            "dataSrc": ""
+            "dataSrc": "data"
         },
 
         "columns": [

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -30,14 +31,28 @@ namespace ERP.Controllers.Api
         //{
         //    return context.Products.ToList().ToList();
         //}
-        [HttpGet]
+        [HttpPost]
         public IActionResult All()
         {
-            var invoices = context.SalesInvoices.Skip(0).Take(50).ToList();
-            var maped = mapper.Map<List<InvoiceReadViewModel>>(invoices);
-            var count = context.SalesInvoices.Count();
-            var data = new { dataFiltered = count,total= count, data= maped };
-            return Ok(data);
+            var pageSize = int.Parse(Request.Form["length"]);
+            var skip = int.Parse(Request.Form["start"]);
+
+            var searchValue = Request.Form["search[value]"];
+
+            var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
+            var sortColumnDirection = Request.Form["order[0][dir]"];
+
+            IQueryable<SalesInvoice> invoices = context.SalesInvoices.Where(m => string.IsNullOrEmpty(searchValue)
+                ? true
+                : (m.InvoiceNo.Contains(searchValue) || m.CustID.Contains(searchValue) ||
+                m.InvoiceDate.ToShortDateString().Contains(searchValue)));
+
+            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                invoices = invoices.OrderBy(sortColumn + " " + sortColumnDirection);
+            var data = invoices.Skip(skip).Take(pageSize).ToList();
+            var count = invoices.Count();
+            var jdata = new { drew = 1, recordsFiltered = count, recordsTotal = count, data = data };
+            return Ok(jdata);
         }
         // GET api/<ProductController>/5
         [HttpGet("{id}")]

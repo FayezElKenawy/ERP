@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Domain.ViewModels;
 using Domain.Data;
 using AutoMapper;
+using Domain.Models;
 
 namespace ERP.Controllers.Api
 {
@@ -22,20 +24,29 @@ namespace ERP.Controllers.Api
             this.context = context;
             this.mapper = mapper;
         }
-        // GET: api/<ProductController>
-        //[HttpGet]
-        //public IEnumerable<Product> Get()
-        //{
-        //    return context.Products.ToList().ToList();
-        //}
         [HttpPost]
         public IActionResult All()
         {
-            var customers = context.Customers.Skip(0).Take(50).ToList();
+            var pageSize = int.Parse(Request.Form["length"]);
+            var skip = int.Parse(Request.Form["start"]);
+
+            var searchValue = Request.Form["search[value]"];
+
+            var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
+            var sortColumnDirection = Request.Form["order[0][dir]"];
+
+            IQueryable<Customer> customers = context.Customers.Where(m => string.IsNullOrEmpty(searchValue)
+                ? true
+                : (m.CustArName.Contains(searchValue) || m.CustEnName.Contains(searchValue) ||
+                m.CustAdress.Contains(searchValue)));
+
+            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                customers = customers.OrderBy(sortColumn + " " + sortColumnDirection);
+            var data = customers.Skip(skip).Take(pageSize).ToList();
             var maped = mapper.Map<List<CustomerReadViewModel>>(customers);
-            var count = context.Customers.Count();
-            var data = new { drew = 1, dataFiltered = count,total= count, data = customers };
-            return Ok(data);
+            var count = maped.Count();
+            var jdata = new { drew = 1, recordsFiltered = count, recordsTotal = count, data = data };
+            return Ok(jdata);
         }
     }
 }

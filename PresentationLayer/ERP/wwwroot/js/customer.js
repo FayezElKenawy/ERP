@@ -8,6 +8,7 @@
             "url": "/api/Customer",
             "type": "Post",
             "datatype": "json",
+            "dataFilter": "",
             "dataSrc": "data"
         },
 

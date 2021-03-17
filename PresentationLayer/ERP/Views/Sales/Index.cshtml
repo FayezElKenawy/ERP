@@ -5,7 +5,7 @@
 }
 @section styles{
     <link href="~/css/invoice.css" rel="stylesheet" />
-
+    <link href="~/lib/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
 }
 <h1 class="text-center text-primary">Sales Home</h1>
 
@@ -13,12 +13,11 @@
     <a asp-action="Create" class="text-danger btn btn-outline-primary">Create New</a>
 </div>
 
-<table class="table table table table-striped" style="margin-top:10px;">
+<table id="salestable" class="table table table table-striped" style="margin-top:10px;">
     <thead class="thead-light">
         <tr>
-            <th></th>
             <th>
-                 No
+                No
             </th>
             <th>
                 Cusstomer
@@ -33,145 +32,23 @@
                 Discount
             </th>
             <th>
-                Net 
+                Net
             </th>
             <th>
                 Type
             </th>
             <th>
-                 Paid
+                Paid
             </th>
             <th>
                 Change
             </th>
             <th></th>
         </tr>
-        <tr></tr>
     </thead>
-    <tbody id="accordion">
-        @foreach (var item in Model)
-        {
-            <tr class="border-bottom">
-                <td id="headingOne " class="listtablecell">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#one_@item.InvoiceNo" aria-expanded="true">
-                                <i class="icon-expand-alt icon-large"></i>
-                            </button>
-                        </h5>
-                    </div>
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoiceNo)
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.Customer.CustEnName)
-                    @Html.HiddenFor(m => item.CustID)
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoiceDate)
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoiceTotal)
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoiceDiscount)
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoiceNetTotal)
-                </td>
-                <td class="listtablecell">
-                    @if (item.InvoiceType == 1)
-                    {
-                        <label> Credit</label>
-                    }
-                    @if (item.InvoiceType == 0)
-                    {
-                        <label> Cash</label>
-                    }
-
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoicePaid)
-                </td>
-                <td class="listtablecell">
-                    @Html.DisplayFor(modelItem => item.InvoiceChange)
-                </td>
-                <td class="listtablecell">
-                    <a asp-action="Edit" asp-route-id="@item.InvoiceNo"><i class="icon-edit icon-large text-primary"></i> |</a>
-                    <a asp-action="Details" asp-route-id="@item.InvoiceNo"><i class="icon-print"></i> |</a>
-                    <a asp-action="Delete" asp-route-id="@item.InvoiceNo"><i class="icon-trash icon-large text-danger"></i></a>
-                </td>
-            </tr>
-            @*<tr style="height:0px;">
-                <td class="listtablecell" colspan=9>
-                    <div id="one_@item.InvoiceNo" class="collapse collapsed col-md-2 " aria-labelledby="headingOne" data-parent="#accordion" style="max-width:100%;">
-                        <table class="table table-active table-bordered">
-                            <thead class="" style="background-color:yellow;">
-                                <tr>
-                                    <th>
-                                        partCode
-                                    </th>
-                                    <th>
-                                        PartName
-                                    </th>
-                                    <th>
-                                        Quantity
-                                    </th>
-                                    <th>
-                                         Price
-                                    </th>
-                                    <th>
-                                        Discount
-                                    </th>
-                                    <th>
-                                        Total
-                                    </th>
-                                    <th>
-                                        Vat
-                                    </th>
-                                    <th>
-                                        TotalVat
-                                    </th>
-
-                                </tr>
-                            </thead>
-                            @foreach (var item1 in item.Details)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item1.ProductID)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item1.Product.ArabicName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item1.Quantity)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item1.SalesPrice)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item1.discount)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item1.Total)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item1.VatAmount)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item1.TotalWithVat)
-                                    </td>
-                                </tr>
-                            }
-
-                        </table>
-                    </div>
-                </td>
-            </tr>*@
-
-
-        }
-    </tbody>
 </table>
+@section scripts{
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+    <script src="~/js/editInvoice.js"></script>
+}

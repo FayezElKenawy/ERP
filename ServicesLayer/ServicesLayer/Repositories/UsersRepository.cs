@@ -1,6 +1,7 @@
 ﻿using Domain.Data;
 using Domain.Interfaces;
 using Domain.Models;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,11 @@ namespace SrvicesLayer.Repositories
 {
     public class UsersRepository : Irepository<ApplicationUser>
     {
-        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> manager;
 
-        public UsersRepository(ApplicationDbContext context)
+        public UsersRepository(ApplicationDbContext context,UserManager<ApplicationUser> manager)
         {
-            _context = context;
+            this.manager = manager;
         }
 
         public void Add(ApplicationUser entity)
@@ -35,7 +36,7 @@ namespace SrvicesLayer.Repositories
 
         public IList<ApplicationUser> List()
         {
-            return _context.Users.ToList();
+            return manager.Users.ToList();
         }
 
         public string MaxId()

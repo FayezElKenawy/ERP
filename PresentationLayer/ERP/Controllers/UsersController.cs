@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Interfaces;
+using Domain.Models;
+using Microsoft.AspNetCore.Mvc;
 using SrvicesLayer.Repositories;
 using System;
 using System.Collections.Generic;
@@ -9,9 +11,9 @@ namespace ERP.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly UsersRepository repo;
+        private readonly Irepository<ApplicationUser> repo;
 
-        public UsersController(UsersRepository repo)
+        public UsersController(Irepository<ApplicationUser> repo)
         {
             this.repo = repo;
         }

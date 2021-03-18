@@ -5,18 +5,28 @@
     
 <h1 class="text-center text-primary ">Users</h1>
 <hr />
-<table>
-    <thead>
+<table class="table table-striped">
+    <thead class="table-primary">
         <tr>
-            <th>userId</th>
+            <th> Id         </th>
+            <th>Frist Name  </th>
+            <th>Last Name   </th>
+            <th>User Name   </th>
+            <th>Email      </th>
+            <th>Phone Number</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var user in Model)
 {
-    <tr>
-        <td>user</td>
-    </tr>
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.FristName</td>
+            <td>@user.LastName</td>
+            <td>@user.UserName</td>
+            <td>@user.Email</td>
+            <td>@user.PhoneNumber</td>
+        </tr>
 }
     </tbody>
 </table>

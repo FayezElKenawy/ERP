@@ -53,9 +53,9 @@ namespace SrvicesLayer.Repositories
             var user = manager.Users.FirstOrDefault(u=>u.PhoneNumber==term);
             if (user!=null)
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
         public void Delete(object id)
         {

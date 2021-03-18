@@ -24,6 +24,12 @@ namespace ServicesLayer.Repositories
              _context.SalesDetails.Add(entity);
             _context.SaveChanges();
         }
+
+        public bool check(string term)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(object id)
         {
             throw new NotImplementedException();

@@ -25,6 +25,11 @@ namespace ServicesLayer.Repositories
             context.SaveChanges();
         }
 
+        public bool check(string term)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(object id)
         {
             throw new NotImplementedException();

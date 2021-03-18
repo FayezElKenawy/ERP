@@ -24,6 +24,17 @@ namespace SrvicesLayer.Repositories
             throw new NotImplementedException();
         }
 
+        public bool check(string term)
+        {
+            var user = manager.FindByEmailAsync(term).Result;
+            if (user != null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
         public void Delete(object id)
         {
             throw new NotImplementedException();

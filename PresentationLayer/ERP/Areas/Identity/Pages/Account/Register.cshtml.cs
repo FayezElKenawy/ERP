@@ -13,6 +13,10 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Domain.baseData;
+using SrvicesLayer.Repositories;
+using Domain.Interfaces;
+
 namespace ERP.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
@@ -22,17 +26,19 @@ namespace ERP.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly Irepository<ApplicationUser> repo;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, Irepository<ApplicationUser> repo)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            this.repo = repo;
         }
 
         [BindProperty]
@@ -94,10 +100,10 @@ namespace ERP.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email,FristName=Input.FristName,LastName=Input.LastName,PhoneNumber=Input.MobileNo };
-                var email =  _userManager.Users.FirstOrDefault(e => e.Email == Input.Email);
-                if (email!=null)
+                
+                if (!repo.check(Input.Email.ToString()))
                 {
-                    ModelState.AddModelError(string.Empty,"Email Already Exists");
+                    ModelState.AddModelError("Email","Email Already Exists");
                 }
                 else
                 {

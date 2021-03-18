@@ -31,4 +31,8 @@
     <ProjectReference Include="..\..\ServicesLayer\ServicesLayer\SrvicesLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Operations\" />
+  </ItemGroup>
+
 </Project>

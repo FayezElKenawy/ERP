@@ -14,5 +14,6 @@ namespace Domain.Interfaces
         List<TEntity> Search(string term);
         string MaxId();
         void SaveChanges();
+        bool check(string term);
     }
 }

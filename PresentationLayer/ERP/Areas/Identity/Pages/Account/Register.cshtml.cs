@@ -103,7 +103,11 @@ namespace ERP.Areas.Identity.Pages.Account
                 
                 if (!repo.check(Input.Email.ToString()))
                 {
-                    ModelState.AddModelError("Email","Email Already Exists");
+                    ModelState.AddModelError(string.Empty, "Email Exsits");
+                }
+                else if(!repo.check(Input.MobileNo.ToString()))
+                {
+                    ModelState.AddModelError(string.Empty, "Mobile Exsits");
                 }
                 else
                 {

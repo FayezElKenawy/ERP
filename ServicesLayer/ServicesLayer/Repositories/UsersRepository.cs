@@ -4,7 +4,9 @@ using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,15 +28,35 @@ namespace SrvicesLayer.Repositories
 
         public bool check(string term)
         {
+            var username = new EmailAddressAttribute().IsValid(term) ? term : null;
+
+            if (username != null)
+            {
+              return  checkEmail(username);
+            }
+            else
+            {
+                return checkMobile(username);
+            }
+        }
+        private bool checkEmail(string term)
+        {
             var user = manager.FindByEmailAsync(term).Result;
-            if (user != null)
+            if (user!=null)
             {
                 return false;
             }
             return true;
         }
-
-
+        private bool checkMobile(string term)
+        {
+            var user = manager.Users.FirstOrDefault(u=>u.PhoneNumber==term);
+            if (user!=null)
+            {
+                return false;
+            }
+            return true;
+        }
         public void Delete(object id)
         {
             throw new NotImplementedException();

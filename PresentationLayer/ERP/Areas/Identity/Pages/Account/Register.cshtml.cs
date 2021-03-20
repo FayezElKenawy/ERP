@@ -99,7 +99,8 @@ namespace ERP.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email,FristName=Input.FristName,LastName=Input.LastName,PhoneNumber=Input.MobileNo };
+                var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email,
+                    FristName=Input.FristName,LastName=Input.LastName,PhoneNumber=Input.MobileNo };
                 
                 if (!repo.check(Input.Email.ToString()))
                 {

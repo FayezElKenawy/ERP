@@ -64,7 +64,7 @@ namespace SrvicesLayer.Repositories
 
         public ApplicationUser Find(object id)
         {
-            throw new NotImplementedException();
+            return manager.FindByIdAsync(id.ToString()).Result;
         }
 
         public IList<ApplicationUser> List()

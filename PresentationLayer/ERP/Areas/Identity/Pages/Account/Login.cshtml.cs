@@ -74,8 +74,8 @@ namespace ERP.Areas.Identity.Pages.Account
         }
         public  string GetUsername(string data)
         {
-            var username = new EmailAddressAttribute().IsValid(data) ? new MailAddress(data).User : 
-                new PhoneAttribute().IsValid(data)?_userManager.Users.FirstOrDefault(p=>p.PhoneNumber==data).ToString()
+            var username = new EmailAddressAttribute().IsValid(data) ? _userManager.Users.FirstOrDefault(u=>u.Email==data).UserName.ToString() : 
+                new PhoneAttribute().IsValid(data)?_userManager.Users.FirstOrDefault(p=>p.PhoneNumber==data).UserName.ToString()
                 :"notfound";
             return username;
         }

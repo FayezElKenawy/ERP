@@ -36,7 +36,7 @@ namespace SrvicesLayer.Repositories
             }
             else
             {
-                return checkMobile(username);
+                return checkMobile(term);
             }
         }
         private bool checkEmail(string term)
@@ -50,12 +50,17 @@ namespace SrvicesLayer.Repositories
         }
         private bool checkMobile(string term)
         {
-            var user = manager.Users.FirstOrDefault(u=>u.PhoneNumber==term);
-            if (user!=null)
+            try
             {
+                var user = manager.Users.FirstOrDefault(u => u.PhoneNumber == term).PhoneNumber.ToString();
+                return false;
+            }
+            catch (Exception)
+            {
+
                 return true;
             }
-            return false;
+            
         }
         public void Delete(object id)
         {

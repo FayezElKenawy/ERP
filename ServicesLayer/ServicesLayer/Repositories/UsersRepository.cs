@@ -2,6 +2,7 @@
 using Domain.Interfaces;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -67,10 +68,7 @@ namespace SrvicesLayer.Repositories
             throw new NotImplementedException();
         }
 
-        public ApplicationUser Find(object id)
-        {
-            return manager.FindByIdAsync(id.ToString()).Result;
-        }
+        public ApplicationUser Find(object id) => manager.Users.AsNoTracking().Where(u => u.Id == id.ToString()).FirstOrDefault();
 
         public IList<ApplicationUser> List()
         {
@@ -94,6 +92,7 @@ namespace SrvicesLayer.Repositories
 
         public ApplicationUser Update(object id, ApplicationUser entity)
         {
+            var e = Find(id);
           var user=  manager.UpdateAsync(entity).Result;
 
             return entity;

@@ -94,7 +94,9 @@ namespace SrvicesLayer.Repositories
 
         public ApplicationUser Update(object id, ApplicationUser entity)
         {
-            throw new NotImplementedException();
+          var user=  manager.UpdateAsync(entity).Result;
+
+            return entity;
         }
     }
 }

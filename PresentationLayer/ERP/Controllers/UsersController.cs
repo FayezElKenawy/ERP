@@ -36,7 +36,7 @@ namespace ERP.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(string Id,UsersReadViewModel model)
         {
-            var user = mapper.Map<ApplicationUser>(model);
+            var user =mapper.Map<ApplicationUser>(mapper.Map<UsersUpdateViewModel>(model));
             repo.Update(Id, user);
             return RedirectToAction(nameof(Index));
         }

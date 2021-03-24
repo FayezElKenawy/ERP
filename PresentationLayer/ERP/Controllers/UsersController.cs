@@ -62,10 +62,22 @@ namespace ERP.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(string Id,UsersReadViewModel model)
+        public async Task<IActionResult> Edit(string Id, UsersRolesViewModel model)
         {
-            var user =mapper.Map<ApplicationUser>(mapper.Map<UsersUpdateViewModel>(model));
-            repo.Update(Id, user);
+            var exist =await manager.FindByIdAsync(Id);
+            if (exist == null)
+                return NotFound();
+            var userRoles = await manager.GetRolesAsync(exist);
+            foreach (var role in model.Roles)
+            {
+                
+                if (userRoles.Any(r=>r==role.RoleName)&&!role.Assign)
+                {
+                    await manager.RemoveFromRoleAsync(exist, role.RoleName);
+                }
+                if (!userRoles.Any(r => r == role.RoleName) && role.Assign)
+                    await manager.AddToRoleAsync(exist, role.RoleName);
+            }
             return RedirectToAction(nameof(Index));
         }
     }

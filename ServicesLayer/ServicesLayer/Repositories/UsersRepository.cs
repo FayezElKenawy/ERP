@@ -96,7 +96,7 @@ namespace SrvicesLayer.Repositories
         public ApplicationUser Update(object id, ApplicationUser entity)
         {
             var e = Find(id);
-          var user=  manager.UpdateAsync(entity).Result;
+            var user=  manager.UpdateAsync(entity).Result;
 
             return entity;
         }

@@ -10,5 +10,6 @@ namespace Domain.ViewModels
     {
         public string RoleId { get; set; }
         public string RoleName { get; set; }
+        public bool Assign { get; set; }
     }
 }

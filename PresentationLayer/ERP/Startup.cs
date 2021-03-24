@@ -60,6 +60,7 @@ namespace ERP
             services.AddScoped<Irepository<SalesInvoice>, SalesReopsitory>();
             services.AddScoped<Irepository<SalesDetails>, SalesDetailsRepsitory>();
             services.AddScoped<Irepository<ApplicationUser>, UsersRepository>();
+            services.AddScoped<Irepository<IdentityRole>, RolesRepository>();
             services.AddAntiforgery(o => o.HeaderName = "Fayez-Token");
             services.AddMiniProfiler();
           

@@ -1,6 +1,7 @@
 ﻿using Domain.Data;
 using Domain.Interfaces;
 using Domain.Models;
+using Domain.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -69,12 +70,14 @@ namespace SrvicesLayer.Repositories
         }
 
         public ApplicationUser Find(object id) => manager.Users.AsNoTracking().Where(u => u.Id == id.ToString()).FirstOrDefault();
-
         public IList<ApplicationUser> List()
         {
             return manager.Users.ToList();
         }
-
+        public IList<string> RolesByUser(ApplicationUser user)
+        {
+            return manager.GetRolesAsync(user).Result.ToList();
+        }
         public string MaxId()
         {
             throw new NotImplementedException();

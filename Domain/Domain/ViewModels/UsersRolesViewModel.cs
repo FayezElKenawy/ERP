@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.ViewModels
 {
-    public class UsersReadViewModel
+    public class UsersRolesViewModel
     {
         public string Id { get; set; }
         public string FristName { get; set; }
@@ -15,6 +15,6 @@ namespace Domain.ViewModels
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public List<string>Roles { get; set; }
+        public List<RolesReadViewModel> Roles { get; set; }
     }
 }

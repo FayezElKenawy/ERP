@@ -80,5 +80,17 @@ namespace ERP.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult Create()
+        {
+            var user = new UserCreateViewModel {
+                Roles  = roleRepo.List().Select(role => new RolesReadViewModel
+                {
+                    RoleId = role.Id,
+                    RoleName = role.Name,
+                    Assign = false
+                }).ToList()
+            };
+            return  View(user);
+        }
     }
 }

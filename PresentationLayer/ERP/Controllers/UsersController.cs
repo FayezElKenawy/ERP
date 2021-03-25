@@ -19,20 +19,20 @@ namespace ERP.Controllers
         private readonly Irepository<ApplicationUser> repo;
         private readonly IMapper mapper;
         private readonly UserManager<ApplicationUser> manager;
-        private readonly Irepository<IdentityRole> roleRepo;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public UsersController(Irepository<ApplicationUser> repo, IMapper mapper, UserManager<ApplicationUser> manager, Irepository<IdentityRole> roleRepo, ILogger<RegisterModel> logger)
+        public UsersController(Irepository<ApplicationUser> repo, IMapper mapper, UserManager<ApplicationUser> manager,  ILogger<RegisterModel> logger, RoleManager<IdentityRole> roleManager)
         {
             this.repo = repo;
             this.mapper = mapper;
             this.manager = manager;
-            this.roleRepo = roleRepo;
             _logger = logger;
+            this.roleManager = roleManager;
         }
         public IActionResult Index()
         {
-            var users = mapper.Map<List<UsersReadViewModel>>(repo.List().ToList()).Select(user =>
+            var users = mapper.Map<List<UsersReadViewModel>>(manager.Users.ToList()).Select(user =>
             new UsersReadViewModel
             {
                 Id = user.Id,
@@ -48,7 +48,7 @@ namespace ERP.Controllers
         }
         public  IActionResult Edit(string id)
         {
-            var user = repo.Find(id);
+            var user = manager.FindByIdAsync(id).Result;
             var userview = new UsersRolesViewModel {
                 Id = user.Id,
                 FristName = user.FristName,
@@ -56,7 +56,7 @@ namespace ERP.Controllers
                 UserName=user.UserName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                Roles = roleRepo.List().Select(role => new RolesReadViewModel { 
+                Roles = roleManager.Roles.ToList().Select(role => new RolesReadViewModel { 
                 RoleId=role.Id,
                 RoleName=role.Name,
                 Assign=manager.IsInRoleAsync(user,role.ToString()).Result
@@ -87,7 +87,7 @@ namespace ERP.Controllers
         public IActionResult Create()
         {
             var user = new UserCreateViewModel {
-                Roles  = roleRepo.List().Select(role => new RolesReadViewModel
+                Roles =roleManager.Roles.ToList().Select(role => new RolesReadViewModel
                 {
                     RoleId = role.Id,
                     RoleName = role.Name,
@@ -121,12 +121,19 @@ namespace ERP.Controllers
             }
             else
             {
-
-
                 var result = await manager.CreateAsync(user, "P@ssw0rd");
+                foreach (var role in model.Roles)
+                {
+                    if (role.Assign)
+                    {
+                        await manager.AddToRoleAsync(user, role.RoleName);
+                    }
+                }
                 if (!result.Succeeded)
                 {
+                     ModelState.AddModelError(string.Empty, result.ToString());
                     _logger.LogError("not added" + result.ToString());
+                    return View(model);
                 }
                 return RedirectToAction(nameof(Index));
             }

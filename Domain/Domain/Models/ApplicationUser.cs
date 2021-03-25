@@ -17,7 +17,9 @@ namespace Domain.Models
         [MaxLength(50)]
         public string  LastName { get; set; }
 
+        public bool IsDeleted { get; set; }
 
-        
+
+
     }
 }

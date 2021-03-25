@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<UsersReadViewModel>
- @{ 
-     ViewData["Title"] = "UserList";
- }
-    
+@{
+    ViewData["Title"] = "UserList";
+}
+
 <h1 class="text-center text-primary ">Users</h1>
 <hr />
 
 <a class="btn btn-outline-primary" asp-action="Create">Create New User</a>
 
-<table class="table  text-center mt-4">
+<table class="table table-bordered  text-center mt-4">
     <thead class="table-primary">
         <tr>
             <th>Frist Name  </th>
@@ -17,20 +17,35 @@
             <th>Email       </th>
             <th>Phone Number</th>
             <th>Roles</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var user in Model)
-{
-        <tr>
-            <td>@user.FristName</td>
-            <td>@user.LastName</td>
-            <td>@user.UserName</td>
-            <td>@user.Email</td>
-            <td>@user.PhoneNumber</td>
-            <td>@string.Join(",",user.Roles.ToList())</td>
-            <td><a asp-action="Edit" asp-route-id="@user.Id"><span><i class="icon-edit"></i></span></a> </td>
-        </tr>
-}
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FristName</td>
+                <td>@user.LastName</td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>@user.PhoneNumber</td>
+                <td>@string.Join(",", user.Roles.ToList())</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@user.Id"><span><i class="icon-edit"></i></span></a>
+                    <a href="#" class="text-danger p-2" id="deleteUser" data-user="@user.Id"><spn><i class="icon-trash"></i></spn></a>
+                </td>
+
+            </tr>
+        }
     </tbody>
 </table>
+@section Scripts {
+
+<script>
+    $('#deleteUser').on('click', function () {
+        alert("Are You Sure?");
+    });
+</script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

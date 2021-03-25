@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Domain.baseData;
 using Domain.Interfaces;
 using Domain.Models;
 using Domain.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace ERP.Controllers
 {
+   // [Authorize(Roles =RolesName.Admin)]
     public class UsersController : Controller
     {
         private readonly Irepository<ApplicationUser> repo;
@@ -46,6 +49,7 @@ namespace ERP.Controllers
            
             return View(users);
         }
+        
         public  IActionResult Edit(string id)
         {
             var user = manager.FindByIdAsync(id).Result;

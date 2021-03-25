@@ -74,10 +74,21 @@ namespace ERP.Areas.Identity.Pages.Account
         }
         public  string GetUsername(string data)
         {
-            var username = new EmailAddressAttribute().IsValid(data) ? _userManager.Users.FirstOrDefault(u=>u.Email==data).UserName.ToString() : 
-                new PhoneAttribute().IsValid(data)?_userManager.Users.FirstOrDefault(p=>p.PhoneNumber==data).UserName.ToString()
-                :"notfound";
-            return username;
+            try
+            {
+                var username = new EmailAddressAttribute().IsValid(data) ? _userManager.Users.Where(u => u.IsDeleted == false).FirstOrDefault(u => u.Email == data).UserName.ToString() :
+                    new PhoneAttribute().IsValid(data) ? _userManager.Users.Where(u => u.IsDeleted == false).FirstOrDefault(p => p.PhoneNumber == data).UserName.ToString()
+                    : "notfound";
+                return username;
+            }
+            catch (Exception)
+            {
+
+                return "notfound";
+            }
+
+
+           
         }
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {

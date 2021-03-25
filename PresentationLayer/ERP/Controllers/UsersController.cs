@@ -3,7 +3,9 @@ using Domain.Interfaces;
 using Domain.Models;
 using Domain.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SrvicesLayer.Repositories;
 using System;
 using System.Collections.Generic;
@@ -18,13 +20,15 @@ namespace ERP.Controllers
         private readonly IMapper mapper;
         private readonly UserManager<ApplicationUser> manager;
         private readonly Irepository<IdentityRole> roleRepo;
+        private readonly ILogger<RegisterModel> _logger;
 
-        public UsersController(Irepository<ApplicationUser> repo,IMapper mapper,UserManager<ApplicationUser>manager,Irepository<IdentityRole> roleRepo)
+        public UsersController(Irepository<ApplicationUser> repo, IMapper mapper, UserManager<ApplicationUser> manager, Irepository<IdentityRole> roleRepo, ILogger<RegisterModel> logger)
         {
             this.repo = repo;
             this.mapper = mapper;
             this.manager = manager;
             this.roleRepo = roleRepo;
+            _logger = logger;
         }
         public IActionResult Index()
         {
@@ -91,6 +95,41 @@ namespace ERP.Controllers
                 }).ToList()
             };
             return  View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(UserCreateViewModel model)
+        {
+            var user = new ApplicationUser { 
+            Id=Guid.NewGuid().ToString(),
+            FristName=model.FristName,
+            LastName=model.LastName,
+            UserName=model.UserName,
+            Email=model.Email,
+            PhoneNumber=model.PhoneNumber
+            };
+            if (!repo.check(model.Email.ToString()))
+            {
+                ModelState.AddModelError(string.Empty, "Email Exsits");
+                return View( model);
+            }
+            else if (!repo.check(model.PhoneNumber.ToString()))
+            {
+                ModelState.AddModelError(string.Empty, "Mobile Exsits");
+                return View(model);
+            }
+            else
+            {
+
+
+                var result = await manager.CreateAsync(user, "P@ssw0rd");
+                if (!result.Succeeded)
+                {
+                    _logger.LogError("not added" + result.ToString());
+                }
+                return RedirectToAction(nameof(Index));
+            }
         }
     }
 }

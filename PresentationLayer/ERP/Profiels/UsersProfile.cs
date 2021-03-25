@@ -18,6 +18,7 @@ namespace ERP.Profiels
             CreateMap<UsersUpdateViewModel, ApplicationUser>();
             CreateMap<UsersReadViewModel, UsersUpdateViewModel>();
             CreateMap<UsersReadViewModel, ApplicationUser>();
+            CreateMap<UserCreateViewModel, ApplicationUser>();
         }
     }
 }

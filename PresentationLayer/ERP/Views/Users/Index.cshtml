@@ -32,9 +32,8 @@
                 <td>@string.Join(",", user.Roles.ToList())</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@user.Id"><span><i class="icon-edit"></i></span></a>
-                    <a href="#" class="text-danger p-2" id="deleteUser" data-user="@user.Id"><spn><i class="icon-trash"></i></spn></a>
+                    <a  class="text-danger p-2" id="deleteUser" data-user="@user.Id"><spn><i class="icon-trash"></i></spn></a>
                 </td>
-
             </tr>
         }
     </tbody>
@@ -42,8 +41,19 @@
 @section Scripts {
 
 <script>
+
+
     $('#deleteUser').on('click', function () {
-        alert("Are You Sure?");
+        var userId = $(this).data("user");
+        var result = confirm("Are You Sure?");
+        if (result) {
+            $.ajax({
+                type: "POST",
+                URL: "/Api/Users/" + userId,
+                data: "application/json",
+                success: alert("user deleted!")
+            });
+        }
     });
 </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

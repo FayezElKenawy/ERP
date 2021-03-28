@@ -7,7 +7,13 @@
 <hr />
 
 <a class="btn btn-outline-primary" asp-action="Create">Create New User</a>
-
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <partial name="_UserInfo"  />
+        </div>
+    </div>
+</div>
 <table class="table table-bordered  text-center mt-4">
     <thead class="table-primary">
         <tr>
@@ -32,7 +38,7 @@
                 <td>@string.Join(",", user.Roles.ToList())</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@user.Id"><span><i class="icon-edit"></i></span></a>
-                    <a  class="text-danger p-2" id="deleteUser" data-user="@user.Id"><spn><i class="icon-trash"></i></spn></a>
+                    <a class="text-danger p-2" data-toggle="modal" data-target=".bd-example-modal-xl" id="deleteUser" data-user="@user.Id"><spn><i class="icon-trash"></i></spn></a>
                 </td>
             </tr>
         }
@@ -40,22 +46,22 @@
 </table>
 @section Scripts {
 
-<script>
-
-
-    $('#deleteUser').on('click', function () {
-        var userId = $(this).data("user");
-        var result = confirm("Are You Sure?");
-        if (result) {
-            $.ajax({
-                type: "POST",
-                URL: "/Api/Users/" + userId,
-                data: "application/json",
-                success: alert("user deleted!")
-            });
-        }
-    });
-</script>
+    <script>
+        //$('#deleteUser').on('click', function () {
+        //    var operation = "{operationtype:0,path:/isdeleted,op:replace,value:false}";
+        //    var userId = $(this).data("user");
+        //    var result = confirm("Are You Sure?");
+        //    if (result) {
+        //        $.ajax({
+        //            type: "patch",
+        //            URL: "/Api/Users/" + userId,
+        //            datatype: "application/json",
+        //            data: JSON.stringify(operation),
+        //            success: alert("user deleted!")
+        //        });
+        //    }
+        //});
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 }

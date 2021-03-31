@@ -38,7 +38,7 @@
                 <td>@string.Join(",", user.Roles.ToList())</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@user.Id"><span><i class="icon-edit"></i></span></a>
-                    <a class="text-danger p-2" data-toggle="modal" data-target=".bd-example-modal-xl" id="deleteUser" data-user="@user.Id"><spn><i class="icon-trash"></i></spn></a>
+                    <a id="userid" class="text-danger p-2" data-toggle="modal" data-target=".bd-example-modal-xl"  user="@user.Id"><spn><i class="icon-trash"></i></spn></a>
                 </td>
             </tr>
         }
@@ -46,22 +46,7 @@
 </table>
 @section Scripts {
 
-    <script>
-        //$('#deleteUser').on('click', function () {
-        //    var operation = "{operationtype:0,path:/isdeleted,op:replace,value:false}";
-        //    var userId = $(this).data("user");
-        //    var result = confirm("Are You Sure?");
-        //    if (result) {
-        //        $.ajax({
-        //            type: "patch",
-        //            URL: "/Api/Users/" + userId,
-        //            datatype: "application/json",
-        //            data: JSON.stringify(operation),
-        //            success: alert("user deleted!")
-        //        });
-        //    }
-        //});
-    </script>
+    <script src="~/js/admin.js"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 }

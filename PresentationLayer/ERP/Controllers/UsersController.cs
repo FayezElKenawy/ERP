@@ -44,6 +44,7 @@ namespace ERP.Controllers
                 Email = user.Email,
                 UserName = user.UserName,
                 PhoneNumber = user.PhoneNumber,
+                IsDeleted =user.IsDeleted.ToString(),
                 Roles = manager.GetRolesAsync(mapper.Map<ApplicationUser>(user)).Result.ToList()
             });
            

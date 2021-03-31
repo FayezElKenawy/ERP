@@ -22,6 +22,7 @@
             <th>User Name   </th>
             <th>Email       </th>
             <th>Phone Number</th>
+            <th>Status</th>
             <th>Roles</th>
             <th>Actions</th>
         </tr>
@@ -35,6 +36,7 @@
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
                 <td>@user.PhoneNumber</td>
+                <td>@user.IsDeleted</td>
                 <td>@string.Join(",", user.Roles.ToList())</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@user.Id"><span><i class="icon-edit"></i></span></a>

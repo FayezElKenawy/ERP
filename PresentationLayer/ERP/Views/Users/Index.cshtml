@@ -30,19 +30,32 @@
     <tbody>
         @foreach (var user in Model)
         {
-            <tr>
-                <td>@user.FristName</td>
-                <td>@user.LastName</td>
-                <td>@user.UserName</td>
-                <td>@user.Email</td>
-                <td>@user.PhoneNumber</td>
-                <td>@user.IsDeleted</td>
-                <td>@string.Join(",", user.Roles.ToList())</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@user.Id"><span><i class="icon-edit"></i></span></a>
-                    <a id="userid" class="text-danger p-2" data-toggle="modal" data-target=".bd-example-modal-xl"  user="@user.Id"><spn><i class="icon-trash"></i></spn></a>
-                </td>
-            </tr>
+        <tr id="@user.Id">
+            <td>@user.FristName</td>
+            <td>@user.LastName</td>
+            <td>@user.UserName</td>
+            <td>@user.Email</td>
+            <td>@user.PhoneNumber</td>
+            <td>@string.Join(",", user.Roles.ToList())</td>
+            @{ if (user.IsDeleted.ToLower() == "false")
+                {
+                    <td>Active</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@user.Id"><span><i class="icon-edit"></i></span></a>
+                        <a id="userid" class="text-danger p-2" data-toggle="modal" data-target=".bd-example-modal-xl" user="@user.Id"><spn><i class="icon-trash"></i></spn></a>
+                    </td>
+                }
+                else
+                {
+                    <td>Deleted</td>
+                    <td>
+                        <a id="reActive" user="@user.Id"><spn><i class="icon-refresh"></i></spn></a>
+                    </td>
+                }
+            }
+
+
+        </tr>
         }
     </tbody>
 </table>

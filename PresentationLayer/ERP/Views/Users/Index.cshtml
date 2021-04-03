@@ -39,17 +39,18 @@
             <td>@string.Join(",", user.Roles.ToList())</td>
             @{ if (user.IsDeleted.ToLower() == "false")
                 {
-                    <td>Active</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@user.Id"><span><i class="icon-edit"></i></span></a>
-                        <a id="userid" class="text-danger p-2" data-toggle="modal" data-target=".bd-example-modal-xl" user="@user.Id"><spn><i class="icon-trash"></i></spn></a>
+                  
+                    <td class="active">Active</td>
+                    <td class="active">
+                        <a asp-action="Edit" asp-route-id="@user.Id"><span><i class="fa fa-pencil-square-o"></i></span></a>
+                        <a id="userid" class="text-danger p-2" data-toggle="modal" data-target=".bd-example-modal-xl" user="@user.Id"><spn><i class="fa fa-trash-o"></i></spn></a>
                     </td>
                 }
                 else
                 {
-                    <td>Deleted</td>
-                    <td>
-                        <a id="reActive" user="@user.Id"><spn><i class="icon-refresh"></i></spn></a>
+                    <td class="deleted">Deleted</td>
+                    <td class="deleted">
+                        <a id="reActive" user="@user.Id"><spn><i class="fa fa-refresh" aria-hidden="true"></i></spn></a>
                     </td>
                 }
             }

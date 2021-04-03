@@ -5,12 +5,15 @@
             var userId = $('#userid').attr("user");
         $.ajax({
             type: "patch",
-            url: "api/users/" + userId,
+            url: "/api/users/" + userId,
             contentType: "application/json",
             data: JSON.stringify(operation),
             success: console.log(operation)
         });
-
+        $('.active').attr('hidden', 'hidden');
+        $('#' + userId).append('<td class="deleted">Deleted</td><td class="deleted"><a href="#" id="reActive" user="' + userId
+            + '"><spn><i class="fa fa-refresh" aria-hidden="true"></i></spn></a></td>');
+        $('.deleted').removeAttr('hidden');
         
     });
 
@@ -21,7 +24,7 @@ $('#reActive').on('click', function () {
     var userId = $(this).attr("user");
     $.ajax({
         type: "patch",
-        url: "api/users/" + userId,
+        url: "/api/users/" + userId,
         contentType: "application/json",
         data: JSON.stringify(operation),
         success: console.log(operation)

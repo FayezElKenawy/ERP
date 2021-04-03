@@ -7,13 +7,11 @@
             type: "patch",
             url: "/api/users/" + userId,
             contentType: "application/json",
-            data: JSON.stringify(operation),
-            success: console.log(operation)
+            data: JSON.stringify(operation)
+          
         });
-        $('.active').attr('hidden', 'hidden');
-        $('#' + userId).append('<td class="deleted">Deleted</td><td class="deleted"><a href="#" id="reActive" user="' + userId
-            + '"><spn><i class="fa fa-refresh" aria-hidden="true"></i></spn></a></td>');
         $('.deleted').removeAttr('hidden');
+        $('.active').attr('hidden', 'hidden');
         
     });
 
@@ -26,8 +24,9 @@ $('#reActive').on('click', function () {
         type: "patch",
         url: "/api/users/" + userId,
         contentType: "application/json",
-        data: JSON.stringify(operation),
-        success: console.log(operation)
+        data: JSON.stringify(operation)
     });
+    $('.active').removeAttr('hidden');
+    $('.deleted').attr('hidden', 'hidden');
 });
 

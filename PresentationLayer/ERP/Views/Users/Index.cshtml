@@ -6,7 +6,14 @@
 <h1 class="text-center text-primary ">Users</h1>
 <hr />
 
-<a class="btn btn-outline-primary" asp-action="Create">Create New User</a>
+<div>
+    <div class="col-md-4 d-inline-block">
+        <a class="btn btn-outline-primary" asp-action="Create">Create New User</a>
+    </div>
+    <div class="alert alert-success col-md-7 d-inline-block" hidden>
+        <strong>Success!</strong> Indicates a successful or positive action.
+    </div>
+</div>
 <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -14,7 +21,8 @@
         </div>
     </div>
 </div>
-<table class="table table-bordered  text-center mt-4">
+
+<table class="table table-bordered  text-center">
     <thead class="table-primary">
         <tr>
             <th>Frist Name  </th>
@@ -23,8 +31,8 @@
             <th>Email       </th>
             <th>Phone Number</th>
             <th>Status</th>
-            <th>Roles</th>
             <th>Actions</th>
+            <th>Roles</th>
         </tr>
     </thead>
     <tbody>
@@ -39,18 +47,27 @@
             <td>@string.Join(",", user.Roles.ToList())</td>
             @{ if (user.IsDeleted.ToLower() == "false")
                 {
-                  
+
                     <td class="active">Active</td>
                     <td class="active">
                         <a asp-action="Edit" asp-route-id="@user.Id"><span><i class="fa fa-pencil-square-o"></i></span></a>
                         <a id="userid" class="text-danger p-2" data-toggle="modal" data-target=".bd-example-modal-xl" user="@user.Id"><spn><i class="fa fa-trash-o"></i></spn></a>
                     </td>
+                    <td class="deleted" hidden>Deleted</td>
+                    <td class="deleted" hidden>
+                        <a id="reActive"  user="@user.Id"><spn><i class="fa fa-refresh" aria-hidden="true"></i></spn></a>
+                    </td>
                 }
                 else
                 {
+                    <td class="active" hidden>Active</td>
+                    <td class="active" hidden>
+                        <a asp-action="Edit" asp-route-id="@user.Id"><span><i class="fa fa-pencil-square-o"></i></span></a>
+                        <a id="userid" class="text-danger p-2" data-toggle="modal" data-target=".bd-example-modal-xl" user="@user.Id"><spn><i class="fa fa-trash-o"></i></spn></a>
+                    </td>
                     <td class="deleted">Deleted</td>
                     <td class="deleted">
-                        <a id="reActive" user="@user.Id"><spn><i class="fa fa-refresh" aria-hidden="true"></i></spn></a>
+                        <a id="reActive"  user="@user.Id"><spn><i class="fa fa-refresh" aria-hidden="true"></i></spn></a>
                     </td>
                 }
             }

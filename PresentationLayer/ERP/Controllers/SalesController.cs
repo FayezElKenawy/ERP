@@ -62,15 +62,16 @@ namespace ERP.Controllers
         }
         public ActionResult Create()
         {
-            var id = int.Parse(salesRepo.MaxId());
-            ViewBag.InvoiceId = (id + 1).ToString();
-            var model = new InvoiceCustomerViewModel
-            {
-                Products = productRepo.List().ToList(),
-                Customers = CustomerRepo.List().ToList()
+                var id = int.Parse(salesRepo.MaxId());
+                ViewBag.InvoiceId = (id + 1).ToString();
+                var model = new InvoiceCustomerViewModel
+                {
+                    Products = productRepo.List().ToList(),
+                    Customers = CustomerRepo.List().ToList()
 
-            };
-            return View(model);
+                };
+                return View(model);
+            
         }
         // POST: SalesController/Create
         [HttpPost]

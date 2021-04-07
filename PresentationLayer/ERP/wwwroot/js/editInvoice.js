@@ -1,5 +1,6 @@
-﻿$(document).ready(function () {
-    $('#salestable').DataTable({
+﻿var editor;
+$(document).ready(function () {
+   var table= $('#salestable').DataTable({
         "processing": true,
         "serverSide": true,
         "filter": true,
@@ -24,7 +25,11 @@
             { "data": "invoiceNetTotal", "name": "InvoiceNetTotal", "autowidth": true },
             { "data": "invoiceType", "name": "    InvoiceType", "autowidth": true },
             { "data": "invoicePaid", "name": "    InvoicePaid", "autowidth": true },
-            { "data": "invoiceChange", "name": "  InvoiceChange", "autowidth": true }
+            { "data": "invoiceChange", "name": "  InvoiceChange", "autowidth": true },
+            {
+                "render": function (data, type, row) {
+                    return '<a href="/sales/edit/' + row.invoiceNo + '">edit</a>' }
+            }
         ]
-    });
+   });
 });

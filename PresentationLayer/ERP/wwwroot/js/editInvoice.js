@@ -28,7 +28,8 @@ $(document).ready(function () {
             { "data": "invoiceChange", "name": "  InvoiceChange", "autowidth": true },
             {
                 "render": function (data, type, row) {
-                    return '<a href="/sales/edit/' + row.invoiceNo + '">edit</a>' }
+                    return '<a href="/sales/edit/' + row.invoiceNo + '"><span><i class="fa fa-edit"></i></span></a>  ' +
+                           '<a href="/sales/delete/' + row.invoiceNo + '"><span class="text-danger"><i class="fa fa-trash-o"></i></span></a>'  }
             }
         ]
    });

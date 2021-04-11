@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $('#Productstableview').DataTable({
+   table= $('#Productstableview').DataTable({
         "processing": true,
         "serverSide": true,
 
@@ -19,6 +19,11 @@
             { "data": "salePrice", "name": "SalePrice", "autowidth": true },
             { "data": "balance", "name": "Balance", "autowidth": true }
         ]
+    });
+
+    $('#Productstableview tbody').attr('id', 'tablepro');
+    $('#Productstableview #tablepro').on('click', 'tr', function () {
+        $(this).toggleClass('selectforinvoice').toggleClass('hovero');
     });
 });
 //function GetProducts(){

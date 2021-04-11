@@ -207,9 +207,7 @@ function GetItems() {
         const salesprice = $(td[3]).text();
         GetEmptyRow(partcode, partname, salesprice);
         $(tr[i]).removeClass('selectforinvoice');
-
     }
-  
 }
 function GetItems1(trh) {
     const tr = trh;

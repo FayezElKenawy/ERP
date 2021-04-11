@@ -82,7 +82,9 @@
     width:455px !important;
 }
 
-
+#Productstableview{
+    width:inherit !important;
+}
 /*section customer*/
 .searchable-dropdown {
     margin: 50px auto 0 auto;

@@ -34,15 +34,19 @@ namespace ERP.Controllers.Api
             var skip = int.Parse(Request.Form["start"]);
 
             var searchValue = Request.Form["search[value]"];
-            var prtcod= Request.Form["search[value]"];
+            
+            var partcod= Request.Form["columns[0][search][value]"];
+            var partname = Request.Form["columns[1][search][value]"];
+            var model = Request.Form["columns[2][search][value]"];
+           
 
             var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
             var sortColumnDirection = Request.Form["order[0][dir]"];
 
-            IQueryable<Product> products = context.Products.Where(m => string.IsNullOrEmpty(searchValue)
-                ? true
-                : (m.ProductId.Contains(searchValue) || m.ArabicName.Contains(searchValue) ||
-                m.EnglishName.Contains(searchValue) || m.Desc.Contains(searchValue)));
+            IQueryable<Product> products = context.Products.
+                Where(m => string.IsNullOrEmpty(partcod) ? true : (m.ProductId.Contains(partcod))).
+                Where(m => string.IsNullOrEmpty(partname) ? true : (m.ArabicName.Contains(partname))).
+                Where(m => string.IsNullOrEmpty(model) ? true : (m.Model.Contains(model)));
 
             if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
                 products = products.OrderBy(sortColumn + " " + sortColumnDirection);

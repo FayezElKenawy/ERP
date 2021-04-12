@@ -157,12 +157,17 @@ $('#pro tr').hover(function () {
 });
 //adding new row to invoice table
 function getrow() {//get row from partial view
-     $.ajax({
+   
+    $.ajax({
         url: "_invoicetable",//get row from partialview
         dataType: "html",
          success: function (result) {
-            $('#invoicetable tbody').append(result);//add row to invoice table
-        }
+             $('#invoicetable tbody').append(result);
+             console.log('good');//add row to invoice table
+         },
+         error: function (result) {
+             console.log('error' + result);
+         }
     });
 }
 function addRow(e, u) {
@@ -183,19 +188,15 @@ $('#invoicetable').on('keyup', '.activeproduct', function () {
 $('#pro #TableProducts tr').on('click', function () {
     $(this).toggleClass('selectforinvoice').toggleClass('hovero');
 });
-function GetEmptyRow(partcode,partname,price) {
-    var rows = $('#invoicetable').find('.item');
-
-    for (var i = 0; i < rows.length; i++) {
-        const inputs = $(rows[i]).find('input');
+function GetEmptyRow(partcode, partname, price) {
+    var rows = $('#invoicetable tbody').find('.item td .activeproduct').parent().parent();
+        const inputs = $(rows).find('input');
         if (inputs[0].value == "") {
             $(inputs[0]).removeClass('activeproduct');
             $(inputs[0]).val(partcode);
             $(inputs[1]).val(partname);
             $(inputs[3]).val(formatAsCurrency(price));
             getrow();
-            break;
-        }
     }
 }
 function GetItems() {

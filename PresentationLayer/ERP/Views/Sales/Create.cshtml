@@ -77,24 +77,26 @@
                         <th class="text-center">Net Total</th>
                     </tr>
                 </thead>
-                <tr class="item">
-                    <td class="partcode">
-                        <input class="form-control text-center activeproduct" type="text" name="product" onclick="addRow(this.value, this.parent);" data-toggle="modal" data-target=".bd-example-modal-xl" required value="" />
-                        <span asp-validation-for="ProductID" class="text-danger "></span>
-                    </td>
-                    <td class="partName"><input class="form-control text-center" /> </td>
-                    <td class="quantity inv"> <input value="" type="number" step="0.01" required id="Quantity" onfocus="" class="form-control text-center" autocomplete="off" placeholder="0.0" /> </td>
-                    <td class="price inv"> <input value="" type="number" step="0.01" required class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
-                    <td class="discount inv"><input value="" type="number" step="0.01" required class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
-                    <td class="total inv"><input value="" type="number" step="0.01" required class="form-control text-center" disabled autocomplete="off" placeholder="0.0" /></td>
-                    <td class="vatamount inv"><input value="" type="number" step="0.01" required class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
-                    <td class="totalvat inv"><input value="" type="number" step="0.01" required class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
-                </tr>
-                <tr class="hide allitems">
-                    <td>
-                        <input type="hidden" asp-for="ProductID" />
-                    </td>
-                </tr>
+                <tbody>
+                    <tr class="item">
+                        <td class="partcode">
+                            <input class="form-control text-center activeproduct" type="text" name="product" onclick="addRow(this.value, this.parent);" data-toggle="modal" data-target=".bd-example-modal-xl" required value="" />
+                            <span asp-validation-for="ProductID" class="text-danger "></span>
+                        </td>
+                        <td class="partName"><input class="form-control text-center" /> </td>
+                        <td class="quantity inv"> <input value="" type="number" step="0.01" required id="Quantity" onfocus="" class="form-control text-center" autocomplete="off" placeholder="0.0" /> </td>
+                        <td class="price inv"> <input value="" type="number" step="0.01" required class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
+                        <td class="discount inv"><input value="" type="number" step="0.01" required class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
+                        <td class="total inv"><input value="" type="number" step="0.01" required class="form-control text-center" disabled autocomplete="off" placeholder="0.0" /></td>
+                        <td class="vatamount inv"><input value="" type="number" step="0.01" required class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
+                        <td class="totalvat inv"><input value="" type="number" step="0.01" required class="form-control text-center" autocomplete="off" placeholder="0.0" /></td>
+                    </tr>
+                    <tr class="hide allitems">
+                        <td>
+                            <input type="hidden" asp-for="ProductID" />
+                        </td>
+                    </tr>
+                </tbody>
             </table>
 
         </div>

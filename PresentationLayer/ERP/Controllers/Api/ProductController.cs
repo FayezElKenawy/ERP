@@ -34,6 +34,7 @@ namespace ERP.Controllers.Api
             var skip = int.Parse(Request.Form["start"]);
 
             var searchValue = Request.Form["search[value]"];
+            var prtcod= Request.Form["search[value]"];
 
             var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
             var sortColumnDirection = Request.Form["order[0][dir]"];

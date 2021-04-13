@@ -149,7 +149,7 @@ function removenull(o) {
     }
 }
 //adding hover color
-$('#pro tr').hover(function () {
+$('#Productstableview tr').hover(function () {
     if (!$(this).hasClass('selectforinvoice')) {
         $(this).toggleClass('hovero');
     }
@@ -185,7 +185,7 @@ $('#invoicetable').on('keyup', '.activeproduct', function () {
     }
 });
 //select items for adding to invoice table
-$('#pro #TableProducts tr').on('click', function () {
+$('#Productstableview #TableProducts tr').on('click', function () {
     $(this).toggleClass('selectforinvoice').toggleClass('hovero');
 });
 function GetEmptyRow(partcode, partname, price) {
@@ -217,7 +217,7 @@ function GetItems1(trh) {
         const salesprice = $(tr[3]).text();
         GetEmptyRow(partcode, partname, salesprice);
 }
-$('#pro #TableProducts tr').on('dblclick', function () { GetItems1($(this).find("td")); });
+$('#Productstableview #TableProducts').on('dblclick','tr', function () { GetItems1($(this).find("td")); });
 $('html').keypress(function (e) {
     var key = e.which;
     if (key == 13)  // the enter key code

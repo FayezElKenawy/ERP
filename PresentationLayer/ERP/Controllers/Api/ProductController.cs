@@ -7,8 +7,6 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace ERP.Controllers.Api
 {
     [Route("api/[controller]")]
@@ -32,12 +30,9 @@ namespace ERP.Controllers.Api
         {
             var pageSize = int.Parse(Request.Form["length"]);
             var skip = int.Parse(Request.Form["start"]);
-
-            var searchValue = Request.Form["search[value]"];
-            
             var partcod= Request.Form["columns[0][search][value]"];
             var partname = Request.Form["columns[1][search][value]"];
-            var model = Request.Form["columns[2][search][value]"];
+            var balance = Request.Form["columns[2][search][value]"];
            
 
             var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
@@ -46,7 +41,7 @@ namespace ERP.Controllers.Api
             IQueryable<Product> products = context.Products.
                 Where(m => string.IsNullOrEmpty(partcod) ? true : (m.ProductId.Contains(partcod))).
                 Where(m => string.IsNullOrEmpty(partname) ? true : (m.ArabicName.Contains(partname))).
-                Where(m => string.IsNullOrEmpty(model) ? true : (m.Model.Contains(model)));
+                Where(m => string.IsNullOrEmpty(balance) ? true : (m.Balance.ToString().Contains(balance)));
 
             if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
                 products = products.OrderBy(sortColumn + " " + sortColumnDirection);

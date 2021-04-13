@@ -1,8 +1,11 @@
-﻿$(document).ready(function () {
+﻿/// <reference path="site.js" />
+
+
+$(document).ready(function () {
     $('#Productstableview thead tr').clone(true).appendTo('#example thead');
     $('#Productstableview thead tr:eq(1) th').each(function (i) {
         var title = $(this).text();
-        $(this).html('<input type="text" placeholder='+ title +'/>');
+        $(this).html('<input type="text" class="form-control" placeholder='+ title +'/>');
         $('input', this).on('keyup change', function () {
             if (table.column(i).search() !== this.value) {
                 table
@@ -28,17 +31,20 @@
         "columns": [
             { "data": "productId", "name": "ProductId", "autowidth": true },
             { "data": "arabicName", "name": "ArabicName", "autowidth": true },
-            { "data": "model", "name": "Model", "autowidth": true },
+            { "data": "balance", "name": "Balance", "autowidth": true },
             { "data": "cost", "name": "Cost", "autowidth": true },
             { "data": "salePrice", "name": "SalePrice", "autowidth": true },
-            { "data": "balance", "name": "Balance", "autowidth": true }
+            { "data": "model", "name": "Model", "autowidth": true }
+            
        ]
     });
     
-    $('#Productstableview tbody').attr('id', 'tablepro');
-    $('#Productstableview #tablepro').on('click', 'tr', function () {
+    $('#Productstableview tbody').attr('id', 'TableProducts');
+    $('#Productstableview #TableProducts').on('click', 'tr', function () {
         $(this).toggleClass('selectforinvoice').toggleClass('hovero');
+        
     });
+    $('#Productstableview #TableProducts').on('dblclick', 'tr', function () { GetItems1($(this).find("td")); });
 });
 //function GetProducts(){
 //    $.ajax({

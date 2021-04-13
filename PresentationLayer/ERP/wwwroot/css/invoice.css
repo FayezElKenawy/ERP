@@ -2,9 +2,13 @@
     background-color: aliceblue;
     display: inline-block
 }
+/*product table*/
+#Productstableview_filter{
+    display:none;
+}
 /*modal width*/
-.modal-dialog, .modal-lg{
-    max-width:1192px;
+.modal-dialog, .modal-lg {
+    max-width: 1192px;
 }
 .topheader {
     margin-left: 35px;

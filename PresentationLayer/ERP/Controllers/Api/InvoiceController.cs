@@ -42,7 +42,7 @@ namespace ERP.Controllers.Api
 
             if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
                 invoices = invoices.OrderBy(sortColumn + " " + sortColumnDirection);
-            var data = invoices.Skip(skip).Take(pageSize).ToList();
+            var data = invoices.OrderByDescending(m=>m.InvoiceDate).Skip(skip).Take(pageSize).ToList();
             var count = invoices.Count();
             var jdata = new { drew = 1, recordsFiltered = count, recordsTotal = count, data = data };
             return Ok(jdata);

@@ -23,13 +23,21 @@ $(document).ready(function () {
             { "data": "invoiceTotal", "name": "   InvoiceTotal", "autowidth": true },
             { "data": "invoiceDiscount", "name": "InvoiceDiscount", "autowidth": true },
             { "data": "invoiceNetTotal", "name": "InvoiceNetTotal", "autowidth": true },
-            { "data": "invoiceType", "name": "    InvoiceType", "autowidth": true },
+            {
+                "render": function (data, type, row) {
+                    if (row.invoiceType == 0) {
+                        return '<span class="text-primary">Cash</span>'
+                    } else {
+                        return '<span class="text-danger">Credit</span>'
+                    }
+                }
+            },
             { "data": "invoicePaid", "name": "    InvoicePaid", "autowidth": true },
             { "data": "invoiceChange", "name": "  InvoiceChange", "autowidth": true },
             {
                 "render": function (data, type, row) {
                     return '<a href="/sales/edit/' + row.invoiceNo + '"><span><i class="fa fa-edit"></i></span></a>  ' +
-                        '<a href="/sales/delete/' + row.invoiceNo + '"><span class="text-danger"><i class="fa fa-trash-o"></i></span></a>'
+                        '<a href="/sales/delete/' + row.invoiceNo + '" data-toggle="modal" data-target="#deleteInvoice"><span class="text-danger"><i class="fa fa-trash-o"></i></span></a>'
                 }
             }
         ]

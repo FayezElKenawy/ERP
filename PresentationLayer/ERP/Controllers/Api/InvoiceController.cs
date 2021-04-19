@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Domain.Data;
+using Domain.Interfaces;
 using Domain.Models;
 using Domain.ViewModels;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,11 +20,13 @@ namespace ERP.Controllers.Api
     {
         private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
+        private readonly Irepository<SalesInvoice> repo;
 
-        public InvoiceController(ApplicationDbContext context,IMapper mapper)
+        public InvoiceController(ApplicationDbContext context,IMapper mapper,Irepository<SalesInvoice> repo)
         {
             this.context = context;
             this.mapper = mapper;
+            this.repo = repo;
         }
         [HttpPost]
         public IActionResult All()
@@ -46,6 +50,19 @@ namespace ERP.Controllers.Api
             var count = invoices.Count();
             var jdata = new { drew = 1, recordsFiltered = count, recordsTotal = count, data = data };
             return Ok(jdata);
+        }
+
+        [HttpPatch("{InvoiceNo}")]
+        public IActionResult Delete(string InvoiceNo, JsonPatchDocument<SalesInvoice> invoice)
+        {
+            var newUser = repo.Find(InvoiceNo);
+            invoice.ApplyTo(newUser, ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var r = repo.Update(InvoiceNo,newUser);
+            return new ObjectResult(newUser);
         }
     }
 }

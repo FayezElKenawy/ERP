@@ -37,9 +37,25 @@ $(document).ready(function () {
             {
                 "render": function (data, type, row) {
                     return '<a href="/sales/edit/' + row.invoiceNo + '"><span><i class="fa fa-edit"></i></span></a>  ' +
-                        '<a href="/sales/delete/' + row.invoiceNo + '" data-toggle="modal" data-target="#deleteInvoice"><span class="text-danger"><i class="fa fa-trash-o"></i></span></a>'
+                        '<a href="" url="' + row.invoiceNo + '" class="url" data-toggle="modal" data-target="#deleteInvoice"><span class=" text-danger"><i class="fa fa-trash-o"></i></span></a>'
                 }
             }
         ]
    });
+});
+$('#salestable ').on('click', 'tr td a.url', function () {
+    var invoiceId = $(this).attr('url');
+    $('#btnDeleteInvoice').on('click', function () {
+        var operation = [{ "path": "/isdeleted", "op": "replace", "value": "true" }];
+
+            $.ajax({
+                type: "patch",
+                url: "api/invoice/" + invoiceId,
+                contentType: "application/json",
+                data: JSON.stringify(operation)
+
+            });
+
+    });
+    $(this).parent().parent().css({ "display": "none" });
 });

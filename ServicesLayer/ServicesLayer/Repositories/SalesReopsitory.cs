@@ -76,14 +76,8 @@ namespace ServicesLayer.Repositories
         public SalesInvoice Update(object id, SalesInvoice entity)
         {
             var invoice = Find(id);
-            invoice.InvoiceDate = entity.InvoiceDate;
-            invoice.InvoiceType = entity.InvoiceType;
-            invoice.InvoiceTotal = entity.InvoiceTotal;
-            invoice.InvoiceDiscount = entity.InvoiceDiscount;
-            invoice.InvoiceNetTotal = entity.InvoiceNetTotal;
-            invoice.InvoicePaid = entity.InvoicePaid;
-            invoice.CustID = entity.CustID;
-            invoice.InvoiceChange = entity.InvoiceChange;
+            context.SalesInvoices.Update(entity);
+            context.SaveChanges();
             return invoice;
         }
     }

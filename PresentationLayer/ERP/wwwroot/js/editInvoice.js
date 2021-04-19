@@ -45,6 +45,7 @@ $(document).ready(function () {
 });
 $('#salestable ').on('click', 'tr td a.url', function () {
     var invoiceId = $(this).attr('url');
+    var a = $(this);
     $('#btnDeleteInvoice').on('click', function () {
         var operation = [{ "path": "/isdeleted", "op": "replace", "value": "true" }];
 
@@ -55,7 +56,7 @@ $('#salestable ').on('click', 'tr td a.url', function () {
                 data: JSON.stringify(operation)
 
             });
-
+        $(a).parent().parent().css({ "display": "none" });
     });
-    $(this).parent().parent().css({ "display": "none" });
+    
 });

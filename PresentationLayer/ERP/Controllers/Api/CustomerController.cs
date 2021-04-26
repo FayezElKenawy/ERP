@@ -9,6 +9,7 @@ using Domain.ViewModels;
 using Domain.Data;
 using AutoMapper;
 using Domain.Models;
+using Domain.Interfaces;
 
 namespace ERP.Controllers.Api
 {
@@ -18,13 +19,15 @@ namespace ERP.Controllers.Api
     {
         private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
+        private readonly Irepository<Customer> repo;
 
-        public CustomerController(ApplicationDbContext context, IMapper mapper)
+        public CustomerController(ApplicationDbContext context, IMapper mapper,Irepository<Customer> repo)
         {
             this.context = context;
             this.mapper = mapper;
+            this.repo = repo;
         }
-        [HttpPost]
+        [HttpPost("List")]//customer list
         public IActionResult All()
         {
             var pageSize = int.Parse(Request.Form["length"]);
@@ -47,6 +50,18 @@ namespace ERP.Controllers.Api
             var count = maped.Count();
             var jdata = new { drew = 1, recordsFiltered = count, recordsTotal = count, data = data };
             return Ok(jdata);
+        }
+
+        [HttpPost("Create")]//create new customer
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([Bind("CustID,CustArName,CustEnName,CustMobileNo,CustAdress,CustBalance,CustOpenBalance,AccountNo")] Customer customer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok();
+            }
+            repo.Add(customer);
+            return Ok(customer);
         }
     }
 }

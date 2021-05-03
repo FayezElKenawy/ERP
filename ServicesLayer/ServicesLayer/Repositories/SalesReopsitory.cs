@@ -37,7 +37,7 @@ namespace ServicesLayer.Repositories
 
         public SalesInvoice Find(object id)
         {
-            return context.SalesInvoices.Find(id);
+            return context.SalesInvoices.AsNoTracking().Where(n=>n.InvoiceNo==id.ToString()).FirstOrDefault();
         }
 
         public IList<SalesInvoice> List()
@@ -75,10 +75,9 @@ namespace ServicesLayer.Repositories
 
         public SalesInvoice Update(object id, SalesInvoice entity)
         {
-            var invoice = Find(id);
             context.SalesInvoices.Update(entity);
             context.SaveChanges();
-            return invoice;
+            return entity;
         }
     }
 }
